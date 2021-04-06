@@ -1,0 +1,387 @@
+.headerNormalView {
+    position: absolute;
+    height: 8.5%;
+    width: 100%;
+    display: flex;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    white-space: nowrap;
+    flex-direction: row;
+    justify-self: center;
+    justify-content: space-between;
+    background-color: #1266D6;
+}
+
+.classForLogo {
+    display: flex;
+    align-self: center;
+    justify-self: flex-start;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+}
+
+#headerTitle {
+    font-size: large;
+}
+
+#imgLogo {
+    max-width: 10%;
+    max-height: 10%;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+}
+
+.headerBtn {
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: space-around;
+    justify-self: flex-end;
+    flex-direction: row;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.header-Btn {
+    position: relative;
+    background: #79aaebc0;
+    margin-bottom: 3px;
+    border: none;
+    white-space: nowrap;
+    padding: 0.5em 1em;
+    border-radius: 10%;
+    cursor: pointer;
+}
+
+.header-Btn::after {
+    content: " ";
+    position: absolute;
+    width: 100%;
+    height: 0.175rem;
+    background: rgba(2, 70, 148, 0.959);
+    left: 0;
+    bottom: 0;
+    transform: scale(0, 1);
+    transition: transform 0.3s ease;
+}
+
+.header-Btn:hover::after {
+    transform: scale(1, 1);
+}
+
+.text_hf {
+    white-space: nowrap;
+    text-decoration: none;
+    font-size: medium;
+    color: white;
+    font-weight: 400;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.meniuButton::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 0 0 70% 70%;
+    width: 100%;
+    height: 0;
+    z-index: -1;
+    background: rgba(94, 163, 241, 0.452);
+    transition: 0.5s;
+}
+
+.meniuButton:hover:before {
+    height: 100%;
+}
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    color: black;
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    height: 12%;
+}
+
+.resurse {
+    display: flex;
+}
+
+.language {
+    display: flex;
+}
+
+.languageChange {
+    display: flex;
+    flex-direction: column;
+}
+
+#langBtn {
+    display: flex;
+    display: row;
+    justify-content: space-between;
+}
+
+.languageButton {
+    margin-left: 5px;
+    background-color: rgba(242, 245, 248, 0.692);
+    border: none;
+    white-space: nowrap;
+    border-radius: 10%;
+}
+
+footer {
+    position: absolute;
+    height: 8%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #1266D6;
+}
+
+.footerElem {
+    align-self: center;
+}
+
+.footer2 {
+    padding-top: 0;
+    padding-bottom: 0;
+    display: block;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+#imgLogo {
+    padding: 0;
+    margin: 0;
+    width: 40%;
+    height: 70%;
+}
+
+a:-webkit-any-Link {
+    cursor: pointer;
+}
+
+.menu {
+    display: none;
+}
+
+h6 {
+    margin-top: 9%;
+    margin-bottom: 9%;
+}
+
+html {
+    background: url(fundal.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: transparent;
+}
+
+.title {
+    font-size: 330%;
+    padding-top: 8%;
+    text-align: center;
+    color: black;
+}
+
+.buttonsMain {
+    margin-left: 35%;
+    width: 50%;
+    padding-top: 5%;
+    font-size: 150%;
+}
+
+.viewButtonMain,
+.compareButtonMain {
+    color: black;
+    background-color: #ebac6a;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+    padding-top: 1%;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+#headerMobileMenu.isOpen {
+    display: block;
+    transform: translateX(0);
+}
+
+#headerMobileMenu li {
+    margin: 1em 0;
+    font-size: 2.0em;
+}
+
+#buttonMenuClose {
+    margin-bottom: 3px;
+    border: none;
+    white-space: nowrap;
+    padding: 0.5em 1em;
+    border-radius: 10%;
+    cursor: pointer;
+    background: #79aaebc0;
+    cursor: pointer;
+    display: flex;
+    justify-content: end;
+    position: absolute;
+    font-size: 120%;
+    margin-bottom: 35%;
+    margin-left: 40%;
+    bottom: 1em;
+}
+
+.titleMobile {
+    display: block;
+    padding-left: 10%;
+    font-size: 250%;
+    text-align: center;
+    color: #1266D6;
+}
+
+.headerMobileMenu {
+    display: none;
+    color: white;
+    padding: 1em;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 2%;
+    right: 0;
+    background: white;
+    transform: translateX(100%);
+    transition: transform 0.25s ease-out;
+}
+
+#headerMobileMenu {
+    display: none;
+}
+
+#buttonMenuOpen {
+    display: none;
+    background: #79aaebc0;
+    margin-bottom: 3px;
+    border: none;
+    white-space: nowrap;
+    padding: 0.5em 1em;
+    border-radius: 10%;
+    cursor: pointer;
+    display: none;
+    position: absolute;
+    top: 4%;
+    bottom: 92%;
+    right: 0;
+    left: 75%;
+    text-align: center;
+    font-size: 80%;
+    background-color: #79aaebc0;
+    color: white;
+}
+
+@media screen and (min-width:801px) and (max-width:1000px) {
+    #title {
+        top: 50%;
+    }
+    #imgLogo {
+        width: 28%;
+        height: 28%;
+        max-width: 16%;
+        max-height: 16%;
+    }
+    .headerBtn {
+        width: 40%;
+    }
+}
+
+@media screen and (min-width:602px) and (max-width:800px) {
+    #imgLogo {
+        width: 30%;
+        height: 30%;
+        max-width: 25%;
+        max-height: 25%;
+    }
+    .headerBtn {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width:601px) {
+    #title {
+        padding-top: 30%;
+    }
+    main {
+        top: 20%;
+    }
+    .headerBtn {
+        display: none;
+    }
+    .headerNormalView {
+        height: 12%;
+        width: 100%;
+    }
+    #buttonMenuOpen {
+        display: block;
+    }
+    .title {
+        padding-top: 10%;
+        font-size: 200%;
+    }
+    #imgLogo {
+        width: 30%;
+        height: 30%;
+        max-width: 20%;
+        max-height: 20%;
+    }
+    footer {
+        align-items: flex-start;
+        display: block;
+        flex-direction: column;
+        top: 100%;
+        bottom: 0;
+        font-size: 100%;
+        width: 100%;
+        height: 20%;
+        padding-top: 1%;
+    }
+    .footer2 {
+        display: none;
+    }
+    #langBtn {
+        padding: 0;
+        width: 3%;
+        height: 5%;
+    }
+    .languageChange {
+        padding: 0;
+    }
+    .languageButton {
+        padding: 0;
+    }
+    .footerElem {
+        padding: 2%;
+    }
+    .headerContainer {
+        margin: 0;
+        width: 100%;
+    }
+}
