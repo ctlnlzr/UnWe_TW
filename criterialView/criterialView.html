@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./criterialView.css">
+    <link rel="stylesheet" href="./header&footer.css">
+
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js> </script>
+    <title>Criterial View</title>
+</head>
+
+<body class="entire-page">
+    <main class="criterial-specific">
+    <div class="chart">
+        <div  class="chart__format">
+            <p  class="text">Alegeti formatul pentru reprezentarea datelor:</p>
+            <button type="submit" class="chart__format__btn text" id="LineChartBtn">Line-chart</button>
+            <button type="submit" class="chart__format__btn text" id="BarChartBtn">Bar-chart</button>
+            <button type="submit" class="chart__format__btn text" id="PieChartBtn">Pie-chart</button>
+        </div>
+        <div class="chart_canva">
+        <canvas width="650" height="500" id="statistics_chart"></canvas>   
+        <p class="text" id="chart_canva__text">Alegeți un mod de afișare</p>
+        </div>
+        <div class="chart__format">
+        <p  class="text">Download format: </p>
+        <button type="submit" class="chart__format__btn text" id="CSVbtn">CSV ⇣</button>
+        <button type="submit" class="chart__format__btn text" id="SVGbtn">SVG ⇣</button>
+        <button type="submit" class="chart__format__btn text" id="PDFbtn">PDF ⇣</button>
+        </div>
+    </div>   
+    <form class="criteria">
+        <h2  class="text ">Criterii pentru compararea datelor</h2>
+           <div class="criteria__period">
+            <p  class="text criteria__text" id="criterium0">Perioada pentru comparare</p>
+            <div class="criteria__arrow">
+            <select class="drop-list" id="drop-perioada">
+            <option class="text text_option" value="lastMonth">Ultima luna</option>
+            <option class="text text_option" value="2Months">Ultimele 2 luni</option>
+            <option class="text text_option" value="6months">Ultimele 6 luni</option>
+            <option class="text text_option" value="oneYear">Ultimul an</option>
+          </select>
+          <span class="arrow"></span>
+            </div>
+        </div>
+        <div class="criteria__first">
+            <p class="text criteria__text">Criteriu principal</p>
+            <div class="criteria__arrow">
+            <select class="drop-list" id="criterium1">
+            <option class="text text_option" value="gen">Gen</option>
+            <option class="text text_option" value="mediu">Mediu</option>
+            <option class="text text_option" value="studii">Studii</option>
+            <option class="text text_option" value="categorieVarsta">Categorii de vârstă</option>
+            </select>
+            <span class="arrow"></span>
+            </div>
+        </div>
+        <div id="criteria__line"></div>
+        <div class="criteria__add" id="criteria__add_group">
+            <button type="button" class="criteria_form_btn" id="criteria__add__btn">+</button>
+            <p class="text">Adauga un criteriu nou</p>
+        </div>
+
+        <button type="submit" class="text criteria_form_btn" id="criteria_create">Prezintă statistici</button>
+        </form>
+        <div class="criteria_limit" id="criteria-limit">
+            <p class="text criteria_limit_text"> Pot fi alese maxim 3 criterii secundare </p>
+        </div>
+        <div class="criteria-limit_grey-bkg" id="grey-bkg"></div>
+    </main>
+</body>
+
+</html>
+<script src="./header&footer.js"></script>
+<script src="./criterialView.js"></script>
