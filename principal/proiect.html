@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proiect</title>
+    <link rel="stylesheet" href="./principalPage.css">
+</head>
+
+<body>
+    <header>
+        <div class="headerNormalView">
+            <a href="./proiect.html" class="classForLogo">
+                <img alt="Logo" src="./logo.png" id="imgLogo">
+                <p class="text_hf" id="headerTitle"> Date șomaj România</p>
+            </a>
+            <div id="space"></div>
+            <div class="headerBtn">
+                <a href="./viewPage.html" class="text_hf header-Btn">Vizualizare</a>
+                <a href="./criterialView.html" class="text_hf header-Btn">Comparare</a>
+                <a href="./despre.html" class="text_hf header-Btn">Despre</a>
+            </div>
+        </div>
+        <button type="button" id="buttonMenuOpen">Meniu</button>
+        <nav class="headerMobileMenu" id="headerMobileMenu">
+            <a href="/" class="titleMobile">Date somaj din Romania</a>
+            <ul>
+                <li>
+                    <a href="./viewPage.html" class="viewMenu">Vizualizare</a>
+                </li>
+                <li>
+                    <a href="./criteriaView.html" class="compareMenu">Comparare</a>
+                </li>
+                <li>
+                    <a href="./despre.html" class="aboutMenu">Despre</a>
+                </li>
+            </ul>
+            <button id="buttonMenuClose">Inchide</button>
+        </nav>
+    </header>
+    <main id="menuPanel">
+        <h1 class="title" id="title">DATE SOMAJ ROMANIA</h1>
+        <section class="buttonsMain" id="buttonsMain">
+            <a href="./viewPage.html" class="viewButtonMain">Vizualizare</a>
+            <a href="./criterialView.html" class="compareButtonMain">Comparare</a>
+        </section>
+    </main>
+    <footer>
+        <section class="footerElem">
+            <div class="resource text_hf"> Resurse: </div>
+            <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
+        </section>
+        <a href="./despre.html" class="footerElem text_hf"> Despre Date somaj Romania </a>
+        <section class=" footerElem languageChange">
+            <div class="lang text_hf">Limba:</div>
+            <div id="langBtn">
+                <button type="button" language="romenian" class="languageButton text_hf">RO</button>
+                <button type="button" language="english" class="languageButton text_hf">EN</button>
+            </div>
+        </section>
+        <div class="footer2">
+            <h6 class="text_hf">Lazar Catalina</h6>
+            <h6 class="text_hf">Stratianu Bianca</h6>
+        </div>
+    </footer>
+</body>
+<script src="./header&footer.js"></script>
+<script src="./1.js"></script>
+
+</html>
