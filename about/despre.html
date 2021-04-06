@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./stilizareAbout.css">
+</head>
+
+<body>
+    <header>
+        <div class="headerNormalView">
+            <a href="./proiect.html" class="classForLogo">
+                <img alt="Logo" src="../header&footer/logo.png" id="imgLogo">
+                <p class="text_hf" id="headerTitle"> Date șomaj România</p>
+            </a>
+            <div id="space"></div>
+            <div class="headerBtn">
+                <a href="/vizualizare" class="text_hf header-Btn">Vizualizare</a>
+                <a href="/criterialView.html" class="text_hf header-Btn">Comparare</a>
+                <a href="/despre" class="text_hf header-Btn">Despre</a>
+            </div>
+            <div class="phone_header_menu">
+                <nav class="phone_meniu" id="phone__menu">
+                    <p class="menu_title" id="menu_title">Meniu</p>
+                    <div class="menuBtn">
+                        <a href="/vizualizare" class="header-Btn text_hf text_menu">Vizualizare</a>
+                        <a href="/comparare" class="header-Btn text_hf text_menu">Comparare</a>
+                        <a href="/despre" class="header-Btn text_hf text_menu">Despre</a>
+                    </div>
+                </nav>
+                <button type="button" class="header-Btn" id="phone_meniu_btn">Meniu</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="words">
+            <p>
+                Aceasta pagina Web ajuta la vizualizarea si compararea multi-criteria a datelor publice referitoare la somajul din Romania pe ultimele 12 luni. Vizualizarile sunt in 3 maniere, iar statisticile vor putea fi exportate in formare CSV, SVG si PDF.
+            </p>
+            <section class="images">
+                <img alt="chart" src="./chart1.png" id="imgChart">
+                <img alt="chart" src="./chart2.png" id="imgChart">
+                <img alt="chart" src="./chart3.png" id="imgChart">
+            </section>
+            <section class="criteria">
+                <p>Mai jos sunt criteriile dupa care pot fi selectate statisticile.</p>
+                <img alt="chart" src="./criteria.png" id="imgCriteria">
+            </section>
+            <section class="viewChart">
+                <p class="viewText">
+                    Pentru modeul de vizualizare am pus la dispozitie o harta in care puteti selecta orasul pentru care vreti sa vizualizati datele:
+                </p>
+                <img alt="chart" src="./vizualizare.png" id="imgView">
+            </section>
+
+        </section>
+    </main>
+    <footer>
+        <section class="footerElem">
+            <div class="resource text_hf"> Resurse: </div>
+            <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
+        </section>
+        <a href="./despre.html" class="footerElem text_hf" id="aboutWe"> Despre Date somaj Romania </a>
+        <section class=" footerElem languageChange">
+            <div class="lang text_hf">Limba:</div>
+            <div id="langBtn" class="langBtn">
+                <button type="button" language="romenian" class="languageButton text_hf">RO</button>
+                <button type="button" language="english" class="languageButton text_hf">EN</button>
+            </div>
+        </section>
+        <div class="footer2">
+            <h6 class="text_hf">Lazar Catalina</h6>
+            <h6 class="text_hf">Stratianu Bianca</h6>
+        </div>
+    </footer>
+</body>
+<script src="./header&footer.js"></script>
+
+</html>
