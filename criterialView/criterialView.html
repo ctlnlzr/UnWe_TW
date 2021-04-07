@@ -18,17 +18,17 @@
      </a>
      <div id="space"></div>
         <div class="headerBtn">
-        <a href="/vizualizare" class="text_hf header-Btn">Vizualizare</a> 
-        <a href="/criterialView.html" class="text_hf header-Btn">Comparare</a>
-        <a href="/despre" class="text_hf header-Btn">Despre</a>
+        <a href="/vizualizare" class="text_hf header-Btn" id="viewButton">Vizualizare</a> <!--id-->
+        <a href="/criterialView.html" class="text_hf header-Btn" id="compareButton">Comparare</a> <!--id-->
+        <a href="/despre" class="text_hf header-Btn" id="aboutButton">Despre</a> <!--id-->
         </div>
         <div class="phone_header_menu">
             <nav class="phone_meniu" id="phone__menu">
                 <p class="menu_title" id="menu_title">Meniu</p>
                 <div class="menuBtn">
-                <a href="/vizualizare" class="header-Btn text_hf text_menu">Vizualizare</a>
-                <a href="/comparare" class="header-Btn text_hf text_menu">Comparare</a>                
-                <a href="/despre" class="header-Btn text_hf text_menu">Despre</a>   
+                <a href="/vizualizare" class="header-Btn text_hf text_menu" id="viewMenu">Vizualizare</a> <!--id-->
+                <a href="/comparare" class="header-Btn text_hf text_menu" id="compareMenu">Comparare</a> <!--id-->               
+                <a href="/despre" class="header-Btn text_hf text_menu" id="aboutMenu">Despre</a> <!--id-->
                 </div>
             </nav>
             <button type="button" class="header-Btn" id="phone_meniu_btn">Meniu</button>
@@ -36,86 +36,94 @@
     </div>
 </header>
 
-<body class="entire-page">
-    <main class="criterial-specific">
-    <div class="chart">
-        <div  class="chart__format">
-            <p  class="text">Alegeti formatul pentru reprezentarea datelor:</p>
-            <button type="submit" class="chart__format__btn text" id="LineChartBtn">Line-chart</button>
-            <button type="submit" class="chart__format__btn text" id="BarChartBtn">Bar-chart</button>
-            <button type="submit" class="chart__format__btn text" id="PieChartBtn">Pie-chart</button>
-        </div>
-        <div class="chart_canva">
-        <canvas width="650" height="500" id="statistics_chart"></canvas>   
-        <p class="text" id="chart_canva__text">Alegeți un mod de afișare</p>
-        </div>
-        <div class="chart__format">
-        <p  class="text">Download format: </p>
-        <button type="submit" class="chart__format__btn text" id="CSVbtn">CSV ⇣</button>
-        <button type="submit" class="chart__format__btn text" id="SVGbtn">SVG ⇣</button>
-        <button type="submit" class="chart__format__btn text" id="PDFbtn">PDF ⇣</button>
-        </div>
-    </div>   
-    <form class="criteria">
-        <h2  class="text ">Criterii pentru compararea datelor</h2>
-           <div class="criteria__period">
-            <p  class="text criteria__text" id="criterium0">Perioada pentru comparare</p>
-            <div class="criteria__arrow">
-            <select class="drop-list" id="drop-perioada">
-            <option class="text text_option" value="lastMonth">Ultima luna</option>
-            <option class="text text_option" value="2Months">Ultimele 2 luni</option>
-            <option class="text text_option" value="6months">Ultimele 6 luni</option>
-            <option class="text text_option" value="oneYear">Ultimul an</option>
-          </select>
-          <span class="arrow"></span>
-            </div>
-        </div>
-        <div class="criteria__first">
-            <p class="text criteria__text">Criteriu principal</p>
-            <div class="criteria__arrow">
-            <select class="drop-list" id="criterium1">
-            <option class="text text_option" value="gen">Gen</option>
-            <option class="text text_option" value="mediu">Mediu</option>
-            <option class="text text_option" value="studii">Studii</option>
-            <option class="text text_option" value="categorieVarsta">Categorii de vârstă</option>
-            </select>
-            <span class="arrow"></span>
-            </div>
-        </div>
-        <div id="criteria__line"></div>
-        <div class="criteria__add" id="criteria__add_group">
-            <button type="button" class="criteria_form_btn" id="criteria__add__btn">+</button>
-            <p class="text">Adauga un criteriu nou</p>
-        </div>
 
-        <button type="submit" class="text criteria_form_btn" id="criteria_create">Prezintă statistici</button>
-        </form>
-        <div class="criteria_limit" id="criteria-limit">
-            <p class="text criteria_limit_text"> Pot fi alese maxim 3 criterii secundare </p>
-        </div>
-        <div class="criteria-limit_grey-bkg" id="grey-bkg"></div>
-    </main>
+<body class="entire-page">
+        <main class="criterial-specific">
+            <div class="chart">
+                <div  class="chart__format">
+                    <p  class="text" id="data-repr">Alegeti formatul pentru reprezentarea datelor:</p>
+                    <div class="chart_Btn">
+                    <button type="submit" class="chart__format__btn text" id="LineChartBtn">Line-chart</button>
+                    <button type="submit" class="chart__format__btn text" id="BarChartBtn">Bar-chart</button>
+                    <button type="submit" class="chart__format__btn text" id="PieChartBtn">Pie-chart</button>
+                    </div>
+                </div>
+                <div class="chart_canva">
+                <canvas width="650" height="500" id="statistics_chart"></canvas>   
+                <p class="text" id="chart_canva__text">Alegeți un mod de afișare</p>
+                </div>
+                <div class="chart__format">
+                <p  class="text" id="download">Format descărcare:</p>
+                <div class="chart_Btn">
+                <button type="submit" class="chart__format__btn text" id="CSVbtn">CSV ⇣</button>
+                <button type="submit" class="chart__format__btn text" id="SVGbtn">SVG ⇣</button>
+                <button type="submit" class="chart__format__btn text" id="PDFbtn">PDF ⇣</button>
+                </div>
+                </div>
+            </div>   
+            <form class="criteria">
+                <h2  class="text" id="criteria-title">Criterii pentru compararea datelor</h2>
+                   <div class="criteria__period">
+                    <p  class="text criteria__text" id="criterium0">Perioada pentru comparare</p>
+                    <div class="criteria__arrow">
+                    <select class="drop-list" id="drop-perioada">
+                    <option class="text text_option" value="lastMonth" id="lastMonth">Ultima luna</option>
+                    <option class="text text_option" value="2Months" id="2Months">Ultimele 2 luni</option>
+                    <option class="text text_option" value="6months" id="6months">Ultimele 6 luni</option>
+                    <option class="text text_option" value="oneYear" id="oneYear">Ultimul an</option>
+                  </select>
+                  <span class="arrow"></span>
+                    </div>
+                </div>
+                <div class="criteria__first">
+                    <p class="text criteria__text" id="criteriumOne">Criteriu principal</p>
+                    <div class="criteria__arrow">
+                    <select class="drop-list" id="criterium1">
+                    <option class="text text_option" value="gen" id="gender">Gen</option>
+                    <option class="text text_option" value="mediu" id="environment">Mediu</option>
+                    <option class="text text_option" value="studii" id="studies">Studii</option>
+                    <option class="text text_option" value="categorieVarsta" id="age">Categorii de vârstă</option>
+                    </select>
+                    <span class="arrow"></span>
+                    </div>
+                </div>
+                <div id="criteria__line"></div>
+                <div class="criteria__add" id="criteria__add_group">
+                    <button type="button" class="criteria_form_btn" id="criteria__add__btn">+</button>
+                    <p class="text" id="newCriteria">Adauga un criteriu nou</p>
+                </div>
+        
+                <button type="submit" class="text criteria_form_btn" id="criteria_create">Prezintă statistici</button>
+                </form>
+                <div class="criteria_limit" id="criteria-limit">
+                    <p class="text criteria_limit_text" id="criteria-limit-text"> Pot fi alese maxim 3 criterii secundare </p>
+                </div>
+                <div class="criteria-limit_grey-bkg" id="grey-bkg"></div>
+            </main>
 </body>
 
-<footer>
-    <section class="footerElem">
-        <div class="resource text_hf"> Resurse: </div>
-        <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
-    </section>
-    <a href="./despreNoi.html" class="footerElem text_hf"> Despre Date somaj Romania </a>
-    <section class=" footerElem languageChange">
-        <div class="lang text_hf">Limba:</div>
-        <div id="langBtn">
-            <button type="button" language="romenian" class="languageButton text_hf">RO</button>
-            <button type="button" language="english" class="languageButton text_hf">EN</button>
-        </div>
-    </section>
-<div class="footer2">
-    <h6 class="text_hf">Lazar Catalina</h6>
-    <h6 class="text_hf">Stratianu Bianca</h6>
-</div>
-</footer>
 
+    <footer>
+            <section class="footerElem">
+                <div class="resource text_hf"> Resurse: </div>
+                <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
+            </section>
+            <div class="aboutFtr footerElem"> 
+             <p class="text_hf" id="about"> Despre </p>
+             <a href="./despre.html" class=" text_hf" id="aboutWe"> Date somaj Romania </a>
+            </div>
+            <section class=" footerElem languageChange">
+                <div class="lang text_hf">Limba:</div>
+                <div class="langBtn" id="langBtn">
+                    <button type="button" language="ro" class="languageButton text_hf">RO</button>
+                    <button type="button" language="en" class="languageButton text_hf">EN</button>
+                </div>
+            </section>
+        <div class="footer2">
+            <h6 class="text_hf">Lazar Catalina</h6>
+            <h6 class="text_hf">Stratianu Bianca</h6>
+        </div>
+    </footer>
 </html>
-<script src="./header&footer.js"></script>
 <script src="../header&footer/header&footer.js"></script>
+<script src="./criterialView.js"></script>

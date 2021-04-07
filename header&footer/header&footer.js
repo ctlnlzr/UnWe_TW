@@ -24,70 +24,64 @@ function exitMenu(event){
 
 
 //language
-
-let language = document.querySelector(".languageChange");
-let link = document.querySelectorAll(".languageButton");
-let titleDoc = document.querySelector(".headerTitle");
-let view = document.querySelector(".viewButton");
-let compare = document.querySelector(".compareButton");
-let about = document.querySelector(".aboutButton");
-let resource = document.querySelector(".resource");
-let language2 = document.querySelector(".lang");
-let aboutFooter = document.querySelector(".aboutFooter");
-let titleMenu = document.querySelector(".menu_title");
-let viewMenu = document.querySelector(".viewMenu");
-let compareMenu = document.querySelector(".compareMenu");
-let aboutMenu = document.querySelector(".aboutMenu");
-
-var data = {
-    "english": {
-        "headerTitle": "ROMANIAN UNEMPLOYMENT DATA",
-        "viewButton": "View",
-        "compareButton": "Comparison",
-        "aboutButton": "About",
+let dataLang = {
+    "en": {
+        "title": "ROMANIAN UNEMPLOYMENT DATA",
         "resource": "Resources:",
         "language": "Language:",
-        "aboutFooter": "About Unemployment data Romania",
+        "aboutFooter": "Unemployment data Romania",
+        "aboutFtr": "About",
         "menu": "Menu",
-        "menu_title": "Romanian unemployment data",
+        "titleMenu": "Romanian unemployment data",
         "viewMenu": "View",
         "compareMenu": "Comparison",
-        "aboutMenu": "About",
+        "aboutMenu": "About"
     },
-    "romanian": {
-        "headerTitle": "DATE SOMAJ ROMANIA",
-        "viewButton": "Vizualizare",
-        "compareButton": "Comparare",
-        "aboutButton": "Despre",
+    "ro": {
+        "title": "DATE SOMAJ ROMANIA",
         "resource": "Resurse:",
         "language": "Limba:",
-        "aboutFooter": "Despre Date somaj Romania",
+        "aboutFooter": "Date somaj Romania",
+        "aboutFtr": "Despre",
         "menu": "Meniu",
-        "menu_title": "Date somaj Romania",
+        "titleMenu": "Date somaj Romania",
         "viewMenu": "Vizualizare",
         "compareMenu": "Comparare",
-        "aboutMenu": "Despre",
+        "aboutMenu": "Despre"
     }
 }
 
+let language = document.querySelector(".lang");
+let link = document.querySelectorAll(".languageButton");
+let titleDoc = document.getElementById("headerTitle");
+let view = document.getElementById("viewButton");
+let compare = document.getElementById("compareButton");
+let about = document.getElementById("aboutButton");
+let resource = document.querySelector(".resource");
+let aboutFooter = document.getElementById("aboutWe");
+let aboutFtr = document.getElementById("about")
+let titleMenu = document.getElementById("menu_title");
+let viewMenu = document.getElementById("viewMenu");
+let compareMenu = document.getElementById("compareMenu");
+let aboutMenu = document.getElementById("aboutMenu");
+let language2 = document.querySelector(".lang");
+
 link.forEach(e1 => {
     e1.addEventListener("click", () => {
-
         let a = e1.getAttribute("language");
 
-        titleDoc.textContent = data[a].headerTitle;
-        view.textContent = data[a].viewButton;
-        compare.textContent = data[a].compareButton;
-        about.textContent = data[a].aboutButton;
-        resource.textContent = data[a].resource;
-        language2.textContent = data[a].language;
-        aboutFooter.textContent = data[a].aboutFooter;
-        menuBtn.textContent = data[a].menu;
-        titleMenu.textContent = data[a].menu_title;
-        viewMenu.textContent = data[a].viewMenu;
-        compareMenu.textContent = data[a].compareMenu;
-        aboutMenu.textContent = data[a].aboutMenu;
+        titleDoc.textContent = dataLang[a].title;
+        view.textContent = dataLang[a].viewMenu;
+        compare.textContent = dataLang[a].compareMenu;
+        about.textContent = dataLang[a].aboutMenu;
+        resource.textContent = dataLang[a].resource;
+        language2.textContent = dataLang[a].language;
+        aboutFooter.textContent = dataLang[a].aboutFooter;
+        about.textContent = dataLang[a].about;
+        titleMenu.textContent = dataLang[a].titleMenu;
+        viewMenu.textContent = dataLang[a].viewMenu;
+        compareMenu.textContent = dataLang[a].compareMenu;
+        aboutMenu.textContent = dataLang[a].aboutMenu;
     });
 
 })
-
