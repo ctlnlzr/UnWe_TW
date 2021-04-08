@@ -1,102 +1,87 @@
-//header Menu
-
-let menuBtn = document.getElementById("buttonMenuOpen");
 let navPanel = document.getElementById("headerMobileMenu");
 let title = document.getElementById("title");
 let buttons = document.getElementById("buttonsMain");
-let buttonClose = document.getElementById("buttonMenuClose");
 
 
-buttonClose.addEventListener("click", onBtnCloseClick);
+//header phone menu
+let phoneMenu = document.getElementById("phone__menu");
+let menuBtn = document.getElementById("phone_meniu_btn");
+let menuTitle = document.getElementById("menu_title");
+menuBtn.addEventListener("click", showMenu)
+document.addEventListener("click", exitMenu);
 
-menuBtn.addEventListener("click", onBtnClick);
-
-function onBtnClick(event) {
-    navPanel.classList.add("isOpen");
-    title.classList.add("isOpen");
-    buttons.classList.add("isOpen");
+function showMenu(event) {
+    phoneMenu.classList.add("phone_meniu_shown");
+    menuTitle.classList.add("menu_title_shown");
+    event.stopPropagation();
 }
 
-function onBtnCloseClick(e) {
-    navPanel.classList.remove("isOpen");
-    title.classList.remove("isOpen");
-    buttons.classList.remove("isOpen");
+function exitMenu(event) {
+    if (!phoneMenu.contains(event.target)) {
+        phoneMenu.classList.remove("phone_meniu_shown");
+        menuTitle.classList.remove("menu_title_shown");
+    }
 }
 
 
 //language
-
-let language = document.querySelector(".languageChange");
-let link = document.querySelectorAll(".languageButton");
-let titleDoc = document.querySelector(".title");
-let view = document.querySelector(".viewButton");
-let compare = document.querySelector(".compareButton");
-let about = document.querySelector(".aboutButton");
-let view2 = document.querySelector(".viewButtonMain");
-let compare2 = document.querySelector(".compareButtonMain");
-let resource = document.querySelector(".resource");
-let language2 = document.querySelector(".lang");
-let aboutFooter = document.querySelector(".about");
-let titleMenu = document.querySelector(".titleMobile");
-let viewMenu = document.querySelector(".viewMenu");
-let compareMenu = document.querySelector(".compareMenu");
-let aboutMenu = document.querySelector(".aboutMenu");
-
-
-link.forEach(e1 => {
-    e1.addEventListener("click", () => {
-
-        let a = e1.getAttribute("language");
-
-        titleDoc.textContent = data[a].title;
-        view.textContent = data[a].viewButton;
-        compare.textContent = data[a].compareButton;
-        about.textContent = data[a].aboutButton;
-        view2.textContent = data[a].viewButtonMain;
-        compare2.textContent = data[a].compareButtonMain;
-        resource.textContent = data[a].resource;
-        language2.textContent = data[a].language;
-        aboutFooter.textContent = data[a].aboutFooter;
-        menuBtn.textContent = data[a].menu;
-        titleMenu.textContent = data[a].titleMenu;
-        viewMenu.textContent = data[a].viewMenu;
-        compareMenu.textContent = data[a].compareMenu;
-        aboutMenu.textContent = data[a].aboutMenu;
-    });
-
-})
-
-var data = {
-    "english": {
+let dataLang = {
+    "en": {
         "title": "ROMANIAN UNEMPLOYMENT DATA",
-        "viewButton": "View",
-        "compareButton": "Comparison",
-        "aboutButton": "About",
-        "compareButtonMain": "Comparison",
-        "viewButtonMain": "View",
         "resource": "Resources:",
         "language": "Language:",
-        "aboutFooter": "About Unemployment data Romania",
+        "aboutFooter": "Unemployment data Romania",
+        "aboutFtr": "About",
         "menu": "Menu",
         "titleMenu": "Romanian unemployment data",
         "viewMenu": "View",
-        "compareMenu": "Comparison",
-        "aboutMenu": "About",
+        "compareMenu": "Comparison"
     },
-    "romenian": {
+    "ro": {
         "title": "DATE SOMAJ ROMANIA",
-        "viewButton": "Vizualizare",
-        "compareButton": "Comparare",
-        "aboutButton": "Despre",
-        "compareButtonMain": "Comparare",
-        "viewButtonMain": "Vizualizare",
         "resource": "Resurse:",
         "language": "Limba:",
-        "aboutFooter": "Despre Date somaj Romania",
+        "aboutFooter": "Date somaj Romania",
+        "aboutFtr": "Despre",
         "menu": "Meniu",
         "titleMenu": "Date somaj Romania",
         "viewMenu": "Vizualizare",
-        "compareMenu": "Comparare",
-        "aboutMenu": "Despre",
+        "compareMenu": "Comparare"
     }
 }
+
+let language = document.querySelector(".lang");
+let link = document.querySelectorAll(".languageButton");
+let titleDoc = document.getElementById("headerTitle");
+let view = document.getElementById("viewButton");
+let compare = document.getElementById("compareButton");
+let about = document.getElementById("aboutButton");
+let resource = document.querySelector(".resource");
+let aboutFooter = document.getElementById("aboutWe");
+let aboutFtr = document.getElementById("about")
+let titleMenu = document.getElementById("menu_title");
+let viewMenu = document.getElementById("viewMenu");
+let compareMenu = document.getElementById("compareMenu");
+let aboutMenu = document.getElementById("aboutMenu");
+let language2 = document.querySelector(".lang");
+
+link.forEach(e1 => {
+    e1.addEventListener("click", () => {
+        let a = e1.getAttribute("language");
+
+        titleDoc.textContent = dataLang[a].title;
+        view.textContent = dataLang[a].viewMenu;
+        compare.textContent = dataLang[a].compareMenu;
+        about.textContent = dataLang[a].aboutFtr;
+        resource.textContent = dataLang[a].resource;
+        language2.textContent = dataLang[a].language;
+        aboutFooter.textContent = dataLang[a].aboutFooter;
+        aboutFtr.textContent = dataLang[a].aboutFtr;
+        about.textContent = dataLang[a].aboutFtr;
+        titleMenu.textContent = dataLang[a].titleMenu;
+        viewMenu.textContent = dataLang[a].viewMenu;
+        compareMenu.textContent = dataLang[a].compareMenu;
+        aboutMenu.textContent = dataLang[a].aboutMenu;
+    });
+
+})
