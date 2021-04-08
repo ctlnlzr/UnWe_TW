@@ -34,8 +34,7 @@ let dataLang = {
         "menu": "Menu",
         "titleMenu": "Romanian unemployment data",
         "viewMenu": "View",
-        "compareMenu": "Comparison",
-        "aboutMenu": "About"
+        "compareMenu": "Comparison"
     },
     "ro": {
         "title": "DATE SOMAJ ROMANIA",
@@ -46,8 +45,7 @@ let dataLang = {
         "menu": "Meniu",
         "titleMenu": "Date somaj Romania",
         "viewMenu": "Vizualizare",
-        "compareMenu": "Comparare",
-        "aboutMenu": "Despre"
+        "compareMenu": "Comparare"
     }
 }
 
@@ -73,11 +71,12 @@ link.forEach(e1 => {
         titleDoc.textContent = dataLang[a].title;
         view.textContent = dataLang[a].viewMenu;
         compare.textContent = dataLang[a].compareMenu;
-        about.textContent = dataLang[a].aboutMenu;
+        about.textContent = dataLang[a].aboutFtr;
         resource.textContent = dataLang[a].resource;
         language2.textContent = dataLang[a].language;
         aboutFooter.textContent = dataLang[a].aboutFooter;
-        about.textContent = dataLang[a].about;
+        aboutFtr.textContent = dataLang[a].aboutFtr;
+        about.textContent = dataLang[a].aboutFtr;
         titleMenu.textContent = dataLang[a].titleMenu;
         viewMenu.textContent = dataLang[a].viewMenu;
         compareMenu.textContent = dataLang[a].compareMenu;

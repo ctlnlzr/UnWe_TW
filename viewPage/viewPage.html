@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../header&footer/header&footer.css">
+    <link rel="stylesheet" href="./viewPage.css">
+    <link rel="stylesheet" href="./libs/v6.5.0-dist/ol.css">
+    <title>View Page</title>
+</head>
+
+<header>
+    <div class="headerNormalView">
+     <a href="./proiect.html" class="classForLogo">
+     <img alt="Logo" src="../header&footer/logo.png" id="imgLogo">
+        <p class="text_hf" id="headerTitle"> Date șomaj România</p>
+     </a>
+     <div id="space"></div>
+        <div class="headerBtn">
+        <a href="/vizualizare" class="text_hf header-Btn" id="viewButton">Vizualizare</a>
+        <a href="/criterialView.html" class="text_hf header-Btn" id="compareButton">Comparare</a>
+        <a href="/despre" class="text_hf header-Btn" id="aboutButton">Despre</a>
+        </div>
+        <div class="phone_header_menu">
+            <nav class="phone_meniu" id="phone__menu">
+                <p class="menu_title" id="menu_title">Meniu</p>
+                <div class="menuBtn">
+                <a href="/vizualizare" class="header-Btn text_hf text_menu viewMenu" id="viewMenu">Vizualizare</a>
+                <a href="/comparare" class="header-Btn text_hf text_menu compareMenu" id="compareMenu">Comparare</a>                
+                <a href="/despre" class="header-Btn text_hf text_menu aboutMenu" id="aboutMenu">Despre</a>   
+                </div>
+            </nav>
+            <button type="button" class="header-Btn" id="phone_meniu_btn">Meniu</button>
+            </div>
+    </div>
+</header>
+
+<body>
+    <div id="map" class="map"></div>
+    <div class="overlay-container">
+         <span class="text" id='overlay-county-name'></span><br>
+         <span class="text" id='overlay-county-info'></span>
+    </div>
+
+    <form class="info-format">
+        <div class="info__period">
+            <p  class="text info__text" id="month">Selectează luna:</p>
+            <div class="info__arrow">
+            <select class="drop-list" id="drop-perioada">
+          </select>
+          <span class="arrow"></span>
+            </div>
+        </div>
+        <div> 
+            <p  class="text info__text" id="category">Selectează categoria:</p>
+     
+            <div class="info__arrow"> 
+            <select class="drop-list">
+            <option class="text text_option" id="total">Total</option>
+            <optgroup label="Gen" id="genderOpt"><option class="text text_option" id="woman">Femeie</option>
+                    <option class="text text_option" id="man">Barbat</option>
+               </optgroup>
+               <optgroup label="Studii" id="studiesOpt">
+                   <option class="text text_option" id="noStudies">Fara studii</option>
+                   <option class="text text_option" id="primarySchool">Invatamant primar</option>
+                   <option class="text text_option" id="secondarySchool">Invatamant gimnazial</option>
+                   <option class="text text_option" id="highschool">Invatamant liceal</option>
+                   <option class="text text_option" id="postsecondarySchool">Invatamant postliceal</option>
+                   <option class="text text_option" id="vocationalEducation">Invatamant profesional/arte si meserii</option>
+                   <option class="text text_option" id="universityEducation">Invatamant univesitar</option>
+               </optgroup>
+               <optgroup label="Mediu" id="envOpt">
+                   <option class="text text_option">Urban</option>
+                   <option class="text text_option">Rural</option>
+               </optgroup>
+               <optgroup label="Categorii de vârstă" id="ageOpt">
+                   <option class="text text_option" id="under">Sub 25</option>
+                       <option class="text text_option">25-29</option>
+                       <option class="text text_option">30-39</option>
+                       <option class="text text_option">40-49</option>
+                       <option class="text text_option">50-55</option>
+                       <option class="text text_option" id="over">Peste 50</option>
+               </optgroup>
+               </select>
+               <span class="arrow"></span>
+               </div>
+            </div>
+    </form>
+</body>    
+
+    <footer>
+        <section class="footerElem">
+            <div class="resource text_hf"> Resurse: </div>
+            <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
+        </section>
+        <div class="aboutFtr footerElem"> 
+            <p class="text_hf" id="about"> Despre </p>
+            <a href="./despre.html" class=" text_hf" id="aboutWe"> Date somaj Romania </a>
+        </div>
+        <section class=" footerElem languageChange">
+            <div class="lang text_hf" id="language">Limba:</div>
+            <div id="langBtn">
+                <button type="button" language="ro" class="languageButton text_hf">RO</button>
+                <button type="button" language="en" class="languageButton text_hf">EN</button>
+            </div>
+        </section>
+    <div class="footer2">
+        <h6 class="text_hf">Lazar Catalina</h6>
+        <h6 class="text_hf">Stratianu Bianca</h6>
+    </div>
+</footer>
+
+</html>
+<script src='./libs/v6.5.0-dist/ol.js'></script>
+<script src="../header&footer/header&footer.js"></script>
+<script src="./viewPage.js"></script>

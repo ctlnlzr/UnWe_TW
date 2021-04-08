@@ -180,6 +180,7 @@ a {
 .aboutFtr{
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
 #about, #aboutWe{
