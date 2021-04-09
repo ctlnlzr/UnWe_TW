@@ -174,7 +174,7 @@ let over = document.getElementById("over");
 
 link.forEach(e1 => {
     e1.addEventListener("click", () => {
-        let a = e1.getAttribute("language");
+        let a = e1.getAttribute("lang");
         
         month.textContent = langViewPage[a].month;
         category.textContent = langViewPage[a].category;

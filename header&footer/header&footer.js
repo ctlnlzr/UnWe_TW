@@ -66,7 +66,7 @@ let language2 = document.querySelector(".lang");
 
 link.forEach(e1 => {
     e1.addEventListener("click", () => {
-        let a = e1.getAttribute("language");
+        let a = e1.getAttribute("lang");
 
         titleDoc.textContent = dataLang[a].title;
         view.textContent = dataLang[a].viewMenu;

@@ -328,7 +328,7 @@ let criteriaLimitText = document.getElementById("criteria-limit-text");
 link.forEach(e1 => {
 
     e1.addEventListener("click", () => {
-        let a = e1.getAttribute("language");
+        let a = e1.getAttribute("lang");
         dataRepr.textContent = langCrtView[a].dataRepr;
         chartCanvaText.textContent = langCrtView[a].chartCanvaText;
         download.textContent = langCrtView[a].download;
