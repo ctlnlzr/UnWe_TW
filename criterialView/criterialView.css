@@ -108,6 +108,7 @@
     top: 7.5%;
     background-color: rgb(215, 233, 248);
     padding: 0 1.5em ;
+    margin-bottom: 3.4em;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -179,10 +180,22 @@
      padding: 5px 15px;
      border-radius: 20px;
      align-self: center;
+     margin: 0;
+}
+.new_drop-list{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.deleteBtn{
+    margin-left: 1em;
+    padding: 0 7px;
 }
 
 #criteria__line{
-    align-self: start;
+    align-self: center;
     border: 2px solid rgb(112, 112, 112);
     margin:0;
     padding: 0 7em;
@@ -194,7 +207,7 @@
     background-color:rgb(20, 168, 1);
     padding: 3em;
     border-radius: 30px;
-    transform: translateY(-150%);
+    transform: translateY(-160%);
     left:25%;
     z-index:2;
     transition: transform 0.75s ease-out;
@@ -241,6 +254,7 @@
 
    .criteria{
        align-self: center;
+       justify-self: center;
    }
    .criteria__add{
        margin-bottom: 3em;
@@ -256,6 +270,17 @@
  
     #criteria_create{
         margin-bottom: 3em;
+    }
+
+    #chartView{
+        flex-direction: column;
+        white-space: nowrap;
+        align-content: space-around;
+        justify-content: center;
+        justify-items: center;
+        align-self: center;
+        width: 100%;
+        height: 15%;
     }
 }
 /*Phone version*/

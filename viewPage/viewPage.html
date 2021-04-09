@@ -38,12 +38,21 @@
 </header>
 
 <main>
+    <div class="map-section">
     <div id="map" class="map"></div>
     <div class="overlay-container">
         <span class="text" id='overlay-county-name'></span><br>
         <span class="text" id='overlay-county-info'></span>
     </div>
-
+    <div class="map-dwn">
+        <p class="text" id="download">Format descărcare:</p>
+        <div class="map_Btn">
+            <button type="submit" class="map__format__btn text" id="CSVbtn">CSV ⇣</button>
+            <button type="submit" class="map__format__btn text" id="SVGbtn">SVG ⇣</button>
+            <button type="submit" class="map__format__btn text" id="PDFbtn">PDF ⇣</button>
+        </div>
+    </div>
+    </div>
     <form class="info-format">
         <div class="info__period">
             <p class="text info__text" id="month">Selectează luna:</p>

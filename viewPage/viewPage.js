@@ -81,7 +81,7 @@ var d = new Date();
 var currentMonth = d.getMonth();
 var currentYear = d.getFullYear()
 
-for(var i=0 ; i <12; i++){
+for(var i=0 ; i <15; i++){
      var option = document.createElement('option');
      option.innerHTML=months["ro"][currentMonth].concat(' ').concat(currentYear.toString());
      var select = document.getElementById("drop-perioada");

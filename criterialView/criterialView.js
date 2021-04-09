@@ -2,11 +2,14 @@
 let lineChartBtn = document.getElementById("LineChartBtn");
 let barChartBtn = document.getElementById("BarChartBtn");
 let pieChartBtn = document.getElementById("PieChartBtn");
+let radarChartBtn = document.getElementById("RadarChartBtn");
+
 let chartText = document.getElementById("chart_canva__text");
 
 lineChartBtn.addEventListener("click", lineViewFormat);
 barChartBtn.addEventListener("click", barViewFormat);
 pieChartBtn.addEventListener("click", pieViewFormat);
+radarChartBtn.addEventListener("click", radarViewFormat);
 
 var data = [{
     label: 'Lorem',
@@ -34,6 +37,8 @@ var ctx = document.getElementById('statistics_chart').getContext('2d');
 var lineChart;
 var barChart;
 var pieChart;
+var radarChart;
+
 function lineViewFormat(event){
     chartText.classList.add("chart_text_view");
     if(barChart != undefined){
@@ -43,6 +48,10 @@ function lineViewFormat(event){
     if(pieChart != undefined){
         pieChart.destroy();
         pieChart = undefined;
+    }
+    if(radarChart != undefined){
+        radarChart.destroy();
+        radarChart = undefined;
     }
     lineChart = new Chart(ctx,{
         type:'line',
@@ -71,6 +80,10 @@ function barViewFormat(event){
     if(pieChart != undefined){
         pieChart.destroy();
         pieChart = undefined;
+    }
+    if(radarChart != undefined){
+        radarChart.destroy();
+        radarChart = undefined;
     }
     barChart = new Chart(ctx, {
         type: 'bar',
@@ -101,6 +114,10 @@ function pieViewFormat(event){
         barChart.destroy();
         barChart = undefined;
     }
+    if(radarChart != undefined){
+        radarChart.destroy();
+        radarChart = undefined;
+    }
     pieChart = new Chart(ctx,{
         type:'pie',
         data: {
@@ -120,6 +137,44 @@ function pieViewFormat(event){
     
 }
 
+
+function radarViewFormat(event){
+    chartText.classList.add("chart_text_view");
+
+    if(lineChart != undefined){
+        lineChart.destroy();
+        lineChart = undefined;
+    }
+    if(barChart != undefined){
+        barChart.destroy();
+        barChart = undefined;
+    }
+    if(pieChart != undefined){
+        pieChart.destroy();
+        pieChart = undefined;
+    }
+    radarChart = new Chart(ctx,{
+        type:'radar',
+        data: {
+            labels: label,
+            datasets: data,
+        },
+        options: {
+            plugins: {
+              filler: {
+                propagate: false
+              },
+              'samples-filler-analyser': {
+                target: 'chart-analyser'
+              }
+            },
+            interaction: {
+              intersect: false
+            }
+          } 
+    });
+    
+}
 //download format
 let CSVdownloadBtn = document.getElementById("CSVbtn");
 let SVGdownloadBtn = document.getElementById("SVGbtn");
@@ -154,7 +209,7 @@ function addCriterium (event){
     else{
     counter = counter+1;
     document.getElementById("criteria__line").insertAdjacentHTML("afterend",`
-    <div> 
+    <div class="new_drop-list" id="dropList`+ counter +`"> 
     <div class="criteria__arrow"> 
     <select class="drop-list" name="addSelect">
     <optgroup label="` + optionLng[lang][17] +`" name="genderOpt"><option class="text text_option" id="woman">`+ optionLng[lang][0] +`</option>
@@ -184,6 +239,7 @@ function addCriterium (event){
        </select>
        <span class="arrow arrow-add"></span>
        </div>
+       <button type="button" value=`+ counter +` class ="criteria_form_btn deleteBtn" id="delete_btn">-</button>
        </div>`);
     }
 
@@ -195,6 +251,19 @@ function exitCriteriaLimit(event){
     criteriaLimit.classList.remove("criteria_limit_shown");
   }
 }
+
+//delete criterium
+document.addEventListener('click', deleteCriterium)
+function deleteCriterium(event){
+    if(event.target && event.target.id=='delete_btn'){
+        let deleteCrtBtn = document.getElementById("delete_btn");
+        let number = deleteCrtBtn.getAttribute('value');
+        let criteriumDel = "dropList"+number.toString();
+        document.getElementById(criteriumDel).remove();
+        counter = counter -1;
+    }
+}
+
 //criteria options
 var criterium0Value = document.getElementById("criterium0").nodeValue;
 var criterium1Value = document.getElementById("criterium1").nodeValue;
@@ -212,7 +281,7 @@ var d = new Date();
 var currentMonth = d.getMonth() + 1;
 var currentYear = d.getFullYear()
 
-for (var i = 0; i < 11; i++) {
+for (var i = 0; i < 15; i++) {
     var option = document.createElement('option');
     option.innerHTML = months["ro"][currentMonth].concat(' ').concat(currentYear.toString());
     option.classList.add("text");
