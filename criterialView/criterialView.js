@@ -181,14 +181,14 @@ let SVGdownloadBtn = document.getElementById("SVGbtn");
 let PDFdownloadBtn = document.getElementById("PDFbtn");
 
 
-//add criterium
-let criteriumBtn = document.getElementById("criteria__add__btn");
+//add criterion
+let criterionBtn = document.getElementById("criteria__add__btn");
 var counter=0;
 var criteriaLimit = document.getElementById("criteria-limit");
 var bkgColor = document.getElementById("grey-bkg");
 
 document.addEventListener("click", exitCriteriaLimit);
-criteriumBtn.addEventListener("click", addCriterium);
+criterionBtn.addEventListener("click", addCriterion);
 
 
 let optionLng = {
@@ -200,7 +200,7 @@ function setLang(string){
     lang = string;
 }
 
-function addCriterium (event){
+function addCriterion (event){
     if(counter >= 3){
        criteriaLimit.classList.add("criteria_limit_shown");
        bkgColor.classList.add("criteria-limit_grey-bkg_shown");
@@ -252,27 +252,26 @@ function exitCriteriaLimit(event){
   }
 }
 
-//delete criterium
-document.addEventListener('click', deleteCriterium)
-function deleteCriterium(event){
+//delete criterion
+document.addEventListener('click', deleteCriterion)
+function deleteCriterion(event){
     if(event.target && event.target.id=='delete_btn'){
         let deleteCrtBtn = document.getElementById("delete_btn");
         let number = deleteCrtBtn.getAttribute('value');
-        let criteriumDel = "dropList"+number.toString();
-        document.getElementById(criteriumDel).remove();
+        let criterionDel = "dropList"+number.toString();
+        document.getElementById(criterionDel).remove();
         counter = counter -1;
     }
 }
 
 //criteria options
-var criterium0Value = document.getElementById("criterium0").nodeValue;
-var criterium1Value = document.getElementById("criterium1").nodeValue;
-
+var criterion0Value = document.getElementById("criterion0");
+var criterion1Value = document.getElementById("criterion1");
 
 //create 
 let createStatistics = document.getElementById("criteria_create");
 
-/*Last 12 months*/
+/*Last 15 months*/
 let months ={ 
     "ro": { 0: "Ianuarie", 1: "Februarie", 2: "Martie", 3: "Aprilie", 4: "Mai", 5: "Iunie", 6: "Iulie", 7: "August", 8: "Septembrie", 9: "Octombrie", 10: "Noiembrie", 11: "Decembrie" },
     "en": { 0: "January", 1: "February", 2: "March", 3: "April", 4: "May", 5: "June", 6: "July", 7: "August", 8: "September", 9: "October", 10: "November", 11: "December" }
@@ -311,6 +310,19 @@ function changeMonth() {
     }
   }
 }
+/*Droplist county*/
+let countyList= ["Toată țara","Alba","Arad","Argeș","Bacău","Bihor","Bistrița","Botoșani","Brăila","Brașov","Buzău","Călărași","Caraș-Severin","Cluj","Constanța","Covasna","Dâmbovița","Dolj","Galați","Giurgiu","Gorj","Harghita","Hunedoara","Ialomița","Iași","Ilfov","Maramureș","Mehedinți","București","Mureș","Neamț","Olt","Prahova","Sălaj","Satu Mare","Sibiu","Suceava","Teleorman","Timiș","Tulcea","Vâlcea","Vaslui","Vrancea"];
+for (var it = 0; it < countyList.length; it++) {
+    var optionCounty = document.createElement('option');
+    optionCounty.innerHTML = countyList[it];
+    optionCounty.classList.add("text");
+    optionCounty.classList.add("text_option");
+    optionCounty.setAttribute('value', countyList[it]);
+    var selectCounty = document.getElementById("drop-county");
+    selectCounty.insertAdjacentElement("beforeend", optionCounty);
+}
+
+
 
 
 let langCrtView = {
@@ -319,17 +331,19 @@ let langCrtView = {
         "chartCanvaText": "Choose a chart type",
         "download": "Download format:",
         "criteriaTitle": "Comparing data criteria",
-        "criterium0": "Choose period",
+        "criterion0": "Choose period",
+        "criterion2":"County",
+        "country": "Entire country",
         "lastMonth": "Last month",
         "twoMonths": "Last two months",
         "sixMonths": "Last six months",
         "oneYear": "Last year",
-        "criterium1": "Principal criterium",
+        "criterion1": "Principal criterion",
         "gender": "Gender",
         "environment": "Environment",
         "studies": "Studies level",
         "age": "Age range",
-        "newCriteria": "Add new criterium",
+        "newCriteria": "Add new criterion",
         "criteriaCreate": "Show statistics",
         "criteriaLimitText": "You can choose maximum three secondary criteria"
     },
@@ -338,12 +352,14 @@ let langCrtView = {
         "chartCanvaText": "Alegeți un mod de afișare",
         "download": "Format descărcare:",
         "criteriaTitle": "Criterii pentru compararea datelor",
-        "criterium0": "Perioada pentru comparare",
+        "criterion0": "Perioada pentru comparare",
+        "criterion2": "Județ",
+        "country": "Toată țara",
         "lastMonth": "Ultima luna",
         "twoMonths": "Ultimele 2 luni",
         "sixMonths": "Ultimele 6 luni",
         "oneYear": "Ultimul an",
-        "criterium1": "Criteriu principal",
+        "criterion1": "Criteriu principal",
         "gender": "Gen",
         "environment": "Mediu",
         "studies": "Studii",
@@ -376,16 +392,22 @@ function changeSelect() {
         }
     }
 }
+
+function changeCounty(){
+     let countySelect = document.getElementById("drop-county");
+     countySelect.options[0].innerHTML=langCrtView[lang].country;
+}
 let dataRepr = document.getElementById("data-repr");
 let chartCanvaText = document.getElementById("chart_canva__text");
 let download = document.getElementById("download");
 let criteriaTitle = document.getElementById("criteria-title");
-let criterium0 = document.getElementById("criterium0");
+let criterion0 = document.getElementById("criterion0");
+console.log(criterion0);
 let lastMonth = document.getElementById("lastMonth");
 let twoMonths = document.getElementById("2Months");
 let sixMonths = document.getElementById("6months");
 let oneYear = document.getElementById("oneYear");
-let criterium1 = document.getElementById("criteriumOne");
+let criterion1 = document.getElementById("criterionOne");
 let gender = document.getElementById("gender");
 let environment = document.getElementById("environment");
 let studies = document.getElementById("studies");
@@ -393,6 +415,7 @@ let age = document.getElementById("age");
 let newCriteria = document.getElementById("newCriteria");
 let criteriaCreate = document.getElementById("criteria_create");
 let criteriaLimitText = document.getElementById("criteria-limit-text");
+let criterion2 = document.getElementById("criterion2");
 
 link.forEach(e1 => {
 
@@ -402,12 +425,13 @@ link.forEach(e1 => {
         chartCanvaText.textContent = langCrtView[a].chartCanvaText;
         download.textContent = langCrtView[a].download;
         criteriaTitle.textContent = langCrtView[a].criteriaTitle;
-        criterium0.textContent = langCrtView[a].criterium0;
+        criterion0.textContent = langCrtView[a].criterion0;
+        criterion2.textContent = langCrtView[a].criterion2;
         lastMonth.textContent = langCrtView[a].lastMonth;
         twoMonths.textContent = langCrtView[a].twoMonths;
         sixMonths.textContent = langCrtView[a].sixMonths;
         viewMenu.oneYear = langCrtView[a].oneYear;
-        criterium1.textContent = langCrtView[a].criterium1;
+        criterion1.textContent = langCrtView[a].criterion1;
         gender.textContent = langCrtView[a].gender;
         environment.textContent = langCrtView[a].environment;
         studies.textContent = langCrtView[a].studies;
@@ -416,9 +440,11 @@ link.forEach(e1 => {
         criteriaCreate.textContent = langCrtView[a].criteriaCreate;
         criteriaLimitText.textContent = langCrtView[a].criteriaLimitText;
         setLang(a);
+        changeCounty();
         changeMonth();
         changeSelect();
 
     });
 
 })
+

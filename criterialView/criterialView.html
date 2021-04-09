@@ -66,7 +66,7 @@
     <form class="criteria">
         <h2 class="text" id="criteria-title">Criterii pentru compararea datelor</h2>
         <div class="criteria__period">
-            <p class="text criteria__text" id="criterium0">Perioada pentru comparare</p>
+            <p class="text criteria__text" id="criterion0">Perioada pentru comparare</p>
             <div class="criteria__arrow">
                 <select class="drop-list" id="drop-perioada">
                     <option class="text text_option" value="lastMonth" id="lastMonth">Ultima luna</option>
@@ -78,15 +78,22 @@
             </div>
         </div>
         <div class="criteria__first">
-            <p class="text criteria__text" id="criteriumOne">Criteriu principal</p>
+            <p class="text criteria__text" id="criterionOne">Criteriu principal</p>
             <div class="criteria__arrow">
-                <select class="drop-list" id="criterium1">
+                <select class="drop-list" id="=criterion1">
                     <option class="text text_option" value="gen" id="gender">Gen</option>
                     <option class="text text_option" value="mediu" id="environment">Mediu</option>
                     <option class="text text_option" value="studii" id="studies">Studii</option>
                     <option class="text text_option" value="categorieVarsta" id="age">Categorii de vârstă</option>
                 </select>
                 <span class="arrow"></span>
+            </div>
+        </div>
+        <div class="criteria__second">
+            <p class="text criteria__text" id="criterion2">Județ</p>
+            <div class="criteria__arrow">
+                <select class="drop-list" id="drop-county" multiple size="2"></select>
+                
             </div>
         </div>
         <div id="criteria__line"></div>
