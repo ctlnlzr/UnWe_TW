@@ -11,6 +11,13 @@
     margin-bottom: 9%;
 }
 
+.raport {
+    padding-top: 2%;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    text-align: center;
+}
+
 .words p {
     text-align: center;
     -webkit-text-stroke-width: 1px;
