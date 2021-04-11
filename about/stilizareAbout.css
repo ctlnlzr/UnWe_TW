@@ -34,7 +34,7 @@
 }
 
 .imgChart {
-    margin-left: 19%;
+    margin-left: 10%;
     width: 10%;
     height: 10%;
 }
@@ -48,6 +48,10 @@
     padding-right: 20%;
     width: 50%;
     height: 50%;
+}
+
+.raportText {
+    color: rgba(94, 163, 241, 0.452);
 }
 
 
