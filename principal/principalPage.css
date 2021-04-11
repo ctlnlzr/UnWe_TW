@@ -14,7 +14,7 @@
 
 .viewButtonMain,
 .compareButtonMain {
-    background: #022F6B;
+    background: rgba(19, 94, 181, 0.959);
     color: white;
     padding-left: 2%;
     padding-right: 2%;
@@ -27,19 +27,6 @@
     padding: 0.5em 1em;
     border-radius: 10%;
     cursor: pointer;
-}
-
-.viewButtonMain::before,
-.compareButtonMain::before {
-    content: " ";
-    position: absolute;
-    width: 100%;
-    height: 0.175rem;
-    left: 0;
-    bottom: 0;
-    background: rgba(34, 117, 212, 0.959);
-    transform: scale(0, 1);
-    transition: transform 0.3s ease;
 }
 
 html {
