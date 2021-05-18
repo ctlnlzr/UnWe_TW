@@ -3,6 +3,8 @@ package edu.tw.database.entity;
 import javax.persistence.*;
 @Entity
 @NamedQuery(name="Varsta.findByLuna", query = "SELECT g FROM Varsta g WHERE g.luna = :lunaParam")
+@NamedQuery(name="Varsta.findByLunaAndCounty", query = "SELECT g FROM Varsta g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
+@NamedQuery(name="Varsta.findByCounty", query = "SELECT g FROM Varsta g WHERE g.judet = :judetParam")
 @Table(name="varsta")
 public class Varsta {
     @Id
