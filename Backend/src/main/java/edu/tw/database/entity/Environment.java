@@ -5,12 +5,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@NamedQuery(name="Mediu.findByLuna", query = "SELECT g FROM Mediu g WHERE g.luna = :lunaParam")
-@NamedQuery(name="Mediu.findByLunaAndCounty", query = "SELECT g FROM Mediu g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
-@NamedQuery(name="Mediu.findByCounty", query = "SELECT g FROM Mediu g WHERE g.judet = :judetParam")
+@NamedQuery(name="Environment.findByLuna", query = "SELECT g FROM Environment g WHERE g.luna = :lunaParam")
+@NamedQuery(name="Environment.findByLunaAndCounty", query = "SELECT g FROM Environment g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
+@NamedQuery(name="Environment.findByCounty", query = "SELECT g FROM Environment g WHERE g.judet = :judetParam")
+@NamedQuery(name="Environment.deleteByMonthAndCounty", query = "DELETE FROM Environment g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
+@NamedQuery(name="Environment.all", query = "SELECT g FROM Environment g")
 @Entity
 @Table(name="mediu")
-public class Mediu {
+public class Environment {
     @Id
     int luna;
     @Id

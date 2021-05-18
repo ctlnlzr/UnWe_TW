@@ -2,11 +2,13 @@ package edu.tw.database.entity;
 
 import javax.persistence.*;
 @Entity
-@NamedQuery(name="Varsta.findByLuna", query = "SELECT g FROM Varsta g WHERE g.luna = :lunaParam")
-@NamedQuery(name="Varsta.findByLunaAndCounty", query = "SELECT g FROM Varsta g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
-@NamedQuery(name="Varsta.findByCounty", query = "SELECT g FROM Varsta g WHERE g.judet = :judetParam")
+@NamedQuery(name="Age.findByLuna", query = "SELECT g FROM Age g WHERE g.luna = :lunaParam")
+@NamedQuery(name="Age.findByLunaAndCounty", query = "SELECT g FROM Age g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
+@NamedQuery(name="Age.findByCounty", query = "SELECT g FROM Age g WHERE g.judet = :judetParam")
+@NamedQuery(name="Age.deleteByMonthAndCounty", query = "DELETE FROM Age g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
+@NamedQuery(name="Age.all", query = "SELECT g FROM Age g ")
 @Table(name="varsta")
-public class Varsta {
+public class Age {
     @Id
     int luna;
     @Id
