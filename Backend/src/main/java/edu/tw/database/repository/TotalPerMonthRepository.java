@@ -39,6 +39,12 @@ public class TotalPerMonthRepository {
         return query.getResultList();
     }
 
+    public List<TotalPerMonth> filterByMonths(int luna, String county) {
+        TypedQuery<TotalPerMonth> query = entityManager.createNamedQuery("TotalPerMonth.filterByMonths", TotalPerMonth.class);
+        query.setParameter("lunaParam", luna);
+        query.setParameter("judetParam", county);
+        return query.getResultList();
+    }
     public List<TotalPerMonth> findByCounty(String county) {
         TypedQuery<TotalPerMonth> query = entityManager.createNamedQuery("TotalPerMonth.findByCounty", TotalPerMonth.class);
         query.setParameter("judetParam", county);

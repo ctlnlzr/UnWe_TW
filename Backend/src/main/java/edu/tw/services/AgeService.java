@@ -34,7 +34,13 @@ public class AgeService {
         }
         return ageRepository.findByLunaAndCounty(month, county);
     }
-
+    public List<Age> filterByMonth(int month, String county) {
+        AgeRepository ageRepository = new AgeRepository(entityManager);
+        if (ageRepository.filterByMonths(month, county).isEmpty()) {
+            return new ArrayList<>();
+        }
+        return ageRepository.filterByMonths(month, county);
+    }
     public boolean saveAge(Age age) {
         AgeRepository ageRepository = new AgeRepository(entityManager);
         if (ageRepository.findByLunaAndCounty(age.getLuna(), age.getJudet()).isEmpty()) {
@@ -66,4 +72,5 @@ public class AgeService {
         AgeRepository ageRepository = new AgeRepository(entityManager);
         return ageRepository.all();
     }
+
 }

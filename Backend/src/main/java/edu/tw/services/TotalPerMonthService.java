@@ -35,7 +35,13 @@ public class TotalPerMonthService {
         }
         return totalRepository.findByLunaAndCounty(month, county);
     }
-
+    public List<TotalPerMonth> filterByMonth(int month, String county) {
+        TotalPerMonthRepository totalRepository = new TotalPerMonthRepository(entityManager);
+        if (totalRepository.filterByMonths(month, county).isEmpty()) {
+            return new ArrayList<>();
+        }
+        return totalRepository.filterByMonths(month, county);
+    }
     public boolean saveTotalPerMonth(TotalPerMonth totalPerMonth) {
         TotalPerMonthRepository totalRepository = new TotalPerMonthRepository(entityManager);
         if (totalRepository.findByLunaAndCounty(totalPerMonth.getLuna(), totalPerMonth.getJudet()).isEmpty()) {

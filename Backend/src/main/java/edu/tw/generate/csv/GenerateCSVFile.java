@@ -1,8 +1,6 @@
 package edu.tw.generate.csv;
 
-import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import com.opencsv.CSVWriter;
-import edu.tw.contoller.EducationController;
 import edu.tw.database.entity.Age;
 import edu.tw.database.entity.Education;
 import edu.tw.database.entity.Environment;

@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @NamedQuery(name = "TotalPerMonth.findByCounty", query = "SELECT g FROM TotalPerMonth g WHERE g.judet = :judetParam")
 @NamedQuery(name = "TotalPerMonth.deleteByMonthAndCounty", query = "DELETE FROM TotalPerMonth g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
 @NamedQuery(name = "TotalPerMonth.all", query = "SELECT g FROM TotalPerMonth g")
+@NamedQuery(name = "TotalPerMonth.filterByMonths", query = "SELECT g FROM TotalPerMonth g WHERE g.luna<=:lunaParam AND g.judet=:judetParam")
 @NamedQuery(name = "TotalPerMonth.update", query = "UPDATE TotalPerMonth g SET g.total=:totalParam, g.rata=:rataParam  WHERE g.luna=:lunaParam and g.judet=:judetParam ")
 @Entity
 @Table(name = "totalPerLuna")

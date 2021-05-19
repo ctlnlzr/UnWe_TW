@@ -39,6 +39,12 @@ public class AgeRepository {
         return query.getResultList();
     }
 
+    public List<Age> filterByMonths(int luna, String county) {
+        TypedQuery<Age> query = entityManager.createNamedQuery("Age.filterByMonths", Age.class);
+        query.setParameter("lunaParam", luna);
+        query.setParameter("judetParam", county);
+        return query.getResultList();
+    }
     public List<Age> findByCounty(String county) {
         TypedQuery<Age> query = entityManager.createNamedQuery("Age.findByCounty", Age.class);
         query.setParameter("judetParam", county);

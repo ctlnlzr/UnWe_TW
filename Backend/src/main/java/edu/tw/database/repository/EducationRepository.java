@@ -37,6 +37,12 @@ public class EducationRepository {
         query.setParameter("judetParam", county);
         return query.getResultList();
     }
+    public List<Education> filterByMonths(int luna, String county) {
+        TypedQuery<Education> query = entityManager.createNamedQuery("Education.filterByMonths", Education.class);
+        query.setParameter("lunaParam", luna);
+        query.setParameter("judetParam", county);
+        return query.getResultList();
+    }
 
     public List<Education> findByCounty(String county) {
         TypedQuery<Education> query = entityManager.createNamedQuery("Education.findByCounty", Education.class);

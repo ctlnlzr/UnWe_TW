@@ -34,6 +34,13 @@ public class EnvironmentService {
         }
         return environmentRepository.findByLunaAndCounty(month, county);
     }
+    public List<Environment> filterByMonth(int month, String county) {
+        EnvironmentRepository environmentRepository = new EnvironmentRepository(entityManager);
+        if (environmentRepository.filterByMonths(month, county).isEmpty()) {
+            return new ArrayList<>();
+        }
+        return environmentRepository.filterByMonths(month, county);
+    }
 
     public boolean saveEnvironment(Environment environment) {
         EnvironmentRepository environmentRepository = new EnvironmentRepository(entityManager);

@@ -35,6 +35,13 @@ public class EducationService {
         }
         return educationRepository.findByLunaAndCounty(month, county);
     }
+    public List<Education> filterByMonth(int month, String county) {
+        EducationRepository educationRepository = new EducationRepository(entityManager);
+        if (educationRepository.filterByMonths(month, county).isEmpty()) {
+            return new ArrayList<>();
+        }
+        return educationRepository.filterByMonths(month, county);
+    }
 
     public boolean saveEducation(Education education) {
         EducationRepository educationRepository = new EducationRepository(entityManager);

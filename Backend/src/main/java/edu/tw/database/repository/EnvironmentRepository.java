@@ -40,6 +40,12 @@ public class EnvironmentRepository {
         return query.getResultList();
     }
 
+    public List<Environment> filterByMonths(int luna, String county) {
+        TypedQuery<Environment> query = entityManager.createNamedQuery("Environment.filterByMonths", Environment.class);
+        query.setParameter("lunaParam", luna);
+        query.setParameter("judetParam", county);
+        return query.getResultList();
+    }
     public List<Environment> findByCounty(String county) {
         TypedQuery<Environment> query = entityManager.createNamedQuery("Environment.findByCounty", Environment.class);
         query.setParameter("judetParam", county);

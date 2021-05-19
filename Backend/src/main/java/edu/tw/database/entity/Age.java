@@ -8,6 +8,7 @@ import javax.persistence.*;
 @NamedQuery(name = "Age.findByCounty", query = "SELECT g FROM Age g WHERE g.judet = :judetParam")
 @NamedQuery(name = "Age.deleteByMonthAndCounty", query = "DELETE FROM Age g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
 @NamedQuery(name = "Age.all", query = "SELECT g FROM Age g ")
+@NamedQuery(name = "Age.filterByMonths", query = "SELECT g FROM Age g WHERE g.luna<=:lunaParam AND g.judet=:judetParam")
 @NamedQuery(name = "Age.update", query = "UPDATE Age g SET g.maiMic25=:maiMic25Param, g.intre25si29=:intre25si29Param, g.intre30si39=:intre30si39Param, g.intre40si49=:intre40si49Param, g.intre50si55=:intre50si55Param, g.peste55=:peste55Param WHERE g.luna=:lunaParam and g.judet=:judetParam ")
 @Table(name = "varsta")
 public class Age {
