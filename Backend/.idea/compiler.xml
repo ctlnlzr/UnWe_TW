@@ -12,7 +12,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Backend" options="--add-exports jdk.compiler/com.sun.tools.doclint=ALL-UNNAMED" />
+      <module name="Backend" options="" />
     </option>
   </component>
 </project>

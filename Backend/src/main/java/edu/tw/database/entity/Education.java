@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @NamedQuery(name="Education.findByLunaAndCounty", query = "SELECT g FROM Education g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
 @NamedQuery(name="Education.findByCounty", query = "SELECT g FROM Education g WHERE g.judet = :judetParam")
 @NamedQuery(name="Education.deleteByMonthAndCounty", query = "DELETE FROM Education g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
-@NamedQuery(name="Education.All", query = "SELECT g FROM Education g")
+@NamedQuery(name="Education.all", query = "SELECT g FROM Education g")
 @Entity
 @Table(name="educatie")
 public class Education {
