@@ -5,13 +5,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@NamedQuery(name="Environment.findByLuna", query = "SELECT g FROM Environment g WHERE g.luna = :lunaParam")
-@NamedQuery(name="Environment.findByLunaAndCounty", query = "SELECT g FROM Environment g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
-@NamedQuery(name="Environment.findByCounty", query = "SELECT g FROM Environment g WHERE g.judet = :judetParam")
-@NamedQuery(name="Environment.deleteByMonthAndCounty", query = "DELETE FROM Environment g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
-@NamedQuery(name="Environment.all", query = "SELECT g FROM Environment g")
+@NamedQuery(name = "Environment.findByLuna", query = "SELECT g FROM Environment g WHERE g.luna = :lunaParam")
+@NamedQuery(name = "Environment.findByLunaAndCounty", query = "SELECT g FROM Environment g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
+@NamedQuery(name = "Environment.findByCounty", query = "SELECT g FROM Environment g WHERE g.judet = :judetParam")
+@NamedQuery(name = "Environment.deleteByMonthAndCounty", query = "DELETE FROM Environment g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
+@NamedQuery(name = "Environment.all", query = "SELECT g FROM Environment g")
+@NamedQuery(name = "Environment.update", query = "UPDATE Environment g SET g.femeiDinMediulUrban=:femeiDinMediulUrbanParam, g.femeiDinMediulRural=:femeiDinMediulRuralParam, g.barbatiDinMediulUrban=:barbatiDinMediulUrbanParam, g.barbatiDinMediulRural=:barbatiDinMediulRuralParam WHERE g.luna=:lunaParam and g.judet=:judetParam ")
 @Entity
-@Table(name="mediu")
+@Table(name = "mediu")
 public class Environment {
     @Id
     int luna;

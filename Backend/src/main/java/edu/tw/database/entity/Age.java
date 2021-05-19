@@ -1,13 +1,15 @@
 package edu.tw.database.entity;
 
 import javax.persistence.*;
+
 @Entity
-@NamedQuery(name="Age.findByLuna", query = "SELECT g FROM Age g WHERE g.luna = :lunaParam")
-@NamedQuery(name="Age.findByLunaAndCounty", query = "SELECT g FROM Age g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
-@NamedQuery(name="Age.findByCounty", query = "SELECT g FROM Age g WHERE g.judet = :judetParam")
-@NamedQuery(name="Age.deleteByMonthAndCounty", query = "DELETE FROM Age g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
-@NamedQuery(name="Age.all", query = "SELECT g FROM Age g ")
-@Table(name="varsta")
+@NamedQuery(name = "Age.findByLuna", query = "SELECT g FROM Age g WHERE g.luna = :lunaParam")
+@NamedQuery(name = "Age.findByLunaAndCounty", query = "SELECT g FROM Age g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
+@NamedQuery(name = "Age.findByCounty", query = "SELECT g FROM Age g WHERE g.judet = :judetParam")
+@NamedQuery(name = "Age.deleteByMonthAndCounty", query = "DELETE FROM Age g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
+@NamedQuery(name = "Age.all", query = "SELECT g FROM Age g ")
+@NamedQuery(name = "Age.update", query = "UPDATE Age g SET g.maiMic25=:maiMic25Param, g.intre25si29=:intre25si29Param, g.intre30si39=:intre30si39Param, g.intre40si49=:intre40si49Param, g.intre50si55=:intre50si55Param, g.peste55=:peste55Param WHERE g.luna=:lunaParam and g.judet=:judetParam ")
+@Table(name = "varsta")
 public class Age {
     @Id
     int luna;
@@ -75,6 +77,7 @@ public class Age {
     public void setLuna(int luna) {
         this.luna = luna;
     }
+
     public void setIntre30si39(int intre30si39) {
         this.intre30si39 = intre30si39;
     }
@@ -109,6 +112,6 @@ public class Age {
                 ", intre30si39=" + intre30si39 +
                 ", intre40si49=" + intre40si49 +
                 ", intre50si55=" + intre50si55 +
-                ", peste55=" + peste55 ;
+                ", peste55=" + peste55;
     }
 }

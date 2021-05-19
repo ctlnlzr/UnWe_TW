@@ -5,13 +5,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@NamedQuery(name="Education.findByLuna", query = "SELECT g FROM Education g WHERE g.luna = :lunaParam")
-@NamedQuery(name="Education.findByLunaAndCounty", query = "SELECT g FROM Education g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
-@NamedQuery(name="Education.findByCounty", query = "SELECT g FROM Education g WHERE g.judet = :judetParam")
-@NamedQuery(name="Education.deleteByMonthAndCounty", query = "DELETE FROM Education g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
-@NamedQuery(name="Education.all", query = "SELECT g FROM Education g")
+@NamedQuery(name = "Education.findByLuna", query = "SELECT g FROM Education g WHERE g.luna = :lunaParam")
+@NamedQuery(name = "Education.findByLunaAndCounty", query = "SELECT g FROM Education g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
+@NamedQuery(name = "Education.findByCounty", query = "SELECT g FROM Education g WHERE g.judet = :judetParam")
+@NamedQuery(name = "Education.deleteByMonthAndCounty", query = "DELETE FROM Education g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
+@NamedQuery(name = "Education.all", query = "SELECT g FROM Education g")
+@NamedQuery(name = "Education.update", query = "UPDATE Education g SET g.faraStudii=:faraStudiiParam, g.primar=:primarParam, g.gimnaziu=:gimnaziuParam, g.liceu=:liceuParam, g.postliceala=:postlicealaParam, g.profesionala=:profesionalaParam, g.universitate=:universitateParam WHERE g.luna=:lunaParam and g.judet=:judetParam ")
 @Entity
-@Table(name="educatie")
+@Table(name = "educatie")
 public class Education {
     @Id
     int luna;
@@ -101,13 +102,13 @@ public class Education {
     public String toString() {
         return
                 "luna=" + luna +
-                ", judet='" + judet + '\'' +
-                ", faraStudii=" + faraStudii +
-                ", primar=" + primar +
-                ", gimnaziu=" + gimnaziu +
-                ", liceu=" + liceu +
-                ", postliceala=" + postliceala +
-                ", profesionala=" + profesionala +
-                ", universitate=" + universitate;
+                        ", judet='" + judet + '\'' +
+                        ", faraStudii=" + faraStudii +
+                        ", primar=" + primar +
+                        ", gimnaziu=" + gimnaziu +
+                        ", liceu=" + liceu +
+                        ", postliceala=" + postliceala +
+                        ", profesionala=" + profesionala +
+                        ", universitate=" + universitate;
     }
 }

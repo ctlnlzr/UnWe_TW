@@ -5,13 +5,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@NamedQuery(name="TotalPerMonth.findByLuna", query = "SELECT g FROM TotalPerMonth g WHERE g.luna = :lunaParam")
-@NamedQuery(name="TotalPerMonth.findByLunaAndCounty", query = "SELECT g FROM TotalPerMonth g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
-@NamedQuery(name="TotalPerMonth.findByCounty", query = "SELECT g FROM TotalPerMonth g WHERE g.judet = :judetParam")
-@NamedQuery(name="TotalPerMonth.deleteByMonthAndCounty", query = "DELETE FROM TotalPerMonth g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
-@NamedQuery(name="TotalPerMonth.all", query = "SELECT g FROM TotalPerMonth g")
+@NamedQuery(name = "TotalPerMonth.findByLuna", query = "SELECT g FROM TotalPerMonth g WHERE g.luna = :lunaParam")
+@NamedQuery(name = "TotalPerMonth.findByLunaAndCounty", query = "SELECT g FROM TotalPerMonth g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
+@NamedQuery(name = "TotalPerMonth.findByCounty", query = "SELECT g FROM TotalPerMonth g WHERE g.judet = :judetParam")
+@NamedQuery(name = "TotalPerMonth.deleteByMonthAndCounty", query = "DELETE FROM TotalPerMonth g WHERE g.judet = :judetParam AND g.luna=:lunaParam")
+@NamedQuery(name = "TotalPerMonth.all", query = "SELECT g FROM TotalPerMonth g")
+@NamedQuery(name = "TotalPerMonth.update", query = "UPDATE TotalPerMonth g SET g.total=:totalParam, g.rata=:rataParam  WHERE g.luna=:lunaParam and g.judet=:judetParam ")
 @Entity
-@Table(name="totalPerLuna")
+@Table(name = "totalPerLuna")
 public class TotalPerMonth {
     @Id
     int luna;
