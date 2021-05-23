@@ -47,10 +47,9 @@
                 <button type="submit" class="chart__format__btn text" id="BarChartBtn">Bar-chart</button>
                 <button type="submit" class="chart__format__btn text" id="PieChartBtn">Pie-chart</button>
                 <button type="submit" class="chart__format__btn text" id="RadarChartBtn">Radar-chart</button>
-
             </div>
         </div>
-        <div class="chart_canva">
+        <div class="chart_canva" >
             <canvas width="650" height="480" id="statistics_chart"></canvas>
             <p class="text" id="chart_canva__text">Alegeți un mod de afișare</p>
         </div>
@@ -66,48 +65,39 @@
     <form class="criteria">
         <h2 class="text" id="criteria-title">Criterii pentru compararea datelor</h2>
         <div class="criteria__period">
-            <p class="text criteria__text" id="criterion0">Perioada pentru comparare</p>
+            <p class="text criteria__text" >Perioada pentru comparare</p>
             <div class="criteria__arrow">
-                <select class="drop-list" id="drop-perioada">
-                    <option class="text text_option" value="lastMonth" id="lastMonth">Ultima luna</option>
-                    <option class="text text_option" value="2Months" id="2Months">Ultimele 2 luni</option>
-                    <option class="text text_option" value="6months" id="6months">Ultimele 6 luni</option>
-                    <option class="text text_option" value="oneYear" id="oneYear">Ultimul an</option>
+                <select class="drop-list" id="time-period" onChange="modifyPrincipalCriterion(this)">
+                    <option class="text text_option" value=16 id="2Months">Ultimele 2 luni</option>
+                    <option class="text text_option" value=17 id="6months">Ultimele 6 luni</option>
+                    <option class="text text_option" value=18 id="oneYear">Ultimul an</option>
                 </select>
                 <span class="arrow"></span>
             </div>
         </div>
-        <div class="criteria__first">
-            <p class="text criteria__text" id="criterionOne">Criteriu principal</p>
-            <div class="criteria__arrow">
-                <select class="drop-list" id="=criterion1">
-                    <option class="text text_option" value="gen" id="gender">Gen</option>
-                    <option class="text text_option" value="mediu" id="environment">Mediu</option>
-                    <option class="text text_option" value="studii" id="studies">Studii</option>
-                    <option class="text text_option" value="categorieVarsta" id="age">Categorii de vârstă</option>
-                </select>
-                <span class="arrow"></span>
-            </div>
-        </div>
+        
         <div class="criteria__second">
-            <p class="text criteria__text" id="criterion2">Județ</p>
+            <p class="text criteria__text">Județ</p>
             <div class="criteria__arrow">
-                <select class="drop-list" id="drop-county" multiple size="2"></select>
+                <select class="drop-list" id="county-for-comparison" multiple size="3" onChange="modifyPrincipalCriterion(this)"></select>
                 
             </div>
         </div>
-        <div id="criteria__line"></div>
-        <div class="criteria__add" id="criteria__add_group">
-            <button type="button" class="criteria_form_btn" id="criteria__add__btn">+</button>
-            <p class="text" id="newCriteria">Adauga un criteriu nou</p>
+        <div class="criteria__first">
+            <p class="text criteria__text">Criteriu principal</p>
+            <div class="criteria__arrow">
+                <select class="drop-list" id="principal-criterion">
+                    <option class="text text_option" value="gen" id="gender">Gen</option>
+                    <option class="text text_option" value="mediu" id="environment">Mediu</option>
+                    <option class="text text_option" value="educatie" id="studies">Studii</option>
+                    <option class="text text_option" value="varsta" id="age">Categorii de vârstă</option>
+                </select>
+                <span class="arrow"></span>
+            </div>
         </div>
-
-        <button type="submit" class="text criteria_form_btn" id="criteria_create">Prezintă statistici</button>
+        <button type="button" class="text criteria_form_btn" id="criteria_create">Prezintă statistici</button>
     </form>
-    <div class="criteria_limit" id="criteria-limit">
-        <p class="text criteria_limit_text" id="criteria-limit-text"> Pot fi alese maxim 3 criterii secundare </p>
-    </div>
-    <div class="criteria-limit_grey-bkg" id="grey-bkg"></div>
+  
 </main>
 
 

@@ -143,6 +143,15 @@
 .map__download-btn:hover::before .download-format{
   display: block;
 }
+.criteria_form_btn{
+  font-size: larger;
+  color: rgb(112, 112, 112);
+  background:rgba(94, 163, 241, 0.452);
+  padding: 0 6px;
+  margin-right:0.7em;
+  border:none;
+  border-radius: 100px;
+}
 
 /*Half of width*/
 

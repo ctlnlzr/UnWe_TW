@@ -58,21 +58,65 @@ const overlayCounty = document.getElementById('overlay-county-name');
 const overlayCountyInfo = document.getElementById('overlay-county-info');
 
 map.on('click', showInfo)
-
 function showInfo(event){
     overlayInfo.setPosition(undefined);
     map.forEachFeatureAtPixel(event.pixel, function(feature, layer){
        let coordinate = event.coordinate;
        let countyName = feature.get('Name');
-       let countyInfo = feature.get('Info'); 
+       let countyInfo = "Număr șomeri: ".concat(feature.get('Value')); 
        overlayInfo.setPosition(coordinate);
        overlayCounty.innerHTML= countyName;
        overlayCountyInfo.innerHTML = countyInfo;
     })
 }
 
+//get info
+var monthForData = document.getElementById("drop-perioada");
+var criterion = document.getElementById("criterion");
 
-/*Last 12 months*/
+document.getElementById('criteria_get_data').addEventListener('click', getMapData);
+function getMapData (event){
+        const Http = new XMLHttpRequest();
+        const url='https://unwetw.herokuapp.com/rest/age';
+        console.log(monthForData.value);
+        console.log(criterion.value);
+       
+        const newURL = url.concat("/", monthForData.value, "/", criterion.value, "/", "entire"); 
+        console.log(newURL);
+        /* Http.open("GET", url);
+        console.log('Aduc date intr o fericire');
+        Http.send();
+        Http.onreadystatechange = function() {
+            parseMapData(Http.responseText);
+        } */
+}
+
+function parseMapData(text){
+    var data = JSON.parse(text);
+    fetch('./libs/map.geojson')
+        .then(results => results.json())
+        .then(results => {
+            for(var i = 0; i < data.judete.length; i++){
+                for(var j = 0; i < results.features.length; i++)
+                {
+                    if(results.features[j].proprieties['Identifier'] == data.judete[i].nume)
+                    results.features[j].proprieties['Value'] = data.judete[i].numar; 
+                }
+            }
+        }         
+        );
+    
+                    /*
+    for(var i = 0; i < data.judete.length; i++){
+        for(var j = 0; i < data.features.length; i++)
+        {
+
+        } 
+    }*/
+}
+
+
+/*Last 15 months*/
 
 let months = {
     "ro": {0: "Ianuarie", 1: "Februarie", 2: "Martie", 3:"Aprilie", 4:"Mai", 5:"Iunie", 6:"Iulie", 7:"August", 8:"Septembrie", 9:"Octombrie", 10:"Noiembrie", 11:"Decembrie"},
@@ -87,6 +131,7 @@ for(var i=0 ; i <15; i++){
      var select = document.getElementById("drop-perioada");
      option.classList.add("text");
      option.classList.add("text_option");
+     option.value = i+1;
      select.insertAdjacentElement("beforeend",option);
     currentMonth = currentMonth-1;
     if(currentMonth == -1){

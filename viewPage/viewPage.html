@@ -66,38 +66,39 @@
             <p class="text info__text" id="category">Selectează categoria:</p>
 
             <div class="info__arrow">
-                <select class="drop-list">
-                    <option class="text text_option" id="total">Total</option>
-                    <optgroup label="Gen" id="genderOpt">
-                        <option class="text text_option" id="woman">Femeie</option>
-                        <option class="text text_option" id="man">Barbat</option>
+                <select class="drop-list" id="criterion">
+                    <option class="text text_option" value="total">Total</option>
+                    <optgroup label="Gen" value="genderOpt">
+                        <option class="text text_option" value="woman">Femeie</option>
+                        <option class="text text_option" value="man">Barbat</option>
                     </optgroup>
                     <optgroup label="Studii" id="studiesOpt">
-                        <option class="text text_option" id="noStudies">Fara studii</option>
-                        <option class="text text_option" id="primarySchool">Invatamant primar</option>
-                        <option class="text text_option" id="secondarySchool">Invatamant gimnazial</option>
-                        <option class="text text_option" id="highschool">Invatamant liceal</option>
-                        <option class="text text_option" id="postsecondarySchool">Invatamant postliceal</option>
-                        <option class="text text_option" id="vocationalEducation">Invatamant profesional/arte si meserii
-                        </option>
-                        <option class="text text_option" id="universityEducation">Invatamant univesitar</option>
+                        <option class="text text_option" value="noStudies">Fara studii</option>
+                        <option class="text text_option" value="primarySchool">Invatamant primar</option>
+                        <option class="text text_option" value="secondarySchool">Invatamant gimnazial</option>
+                        <option class="text text_option" value="highschool">Invatamant liceal</option>
+                        <option class="text text_option" value="postsecondarySchool">Invatamant postliceal</option>
+                        <option class="text text_option" value="vocationalEducation">Invatamant profesional/arte si meserii </option>
+                        <option class="text text_option" value="universityEducation">Invatamant univesitar</option>
                     </optgroup>
                     <optgroup label="Mediu" id="envOpt">
-                        <option class="text text_option">Urban</option>
-                        <option class="text text_option">Rural</option>
+                        <option class="text text_option" value="urban">Urban</option>
+                        <option class="text text_option" value="rural">Rural</option>
                     </optgroup>
-                    <optgroup label="Categorii de vârstă" id="ageOpt">
-                        <option class="text text_option" id="under">Sub 25</option>
-                        <option class="text text_option">25-29</option>
-                        <option class="text text_option">30-39</option>
-                        <option class="text text_option">40-49</option>
-                        <option class="text text_option">50-55</option>
-                        <option class="text text_option" id="over">Peste 50</option>
+                    <optgroup label="Categorii de vârstă" value="ageOpt">
+                        <option class="text text_option" value="sub25">Sub 25</option>
+                        <option class="text text_option" value="intre25si29">25-29</option>
+                        <option class="text text_option" value="intre30si39">30-39</option>
+                        <option class="text text_option" value="intre40si49">40-49</option>
+                        <option class="text text_option" value="intre50si55">50-55</option>
+                        <option class="text text_option" value="peste50">Peste 50</option>
                     </optgroup>
                 </select>
                 <span class="arrow"></span>
             </div>
         </div>
+        <button type="button" class="text criteria_form_btn" id="criteria_get_data">Prezintă informații</button>
+
     </form>
 </main>
 

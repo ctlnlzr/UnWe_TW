@@ -1,4 +1,4 @@
-//view format
+//charts format
 let lineChartBtn = document.getElementById("LineChartBtn");
 let barChartBtn = document.getElementById("BarChartBtn");
 let pieChartBtn = document.getElementById("PieChartBtn");
@@ -11,28 +11,59 @@ barChartBtn.addEventListener("click", barViewFormat);
 pieChartBtn.addEventListener("click", pieViewFormat);
 radarChartBtn.addEventListener("click", radarViewFormat);
 
-var data = [{
-    label: 'Lorem',
-    data: [12, 19, 3, 5, 2, 3],
-    backgroundColor: [
-        'rgba(255, 99, 132, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(255, 206, 86, 0.2)',
-        'rgba(75, 192, 192, 0.2)',
-        'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
-    ],
-    borderColor: [
-        'rgba(255, 99, 132, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)'
-    ],
-    borderWidth: 1
-}];
-var label = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
+//FORMAT Line chart
+var dataLine = [
+      {
+        label: 'maiMic25',
+        data: [4752, 4700, 4720, 4502, 4512],
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+      },
+      {
+        label: 'intre25si29',
+        data: [900, 791, 891, 901, 921],
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+      },
+      {
+        label: 'intre30si39',
+        data: [218, 208, 208, 208, 208],
+        borderColor: 'rgba(255, 206, 86, 1)',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+      },
+      {
+        label: 'intre40si49',
+        data: [681, 681, 681, 681, 681],
+        borderColor: 'rgba(75, 192, 192, 1)',
+    backgroundColor: 'rgba(0, 0, 0, 0)',    
+      },
+      {
+        label: 'intre50si55',
+        data: [1138, 1138, 1138, 1138, 1138],
+        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+      },
+      {
+        label: 'peste55',
+        data: [884, 745, 785, 900, 859],
+        borderColor: 'rgba(255, 159, 64, 1)',
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+      }
+    ];
+    var labelsLine = ["Mai", "Iunie", "Iulie", "August", "Septembrie"];
+
+
+//FORMAT PIE,BAR,RADIX
+var dataPie = [
+    {
+      label: 'Dataset 1',
+      data: [4572, 991, 208, 681, 1138, 884],
+      backgroundColor: ['rgba(255, 159, 64, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(255, 206, 86, 0.5)','rgba(54, 162, 235, 0.5)', 'rgba(255, 99, 132, 0.5)' ],
+    }
+  ]
+var labelsPie = ['maiMic25', 'intre25si29', 'intre30si39','intre40si49', 'intre50si55','peste55'];
+
+
 var ctx = document.getElementById('statistics_chart').getContext('2d');
 var lineChart;
 var barChart;
@@ -56,8 +87,8 @@ function lineViewFormat(event){
     lineChart = new Chart(ctx,{
         type:'line',
         data: {
-            labels: label,
-            datasets: data,
+            labels: labelsLine,
+            datasets: dataLine,
         },
         options:{
             scales: {
@@ -88,8 +119,8 @@ function barViewFormat(event){
     barChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: label,
-            datasets: data,
+            labels: labelsPie,
+            datasets: dataPie,
         },
         options: {
             scales: {
@@ -121,8 +152,8 @@ function pieViewFormat(event){
     pieChart = new Chart(ctx,{
         type:'pie',
         data: {
-            labels: label,
-            datasets: data,
+            labels: labelsPie,
+            datasets: dataPie,
         },
         options:{
             scales: {
@@ -156,8 +187,8 @@ function radarViewFormat(event){
     radarChart = new Chart(ctx,{
         type:'radar',
         data: {
-            labels: label,
-            datasets: data,
+            labels: labelsPie,
+            datasets: dataPie,
         },
         options: {
             plugins: {
@@ -175,20 +206,13 @@ function radarViewFormat(event){
     });
     
 }
+
+
+
 //download format
 let CSVdownloadBtn = document.getElementById("CSVbtn");
 let SVGdownloadBtn = document.getElementById("SVGbtn");
 let PDFdownloadBtn = document.getElementById("PDFbtn");
-
-
-//add criterion
-let criterionBtn = document.getElementById("criteria__add__btn");
-var counter=0;
-var criteriaLimit = document.getElementById("criteria-limit");
-var bkgColor = document.getElementById("grey-bkg");
-
-document.addEventListener("click", exitCriteriaLimit);
-criterionBtn.addEventListener("click", addCriterion);
 
 
 let optionLng = {
@@ -200,77 +224,192 @@ function setLang(string){
     lang = string;
 }
 
-function addCriterion (event){
-    if(counter >= 3){
-       criteriaLimit.classList.add("criteria_limit_shown");
-       bkgColor.classList.add("criteria-limit_grey-bkg_shown");
-       event.stopPropagation();
-    }
-    else{
-    counter = counter+1;
-    document.getElementById("criteria__line").insertAdjacentHTML("afterend",`
-    <div class="new_drop-list" id="dropList`+ counter +`"> 
-    <div class="criteria__arrow"> 
-    <select class="drop-list" name="addSelect">
-    <optgroup label="` + optionLng[lang][17] +`" name="genderOpt"><option class="text text_option" id="woman">`+ optionLng[lang][0] +`</option>
-            <option class="text text_option" id="man">`+optionLng[lang][1]+`</option>
-       </optgroup>
-       <optgroup label="`+optionLng[lang][18]+`" name="studiesOpt">
-           <option class="text text_option" id="noStudies">`+ optionLng[lang][2] +`</option>
-           <option class="text text_option" id="primarySchool">`+ optionLng[lang][3] +`</option>
-           <option class="text text_option" id="secondarySchool">`+ optionLng[lang][4] +`</option>
-           <option class="text text_option" id="highschool">`+ optionLng[lang][5] +`</option>
-           <option class="text text_option" id="postsecodarySchool">`+ optionLng[lang][6] +`</option>
-           <option class="text text_option" id="vocationalEducation">`+ optionLng[lang][7] +`</option>
-           <option class="text text_option" id="universityEducation">`+ optionLng[lang][8] +`</option>
-       </optgroup>
-       <optgroup label="`+ optionLng[lang][19] +`" name="envOpt">
-           <option class="text text_option">`+ optionLng[lang][9] +`</option>
-           <option class="text text_option">`+ optionLng[lang][10] +`</option>
-       </optgroup>
-       <optgroup label="`+ optionLng[lang][20] +`" name="ageOpt">
-           <option class="text text_option" id="under" >`+ optionLng[lang][11] +`</option>
-               <option class="text text_option">`+ optionLng[lang][12] +`</option>
-               <option class="text text_option">`+ optionLng[lang][13] +`</option>
-               <option class="text text_option">`+ optionLng[lang][14] +`</option>
-               <option class="text text_option">`+ optionLng[lang][15] +`</option>
-               <option class="text text_option" id="over">`+ optionLng[lang][16] +`</option>
-       </optgroup>
-       </select>
-       <span class="arrow arrow-add"></span>
-       </div>
-       <button type="button" value=`+ counter +` class ="criteria_form_btn deleteBtn" id="delete_btn">-</button>
-       </div>`);
-    }
 
+//criteria values & get data
+var timePeriod = document.getElementById("time-period");
+var countyForComparison = document.getElementById("county-for-comparison");
+var principalCriterion = document.getElementById("principal-criterion");
+
+document.getElementById('criteria_create').addEventListener('click', getChartData);
+function getChartData (event){
+        const Http = new XMLHttpRequest();
+        const url='https://unwetw.herokuapp.com/rest/age';
+        var selected = [...countyForComparison.options]
+        .filter(option => option.selected)
+        .map(option => option.value);
+
+        const newURL = url.concat("/", timePeriod.value, "/", principalCriterion.value, "/", selected); 
+        console.log(newURL);
+        /* Http.open("GET", url);
+        console.log('Aduc date intr o fericire');
+        Http.send();
+        Http.onreadystatechange = function() {
+             parseDataLine(Http.responseText, selected, timePeriod.value);
+             parseDataPie(Http.responseText, selected, timePeriod.value);
+            } */
 }
 
-function exitCriteriaLimit(event){
-    if(!criteriaLimit.contains(event.target)) 
-    {bkgColor.classList.remove("criteria-limit_grey-bkg_shown");
-    criteriaLimit.classList.remove("criteria_limit_shown");
-  }
-}
 
-//delete criterion
-document.addEventListener('click', deleteCriterion)
-function deleteCriterion(event){
-    if(event.target && event.target.id=='delete_btn'){
-        let deleteCrtBtn = document.getElementById("delete_btn");
-        let number = deleteCrtBtn.getAttribute('value');
-        let criterionDel = "dropList"+number.toString();
-        document.getElementById(criterionDel).remove();
-        counter = counter -1;
+const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ]
+    //16 ultimele 2, 17 ultimele 6 luni, 18 ultimul an
+    function parseDataLine(text, counties, monthsID){
+       var data = JSON.parse(text);
+       /*
+       luna - judet ->titlu
+       mai multe luni -> mai multe elemente in data [] -> labelsLine cu lunile
+       mai multe judete -> label din {} va fi numele judetului -> luna - criteriu -> titlu
+       mai multe luni + mai multe judete : label {nume judet}, labels lunile, titlu - criteriu 
+       */
+       labelsLine.clear();
+       dataLine.clear();
+       var d = new Date();
+       var currentMonth = d.getMonth() + 1;
+       if (monthsID >= 16 ){
+            var noOfMonths = 1;
+            switch (monthsID){
+                case 16: noOfMonths = 2; break;
+                case 17: noOfMonths = 6; break;
+                case 18: noOfMonths = 12; break;
+                default: noOfMonths = 1;
+            }
+            for (var i = 0; i < noOfMonths ; i++ ){
+                labelsLine.push( months["ro"][currentMonth + i]);
+               }   
+            
+               if(counties.length() > 1){ // mai multe luni, mai multe judete
+                for (var i = 0; i < counties.length(); i++){
+                   var values = [];
+                   for (var j = 0; j< data.length(); j++){
+                        for (var k=0; k < data[i].judete.length(); k++){
+                            if(data[i].judete[k].nume == counties[i]){
+                                values.push(data[i].judete[k].numar);
+                            }
+                        }
+                   }
+                   dataLine.push({label : counties[i], 
+                    data: values, 
+                    borderColor: borderColors[i], 
+                    backgroundColor: 'rgba(0, 0, 0, 0)'});
+                }
+            }
+            else { // mai multe luni, un judet
+                for( var i = 0; i < data.criterii.length(); i++){
+                    dataLine.push({label : data.criterii[i].nume, 
+                        data: data.criterii[i].numar, 
+                        borderColor: borderColors[i], 
+                        backgroundColor: 'rgba(0, 0, 0, 0)'});
+                }
+            }
+       }
+       else {   
+        if( counties.length() > 1){//o luna, mai multe judete
+                   for (var j = 0; j< data.judete.length(); j++){
+                    dataLine.push({label : data.judete[j].nume, 
+                        data: data.judete[j].numar, 
+                        borderColor: borderColors[i], 
+                        backgroundColor: 'rgba(0, 0, 0, 0)'});     
+                   }
+                  
+        } else {// o luna, un judet
+            for (var j = 0; j< data.criterii.length(); j++){
+                dataLine.push({label : data.criterii[j].nume, 
+                    data: data.criterii[j].numar, 
+                    borderColor: borderColors[i], 
+                    backgroundColor: 'rgba(0, 0, 0, 0)'});     
+               }
+        }
+
+       }
+
+    }
+
+function chooseAnotherChartType(){
+    if(barChart != undefined){
+        barChart.destroy();
+        barChart = undefined;
+    }
+    if(pieChart != undefined){
+        pieChart.destroy();
+        pieChart = undefined;
+    }
+    if(radarChart != undefined){
+        radarChart.destroy();
+        radarChart = undefined;
+    }
+    if(lineChart != undefined){
+        lineChart.destroy();
+        lineChart = undefined;
+    }
+
+    document.getElementById("chart_canva__text").innerText="Mod de reprezentare incompatibil cu criteriile alese. Alegeti un alt mod de reprezentare.";
+}
+const backgroundColors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)' ];
+function parseDataPie(text, counties, monthsID){
+    var data = JSON.parse(text);
+    dataPie.clear();
+    labelsPie.clear();
+    if(counties.length() > 1 && monthsID >= 16) {// trigger default can not be used
+        chooseAnotherChartType();
+    }else{
+        var values = [];   
+        var bkgColors = [];
+        if (counties.length() > 1) { //o luna, mai multe judete
+        for (var i = 0; i < data.judete.length(); i++){
+           values.push(data.judete[i].numar);
+           labelsPie.push(data.judete[i].nume);
+           bkgColors.push(backgroundColors[i]);
+        }
+        dataPie.push({label : data.luna, data: values, backgroundColor: bkgColors });
+       } else
+          if (monthsID >= 16){ // mai multe luni, un judet
+            chooseAnotherChartType();
+          } else { // o luna un judet
+            for (var i = 0; i < data.criterii.length(); i++){
+                values.push(data.criterii[i].numar);
+                labelsPie.push(data.criterii[i].nume);
+                bkgColors.push(backgroundColors[i]);
+             }
+          } 
     }
 }
 
-//criteria options
-var criterion0Value = document.getElementById("criterion0");
-var criterion1Value = document.getElementById("criterion1");
-
-//create 
-let createStatistics = document.getElementById("criteria_create");
-
+//modify principal criterion depending on multiselect
+function modifyPrincipalCriterion(select){
+    var selected = [...select.options]
+        .filter(option => option.selected)
+        .map(option => option.value);
+   
+     if((selected.length > 1) || (select.value > 15) ){
+        document.getElementById("principal-criterion").innerHTML= ` <optgroup label="` + optionLng[lang][17] +`" name="genderOpt"><option class="text text_option" id="woman">`+ optionLng[lang][0] +`</option>
+        <option class="text text_option" id="man">`+optionLng[lang][1]+`</option>
+   </optgroup>
+   <optgroup label="`+optionLng[lang][18]+`" name="studiesOpt">
+       <option class="text text_option" id="noStudies">`+ optionLng[lang][2] +`</option>
+       <option class="text text_option" id="primarySchool">`+ optionLng[lang][3] +`</option>
+       <option class="text text_option" id="secondarySchool">`+ optionLng[lang][4] +`</option>
+       <option class="text text_option" id="highschool">`+ optionLng[lang][5] +`</option>
+       <option class="text text_option" id="postsecodarySchool">`+ optionLng[lang][6] +`</option>
+       <option class="text text_option" id="vocationalEducation">`+ optionLng[lang][7] +`</option>
+       <option class="text text_option" id="universityEducation">`+ optionLng[lang][8] +`</option>
+   </optgroup>
+   <optgroup label="`+ optionLng[lang][19] +`" name="envOpt">
+       <option class="text text_option">`+ optionLng[lang][9] +`</option>
+       <option class="text text_option">`+ optionLng[lang][10] +`</option>
+   </optgroup>
+   <optgroup label="`+ optionLng[lang][20] +`" name="ageOpt">
+       <option class="text text_option" id="under" >`+ optionLng[lang][11] +`</option>
+           <option class="text text_option">`+ optionLng[lang][12] +`</option>
+           <option class="text text_option">`+ optionLng[lang][13] +`</option>
+           <option class="text text_option">`+ optionLng[lang][14] +`</option>
+           <option class="text text_option">`+ optionLng[lang][15] +`</option>
+           <option class="text text_option" id="over">`+ optionLng[lang][16] +`</option>
+   </optgroup>`;
+     } else {
+        document.getElementById("principal-criterion").innerHTML=` <option class="text text_option" value="gen" id="gender">Gen</option>
+        <option class="text text_option" value="mediu" id="environment">Mediu</option>
+        <option class="text text_option" value="educatie" id="studies">Studii</option>
+        <option class="text text_option" value="varsta" id="age">Categorii de vârstă</option>`;}
+}
 /*Last 15 months*/
 let months ={ 
     "ro": { 0: "Ianuarie", 1: "Februarie", 2: "Martie", 3: "Aprilie", 4: "Mai", 5: "Iunie", 6: "Iulie", 7: "August", 8: "Septembrie", 9: "Octombrie", 10: "Noiembrie", 11: "Decembrie" },
@@ -285,7 +424,8 @@ for (var i = 0; i < 15; i++) {
     option.innerHTML = months["ro"][currentMonth].concat(' ').concat(currentYear.toString());
     option.classList.add("text");
     option.classList.add("text_option");
-    var select = document.getElementById("drop-perioada");
+    option.value = i+1;
+    var select = document.getElementById("time-period");
     select.insertAdjacentElement("beforeend", option);
     currentMonth = currentMonth - 1;
     if (currentMonth == -1) {
@@ -299,7 +439,7 @@ for (var i = 0; i < 15; i++) {
 function changeMonth() {
     var currentMonthCh = d.getMonth();
     var currentYearCh = d.getFullYear();
-    let mySelect = document.getElementById("drop-perioada");
+    let mySelect = document.getElementById("time-period");
     let selectLen = mySelect.length;
     for(var j=0; j < selectLen ; j++){
        mySelect.options[j].innerHTML = months[lang][currentMonthCh].concat(' ').concat(currentYearCh.toString()); 
@@ -311,14 +451,14 @@ function changeMonth() {
   }
 }
 /*Droplist county*/
-let countyList= ["Toată țara","Alba","Arad","Argeș","Bacău","Bihor","Bistrița","Botoșani","Brăila","Brașov","Buzău","Călărași","Caraș-Severin","Cluj","Constanța","Covasna","Dâmbovița","Dolj","Galați","Giurgiu","Gorj","Harghita","Hunedoara","Ialomița","Iași","Ilfov","Maramureș","Mehedinți","București","Mureș","Neamț","Olt","Prahova","Sălaj","Satu Mare","Sibiu","Suceava","Teleorman","Timiș","Tulcea","Vâlcea","Vaslui","Vrancea"];
+let countyList= ["Toată țara","Alba","Arad","Arges","Bacau","Bihor","Bistrita","Botosani","Braila","Brasov","Buzau","Calarasi","Caras-Severin","Cluj","Constanta","Covasna","Dambovita","Dolj","Galati","Giurgiu","Gorj","Harghita","Hunedoara","Ialomita","Iasi", "Ilfov","Maramures","Mehedinti","Bucuresti","Mures","Neamt","Olt","Prahova","Salaj","Satu Mare","Sibiu","Suceava","Teleorman","Timis","Tulcea","Valcea","Vaslui","Vrancea"];
 for (var it = 0; it < countyList.length; it++) {
     var optionCounty = document.createElement('option');
     optionCounty.innerHTML = countyList[it];
     optionCounty.classList.add("text");
     optionCounty.classList.add("text_option");
-    optionCounty.setAttribute('value', countyList[it]);
-    var selectCounty = document.getElementById("drop-county");
+    optionCounty.setAttribute('value', countyList[it].toUpperCase());
+    var selectCounty = document.getElementById("county-for-comparison");
     selectCounty.insertAdjacentElement("beforeend", optionCounty);
 }
 
@@ -394,7 +534,7 @@ function changeSelect() {
 }
 
 function changeCounty(){
-     let countySelect = document.getElementById("drop-county");
+     let countySelect = document.getElementById("county-for-comparison");
      countySelect.options[0].innerHTML=langCrtView[lang].country;
 }
 let dataRepr = document.getElementById("data-repr");
@@ -402,7 +542,6 @@ let chartCanvaText = document.getElementById("chart_canva__text");
 let download = document.getElementById("download");
 let criteriaTitle = document.getElementById("criteria-title");
 let criterion0 = document.getElementById("criterion0");
-console.log(criterion0);
 let lastMonth = document.getElementById("lastMonth");
 let twoMonths = document.getElementById("2Months");
 let sixMonths = document.getElementById("6months");
