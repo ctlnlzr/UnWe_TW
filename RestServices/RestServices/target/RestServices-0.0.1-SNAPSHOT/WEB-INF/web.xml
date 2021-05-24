@@ -3,7 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-  <display-name>RestServices</display-name>
 
 <!-- Jersey Servlet configurations -->
     <servlet>
@@ -11,7 +10,7 @@
     <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>com.sun.jersey.config.property.packages</param-name>
-      <param-value>ro.kronsoft.services</param-value>
+      <param-value>edu.tw.controller</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
@@ -20,5 +19,4 @@
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   <!-- Jersey Servlet configurations -->
-
 </web-app>

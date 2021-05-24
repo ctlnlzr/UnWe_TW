@@ -19,5 +19,4 @@
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
   <!-- Jersey Servlet configurations -->
-
 </web-app>
