@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../header&footer/header&footer.css">
+    <link rel="stylesheet" href="./adminLogin.css">
+    <title>Admin Login</title>
+</head>
+    <header>
+        <div class="headerNormalView">
+            <a href="../principal/proiect.html" class="classForLogo">
+                <img alt="Logo" src="../header&footer/logo.png" id="imgLogo">
+                <p class="text_hf" id="headerTitle"> Date șomaj România</p>
+            </a>
+            <div id="space"></div>
+            <div class="headerBtn">
+                <a href="./viewPage.html" class="text_hf header-Btn" id="viewButton">Vizualizare</a>
+                <a href="../criterialView/criterialView.html" class="text_hf header-Btn" id="compareButton">Comparare</a>
+                <a href="../about/despre.html" class="text_hf header-Btn" id="aboutButton">Despre</a>
+            </div>
+            <div class="phone_header_menu">
+                <nav class="phone_meniu" id="phone__menu">
+                    <p class="menu_title" id="menu_title">Meniu</p>
+                    <div class="menuBtn">
+                        <a href="./viewPage.html" class="header-Btn text_hf text_menu viewMenu" id="viewMenu">Vizualizare</a>
+                        <a href="../criterialView/criterialView.html" class="header-Btn text_hf text_menu compareMenu" id="compareMenu">Comparare</a>
+                        <a href="../about/despre.html" class="header-Btn text_hf text_menu aboutMenu" id="aboutMenu">Despre</a>
+                    </div>
+                </nav>
+                <button type="button" class="header-Btn" id="phone_meniu_btn">Meniu</button>
+            </div>
+        </div>
+    </header>
+    <body>
+        <div class= "login-panel"> 
+        <h1 class="text-login">Administrator login</h1>
+        <form>
+            <div class="form-input">
+                <label for="admin-username" class="text-login"> Username: </label>
+                <input type="text" id="admin-username"> 
+            </div>
+            <div class="form-input">
+            <label for="admin-password" class="text-login">Parola:</label>
+            <input type="password" id="admin-password">
+            </div>
+            <button type="button" class="form-input text-login" id="login"> Login </button>
+        </form>
+    </div>
+  
+    <div class="bad_credentials" id="bad-credentials">
+        <p class="text-login bad-credentials_text" > Credențiale greșite </p>     
+    </div>
+    <div class="bad-credentials_grey-bkg" id="grey-bkg"></div>
+    </body>
+    <footer>
+        <section class="footerElem">
+            <div class="resource text_hf"> Resurse: </div>
+            <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
+        </section>
+        <div class="aboutFtr footerElem">
+            <a href="../adminLogin/adminLogin.html" class="header-Btn text_hf text_menu" id="aboutWe"> Mod administrare </a>
+        </div>
+        <section class=" footerElem languageChange">
+            <div class="lang text_hf" id="language">Limba:</div>
+            <div id="langBtn">
+                <button type="button" lang="ro" class="languageButton text_hf">RO</button>
+                <button type="button" lang="en" class="languageButton text_hf">EN</button>
+            </div>
+        </section>
+        <div class="footer2">
+            <h6 class="text_hf">Lazar Catalina</h6>
+            <h6 class="text_hf">Stratianu Bianca</h6>
+        </div>
+    </footer>
+    
+    <script src="../header&footer/header&footer.js"></script>
+    <script src="./adminLogin.js"></script>
+    
+    
+
+</html>

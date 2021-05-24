@@ -183,10 +183,8 @@ a {
     align-items: center;
 }
 
-#about, #aboutWe{
-    white-space: nowrap;
-    margin: 0;
-    padding: 0 0.5em;
+ #aboutWe{
+    padding: 0.3em;
 }
 
 .phone_header_menu {
@@ -264,12 +262,8 @@ h6 {
         text-align: center;
         margin: 1em 1em 0 0;
     }
-    #about,
-    #aboutWe {
-        white-space: nowrap;
-        margin: 0;
-        padding: 0;
-    }
+
+ 
 }
 
 
