@@ -1,0 +1,1 @@
+web: java -war $JAVA_OPTS -Dserver.port=8091 target/RestServices-0.0.1-SNAPSHOT.war

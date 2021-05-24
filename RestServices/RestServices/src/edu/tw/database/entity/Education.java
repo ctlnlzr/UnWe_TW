@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @NamedQuery(name = "Education.findByLuna", query = "SELECT g FROM Education g WHERE g.luna = :lunaParam")
 @NamedQuery(name = "Education.findByLunaAndCounty", query = "SELECT g FROM Education g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 @NamedQuery(name = "Education.update", query = "UPDATE Education g SET g.faraStudii=:faraStudiiParam, g.primar=:primarParam, g.gimnaziu=:gimnaziuParam, g.liceu=:liceuParam, g.postliceala=:postlicealaParam, g.profesionala=:profesionalaParam, g.universitate=:universitateParam WHERE g.luna=:lunaParam and g.judet=:judetParam ")
 @Entity
 @Table(name = "educatie")
-public class Education {
+public class Education implements Serializable {
     @Id
     int luna;
     @Id

@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @NamedQuery(name = "TotalPerMonth.findByLuna", query = "SELECT g FROM TotalPerMonth g WHERE g.luna = :lunaParam")
 @NamedQuery(name = "TotalPerMonth.findByLunaAndCounty", query = "SELECT g FROM TotalPerMonth g WHERE g.luna = :lunaParam AND g.judet=:judetParam")
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 @NamedQuery(name = "TotalPerMonth.update", query = "UPDATE TotalPerMonth g SET g.total=:totalParam, g.rata=:rataParam  WHERE g.luna=:lunaParam and g.judet=:judetParam ")
 @Entity
 @Table(name = "totalPerLuna")
-public class TotalPerMonth {
+public class TotalPerMonth implements Serializable {
     @Id
     int luna;
     @Id
