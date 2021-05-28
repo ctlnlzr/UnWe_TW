@@ -1,37 +1,36 @@
-.headerNormalView{
+.headerNormalView {
     position: absolute;
     height: 8.5%;
     width: 100%;
     display: flex;
     padding: 0;
-    top:0;
+    top: 0;
     left: 0;
     right: 0;
     white-space: nowrap;
     flex-direction: row;
     justify-self: center;
     justify-content: space-between;
-    background-color:#022F6B;   
+    background-color: #022F6B;
 }
 
-
-.classForLogo{
+.classForLogo {
     display: flex;
     align-self: center;
     justify-self: flex-start;
-    justify-content:flex-start;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: row;
-    white-space: nowrap; 
+    white-space: nowrap;
     margin: 0;
     padding: 0;
 }
 
-#headerTitle{
+#headerTitle {
     font-size: large;
 }
-#imgLogo{
-   
+
+#imgLogo {
     max-width: 10%;
     max-height: 10%;
     white-space: nowrap;
@@ -39,7 +38,7 @@
     padding: 0;
 }
 
-.headerBtn{
+.headerBtn {
     display: flex;
     width: 30%;
     align-items: center;
@@ -52,11 +51,11 @@
     cursor: pointer;
 }
 
-.header-Btn{
+.header-Btn {
     position: relative;
     background: #0b499bc0;
     margin-bottom: 3px;
-    border:none;
+    border: none;
     white-space: nowrap;
     padding: 0.5em 1em;
     border-radius: 10%;
@@ -66,47 +65,46 @@
 .header-Btn::after {
     content: " ";
     position: absolute;
-    width: 100%; 
+    width: 100%;
     height: 0.175rem;
     background: rgba(34, 117, 212, 0.959);
-    left:0;
-    bottom:0;
-    transform: scale(0,1);
+    left: 0;
+    bottom: 0;
+    transform: scale(0, 1);
     transition: transform 0.3s ease;
 }
 
-.header-Btn:hover::after{
-    transform: scale(1,1);
+.header-Btn:hover::after {
+    transform: scale(1, 1);
 }
 
-
-
-.text_hf{
+.text_hf {
     white-space: nowrap;
     text-decoration: none;
     font-size: medium;
     color: white;
     font-weight: 400;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.meniuButton::before{
+.meniuButton::before {
     content: " ";
     display: block;
     position: absolute;
-    left:0;
-    top:0;
+    left: 0;
+    top: 0;
     border-radius: 0 0 70% 70%;
     width: 100%;
     height: 0;
     z-index: -1;
     background: rgba(94, 163, 241, 0.452);
-    transition:0.5s;
+    transition: 0.5s;
 }
 
-.meniuButton:hover:before{
+.meniuButton:hover:before {
     height: 100%;
 }
+
 footer {
     display: flex;
     justify-content: space-around;
@@ -131,31 +129,32 @@ footer {
     display: flex;
     flex-direction: column;
 }
-#langBtn{
+
+#langBtn {
     display: flex;
     display: row;
     justify-content: space-between;
 }
 
-.languageButton{
-   margin-left: 5px;
-   background-color: rgba(242, 245, 248, 0.692);
-   border:none;
-   white-space: nowrap;
-   border-radius: 10%;
+.languageButton {
+    margin-left: 5px;
+    background-color: rgba(242, 245, 248, 0.692);
+    border: none;
+    white-space: nowrap;
+    border-radius: 10%;
 }
 
-footer{
+footer {
     position: fixed;
     width: 100%;
     height: 8%;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color:#022F6B;
+    background-color: #022F6B;
 }
 
-.footerElem{
+.footerElem {
     align-self: center;
 }
 
@@ -172,18 +171,18 @@ a {
 
 #imgLogo {
     padding: 0;
-    margin:0;
+    margin: 0;
     width: 40%;
     height: 70%;
 }
 
-.aboutFtr{
+.aboutFtr {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
- #aboutWe{
+#aboutWe {
     padding: 0.3em;
 }
 
@@ -196,38 +195,38 @@ h6 {
     margin-bottom: 9%;
 }
 
-.phone_meniu{
+.phone_meniu {
     position: absolute;
     padding: 2em 2em;
     top: 0;
     right: 0;
     background-color: #022F6B;
-    z-index:1;
+    z-index: 1;
     align-content: space-around;
     align-items: center;
     display: none;
 }
 
-.menuBtn{
+.menuBtn {
     display: flex;
     flex-direction: column;
 }
-.menu_title{
+
+.menu_title {
     color: white;
     font-size: large;
     font-weight: 400;
     align-self: center;
     margin-bottom: 1em;
-    z-index:2;
-    display:none;
+    z-index: 2;
+    display: none;
 }
 
-.menu_title_shown{
+.menu_title_shown {
     display: block;
 }
 
-
-.phone_meniu_shown{
+.phone_meniu_shown {
     display: block;
 }
 
@@ -262,8 +261,6 @@ h6 {
         text-align: center;
         margin: 1em 1em 0 0;
     }
-
- 
 }
 
 
@@ -321,7 +318,7 @@ h6 {
 
 /* max height:812px*/
 
-@media (min-width:280px)and (max-width: 376px) and (min-height:642px) and (max-height: 812px) {
+@media (min-width:280px)and (max-width: 415px) and (min-height:642px) and (max-height: 824px) {
     .headerNormalView {
         width: 100%;
         flex-wrap: wrap;

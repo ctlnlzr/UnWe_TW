@@ -1,118 +1,123 @@
 /*General settings*/
-.entire-page{
+
+.entire-page {
     height: 70%;
     display: flex;
     flex-direction: column;
     align-content: space-between;
 }
-.criterial-specific{
+
+.criterial-specific {
     margin-top: 4em;
     display: flex;
     align-self: center;
     width: 60%;
     height: 70%;
     flex-direction: row;
-    background:none;
+    background: none;
 }
 
-.text{
+.text {
     text-decoration: none;
     font-size: medium;
     color: #000;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-.text_option{
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+.text_option {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: smaller;
 }
 
 
 /*Charts*/
-.chart{
+
+.chart {
     display: flex;
     flex-direction: column;
     position: relative;
 }
 
-.chart_canva{
+.chart_canva {
     position: relative;
-    border:rgba(155, 149, 149, 0.479) solid 1px;
+    border: rgba(155, 149, 149, 0.479) solid 1px;
     padding: 0;
     margin: 0;
 }
 
-.chart_text_view{
+.chart_text_view {
     display: none;
 }
 
-#chart_canva__text{
+#chart_canva__text {
     font-size: larger;
     background-color: rgba(94, 163, 241, 0.3);
     position: absolute;
     top: 30%;
-    left:26%;
+    left: 26%;
     white-space: nowrap;
     border-radius: 20px;
     padding: 3em;
-
 }
 
-.chart__format{
-   display: flex;
-   flex-wrap: nowrap;
-   flex-direction: row;
-   width:20%;
-   height: 5%;
-   white-space:nowrap;
-   justify-content: flex-start;
-   align-items: center;
-   margin: 1% 0;
+.chart__format {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: 20%;
+    height: 5%;
+    white-space: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1% 0;
 }
+
 
 /*Chart buttons*/
-.chart__format__btn{
+
+.chart__format__btn {
     background: none;
-    margin: 10px 5px; 
+    margin: 10px 5px;
     padding: 5px 5px;
     border-left: none;
-    border-top:none;
+    border-top: none;
     border: 1px solid lightgrey;
-    cursor:pointer;
+    cursor: pointer;
     transition: 0.5s;
-    position: relative; 
+    position: relative;
 }
-.chart__format__btn::before, .chart__download-btn::before {
+
+.chart__format__btn::before,
+.chart__download-btn::before {
     content: " ";
     display: block;
     position: absolute;
-    left:0;
-    top:0;
+    left: 0;
+    top: 0;
     border-radius: 0 0 70% 70%;
     width: 100%;
     height: 0;
     z-index: -1;
     background: rgba(94, 163, 241, 0.452);
-    transition:0.5s;
+    transition: 0.5s;
 }
 
-.chart__format__btn:hover::before, .chart__download-btn:hover::before{
+.chart__format__btn:hover::before,
+.chart__download-btn:hover::before {
     height: 100%;
 }
 
-
-
-.chart__download-btn:hover::before .download-format{
+.chart__download-btn:hover::before .download-format {
     display: block;
 }
 
 
-
 /*Criteria panel*/
-.criteria{
+
+.criteria {
     background-color: rgb(215, 233, 248);
-    padding:0 1.5em ;
-    margin-bottom:5em;
+    padding: 0 1.5em;
+    margin-bottom: 5em;
     margin-left: 1em;
     position: relative;
     display: flex;
@@ -120,7 +125,7 @@
     justify-content: space-evenly;
 }
 
-#criteria-title{
+#criteria-title {
     font-size: large;
     white-space: nowrap;
 }
@@ -129,10 +134,11 @@
     position: relative;
     margin: 0.8em 0;
 }
-.drop-list{
+
+.drop-list {
     font-size: smaller;
     text-align: center;
-    padding:0.5em 5em 0.5em 1em;
+    padding: 0.5em 5em 0.5em 1em;
     width: 100%;
     border: 1px solid black;
     position: relative;
@@ -140,114 +146,110 @@
     white-space: nowrap;
 }
 
-.criteria__text{
-  margin: 0;
+.criteria__text {
+    margin: 0;
 }
 
-.arrow{
+.arrow {
     position: absolute;
-    margin:0;
+    margin: 0;
     top: 0;
     right: 0;
-    display:block;
+    display: block;
     background: black;
     height: 100%;
     width: 2em;
     pointer-events: none;
 }
-.arrow-add{
-    top: 0%;   
-    height: 100%;
 
+.arrow-add {
+    top: 0%;
+    height: 100%;
 }
-.criteria__add{
+
+.criteria__add {
     display: flex;
     flex-direction: row;
-    align-content:center ;
+    align-content: center;
     flex-wrap: nowrap;
-    width:20%;
+    width: 20%;
     height: 5%;
-    white-space:nowrap;
+    white-space: nowrap;
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 1em;
     margin-top: 1em;
 }
 
-.criteria_form_btn{
+.criteria_form_btn {
     font-size: larger;
     color: rgb(112, 112, 112);
-    background:rgba(94, 163, 241, 0.452);
+    background: rgba(94, 163, 241, 0.452);
     padding: 0 6px;
-    margin-right:0.7em;
-    border:none;
+    margin-right: 0.7em;
+    border: none;
     border-radius: 100px;
 }
 
-#criteria_create{
-     color: black;
-     font-size: medium;
-     padding: 5px 15px;
-     border-radius: 20px;
-     align-self: center;
-     margin: 0;
+#criteria_create {
+    color: black;
+    font-size: medium;
+    padding: 5px 15px;
+    border-radius: 20px;
+    align-self: center;
+    margin: 0;
 }
-.new_drop-list{
+
+.new_drop-list {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
 }
 
-.deleteBtn{
+.deleteBtn {
     margin-left: 1em;
     padding: 0 7px;
 }
 
-#criteria__line{
+#criteria__line {
     align-self: center;
     border: 2px solid rgb(112, 112, 112);
-    margin:0;
+    margin: 0;
     padding: 0 7em;
     border-radius: 50px;
 }
 
 
 /*Half of width*/
-@media screen and (max-width: 900px){
-    .criterial-specific{
+
+@media screen and (max-width: 900px) {
+    .criterial-specific {
         flex-direction: column;
     }
-
-    #chart_canva__text{
-       top: 30%;
-       left: 20%;
-   }  
-    
-   .chart_canva{
-       width: 550px;
-   }
-
-   .criteria{
-       align-self: center;
-       justify-self: center;
-       padding-bottom: 1em;
-   }
-   #criteria__add_group{
-       margin-bottom: 0em;
-   }
-
-   #criteria__line{
-       padding: 0 10em;
-       align-self: center;
-   }
- 
- 
-    #criteria_create{
+    #chart_canva__text {
+        top: 30%;
+        left: 20%;
+    }
+    .chart_canva {
+        width: 550px;
+    }
+    .criteria {
+        align-self: center;
+        justify-self: center;
+        padding-bottom: 1em;
+    }
+    #criteria__add_group {
+        margin-bottom: 0em;
+    }
+    #criteria__line {
+        padding: 0 10em;
+        align-self: center;
+    }
+    #criteria_create {
         margin: 0;
     }
-
-    #chartView{
+    #chartView {
         flex-direction: column;
         white-space: nowrap;
         align-content: space-around;
@@ -259,22 +261,88 @@
     }
 }
 
+
 /*Phone version*/
-@media screen  and (max-width: 376px) and (max-height: 670px ) {
-   
 
-    .text{
-        font-size: smaller;
+@media screen and (min-width: 760px) and (min-height:1000px) {
+    #chartView {
+        margin-top: 8%;
     }
-
-    .criterial-specific{
+    .drop-list {
+        font-size: large;
+    }
+    .text {
+        font-size: larger;
+    }
+    .criterial-specific {
         flex-direction: column;
     }
-
-    .chart{
+    .chart {
         align-items: center;
     }
-    .chart__format{
+    .chart__format {
+        flex-direction: column;
+        align-content: space-around;
+        justify-content: center;
+        justify-items: center;
+        align-self: center;
+        height: 40%;
+        width: 100%;
+    }
+    #statistics_chart {
+        width: 250px;
+        height: 200px;
+    }
+    .chart_canva {
+        width: 450px;
+        height: 350px;
+    }
+    #chart_canva__text {
+        top: 40%;
+        left: 18%;
+        font-size: large;
+        padding: 1em;
+        margin: 0 3em;
+    }
+    .chart__format__btn {
+        margin: 0 2px;
+        height: 80%;
+        margin-bottom: 2%;
+    }
+    .criteria {
+        margin-top: 4em;
+        width: 90%;
+    }
+    #criteria-title {
+        font-size: larger;
+        white-space: normal;
+    }
+    #criteria__line {
+        padding: 0 6em;
+        align-self: center;
+    }
+    #data-repr {
+        font-size: 170%;
+    }
+    .criteria__add {
+        margin-bottom: 3em;
+    }
+    #criteria_create {
+        font-size: 170%
+    }
+}
+
+@media screen and (max-width: 550px) and (max-height: 850px) {
+    .text {
+        font-size: smaller;
+    }
+    .criterial-specific {
+        flex-direction: column;
+    }
+    .chart {
+        align-items: center;
+    }
+    .chart__format {
         flex-direction: column;
         align-content: space-around;
         justify-content: center;
@@ -283,45 +351,38 @@
         height: 30%;
         width: 100%;
     }
-    #statistics_chart{
+    #statistics_chart {
         width: 250px;
         height: 200px;
     }
-
-    .chart_canva{
-        width:250px;
+    .chart_canva {
+        width: 250px;
         height: 200px;
     }
-    
-    #chart_canva__text{
+    #chart_canva__text {
         top: 40%;
         left: 10%;
         font-size: small;
         padding: 1em;
         margin: 0 3em;
     }
-    .chart__format__btn{
+    .chart__format__btn {
         margin: 0 2px;
         padding: 0;
     }
-     
-
-    .criteria{
+    .criteria {
         margin-top: 4em;
         width: 80%;
     }
-
-    #criteria-title{
+    #criteria-title {
         font-size: medium;
         white-space: normal;
     }
-
-    #criteria__line{
+    #criteria__line {
         padding: 0 6em;
         align-self: center;
     }
-    .criteria__add{
+    .criteria__add {
         margin-bottom: 3em;
     }
-
 }

@@ -57,6 +57,54 @@
 
 /*Phone version*/
 
+@media (min-width: 601px) and (max-height: 1400px) {
+    footer {
+        position: fixed;
+    }
+    .headerNormalView {
+        width: 100%;
+    }
+    .phone_header_menu {
+        display: block;
+    }
+    .text_menu {
+        font-size: medium;
+        color: black;
+        font-weight: 300;
+    }
+    .text_hf {
+        font-size: small;
+    }
+    main {
+        margin-top: 22%;
+        font-size: 90%;
+    }
+    .images {
+        display: flex;
+        flex-direction: column;
+    }
+    .imgChart {
+        width: 50%;
+        height: 30%;
+    }
+    #imgCriteria {
+        width: 35%;
+        height: 50%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+    #imgView {
+        padding: 0;
+        width: 60%;
+        height: 50%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+    .words {
+        margin-bottom: 25%;
+    }
+}
+
 @media (max-width: 600px) and (max-height: 900px) {
     footer {
         position: fixed;
