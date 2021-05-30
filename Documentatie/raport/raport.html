@@ -23,8 +23,11 @@
                         <li><a href="#view">Vizualizare</a></li>
                         <li><a href="#criterial">Comparare</a></li>
                         <li><a href="#about">Despre</a></li>
+                        <li><a href="#api">API</a></li>
+                        <li><a href="#administrator">Administrator</a></li>
                     </ol>
                 </li>
+                <li><a href="#arhitectura">Arhitectura API</a></li>
                 <li><a href="#tehnologii">Tehnologii utilizate</a></li>
                 <li><a href="#etape">Etape de implementare</a></li>
                 <li><a href="#utilizare">Ghid de utilizare</a></li>
@@ -51,17 +54,16 @@
             <section id="vizualizare">
                 <h3>3.1. Vizualizare</h3>
                 <p>
-                    Modulul de vizualizare conține reprezentarea cartografică a informațiilor despre șomaj la nivelul fiecărui județ. Sunt disponibile
-                    informațiile din ultimele 15 luni și pot fi afișate în funcție de următoarele criterii: gen, mediu, studii și categorii de vârstă.
-                    Criteriile nu pot fi suprapuse. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG, PDF.
+                    Modulul de vizualizare conține reprezentarea cartografică a informațiilor despre șomaj la nivelul fiecărui județ. Sunt disponibile informațiile din ultimele 15 luni și pot fi afișate în funcție de următoarele criterii: gen, mediu, studii și categorii
+                    de vârstă. Criteriile nu pot fi suprapuse. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG, PDF.
                 </p>
             </section>
             <section id="comparare">
                 <h3>3.2. Comparare</h3>
                 <p>
-                    Modulul de comparare presupune reprezentarea statisticilor legate de șomaj sub forma a 4 grafice: Line-chart, Bar-chart, Pie-chart sau Radar-chart. Sunt disponibile
-                    6 criterii care permit configurarea statisticilor. Trei sunt obligatorii: perioada de comparare, zona (unul sau mai multe județe/toată țara) și un criteriu principal, ales dintre:
-                    gen, mediu, studii și categorii de vârstă, iar trei sunt optionale. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG, PDF.
+                    Modulul de comparare presupune reprezentarea statisticilor legate de șomaj sub forma a 4 grafice: Line-chart, Bar-chart, Pie-chart sau Radar-chart. Sunt disponibile 6 criterii care permit configurarea statisticilor. Trei sunt obligatorii: perioada de
+                    comparare, zona (unul sau mai multe județe/toată țara) și un criteriu principal, ales dintre: gen, mediu, studii și categorii de vârstă, iar trei sunt optionale. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG,
+                    PDF.
                 </p>
             </section>
             <section id="about">
@@ -71,38 +73,79 @@
                 </p>
 
             </section>
+            <section id="api">
+                <h3>3.4. API</h3>
+                <p>
+                    Am creat un API public, care oferă posibilitatea adaugării, ștergerii și actualizării datelor despre șomajul din România, dar si obținerea datelor în format JSON.</p>
+            </section>
+            <section id="administrator">
+                <h3>3.5. Administrator</h3>
+                <p>
+                    Administratorul gestionează datele din baza de date, poate adăuga, șterge si actualiza date, dar poate să adauge și un alt administrator.
+                </p>
+
+            </section>
+        </section>
+        <section id="arhitectura">
+            <h2>4. Arhitectura API</h2>
+            <p>Controllers:</p>
+            <ol>
+                <li>AdminHandler.java</li>
+                <li>AgeHandler.java</li>
+                <li>EducationHandler.java</li>
+                <li>EnvironmentHandler.java</li>
+                <li>PageHandler.java</li>
+                <li>TotalPerMonthHandler.java</li>
+            </ol>
+            <p>Models:</p>
+            <ol>
+                <li>Admin.java</li>
+                <li>Age.java</li>
+                <li>Education.java</li>
+                <li>Environment.java</li>
+                <li>TotalPerMonth.java</li>
+            </ol>
+            <p>Services:</p>
+            <ol>
+                <li>AdminService.java</li>
+                <li>AgeService.java</li>
+                <li>EducationService.java</li>
+                <li>EnvironmentService.java</li>
+                <li>PageService.java</li>
+                <li>TotalPerMonthService.java</li>
+            </ol>
         </section>
         <section id="tehnologii">
             <h2>5. Tehnologii utilizate</h2>
             <p>Pentru afișarea conținutului am folosit suita HTML5, CSS3 și JavaScript. În cadrul modulului Vizualizare, pentru reprezentarea cartografică am folosit librăriile OpenLayers, iar în modulul Comparare pentru reprezentarea statisticilor am folosit
-                librăria Chart.js.
+                librăria Chart.js. Baza de date a aplicației a fost creată cu ajutorul MySQL, fiind hostată pe Heroku, datele au fost preluate de pe site-ul oficial (<a href="https://data.gov.ro/">GOV</a>).
+
             </p>
         </section>
         <section id="etape">
             <h2>6. Etape de implementare</h2>
             <p>În cadrul echipei am lucrat în paralel, astfel încât să asigurăm o eficiență cât mai mare. În prima etapă a fost schițat site-ul, a fost alesă paleta de culori și au fost împărțite componentele paginilor. A doua etapă a fost de realizare a
                 obiectivelor de bază: pagina principală, pagina de vizualizare, pagina de comparare cu 3 tipuri de reprezentare a statisticilor și o pagină cu detalii despre proiect. În cea de-a treia etapa am adăugat posibilitatea de a traduce site-ul
-                în limba engleză, formatul pentru site-ul Mobil și îmbunătățiri ale aspectului per total.
+                în limba engleză, formatul pentru site-ul Mobil și îmbunătățiri ale aspectului per total. Atașez diagrama UML a aplicației:
+
             </p>
+            <figure typeof="sa:image">
+                <img src="../imagini/UML.png" alt="UML" width="800" height="600">
+            </figure>
 
         </section>
-       <section id="utilizare">
-           <h2>7.Ghid de utilizare</h2>
-           <p>
-               Site-ul pune la dispoziție utilizatorului 4 pagini Web, după cum urmează:
-               1. Pagina principală care servește ca landing page și oferă posibilitatea de a accesa paginile de vizualizare și comparare prin intermediul
-               a două butoane dispuse central.
-               2. Pagina de vizualizare permite utilizatorului să analizeze informații legate de șomaj la nivelul întregii țări sub forma unei hărți. Informațiile despre fiecare județ
-               pot fi accesate prin selectarea tag-ului unei reședințe de judeș, iar informațiile vor fi afișate printr-o fereastră pop-up la nivelul hărții. Utilizatorul
-               poate alege informațiile care vor fi afișate în funcție de lună și un anumit criteriu pe care le poate selecta din panoul din dreapta hărții.   
-               3. Pagina de comparare permite utilizatorului să analizeze informațiile despre șomaj sub forma unui grafic. Acesta poate alege tipul graficului cu ajutor a 4 butoane, unul pentru fiecare
-               format: Line-chart, Bar-chart, Pie-chart sau Radar-chart. Statisticile pot fi configurate selectând criterii în panoul din dreapta graficului. Trei criterii sunt obligatorii, iar trei 
-               sunt opționale. Un criteriu opțional poate fi șters și înlocuit. Statisticile create prin aplicarea criteriilor selectate de către utilizator vor fi afișate după
-               acționarea butonului „Prezentă statistici”. Informațiile pot fi descărcate în aceleași formate ca cele din pagina de vizualizare.
-               4. Pagina cu detalii despre site conține descrierea conținutului proiectului și facilitățile pe care le pune la dispoziție.
-               Fiecare pagină conține un antet cu butoane care permit navigarea prin site pentru a facilita accesul către celelate componente.
+        <section id="utilizare">
+            <h2>7.Ghid de utilizare</h2>
+            <p>
+                Site-ul pune la dispoziție utilizatorului 4 pagini Web, după cum urmează: 1. Pagina principală care servește ca landing page și oferă posibilitatea de a accesa paginile de vizualizare și comparare prin intermediul a două butoane dispuse central. 2. Pagina
+                de vizualizare permite utilizatorului să analizeze informații legate de șomaj la nivelul întregii țări sub forma unei hărți. Informațiile despre fiecare județ pot fi accesate prin selectarea tag-ului unei reședințe de judeș, iar informațiile
+                vor fi afișate printr-o fereastră pop-up la nivelul hărții. Utilizatorul poate alege informațiile care vor fi afișate în funcție de lună și un anumit criteriu pe care le poate selecta din panoul din dreapta hărții. 3. Pagina de comparare
+                permite utilizatorului să analizeze informațiile despre șomaj sub forma unui grafic. Acesta poate alege tipul graficului cu ajutor a 4 butoane, unul pentru fiecare format: Line-chart, Bar-chart, Pie-chart sau Radar-chart. Statisticile
+                pot fi configurate selectând criterii în panoul din dreapta graficului. Trei criterii sunt obligatorii, iar trei sunt opționale. Un criteriu opțional poate fi șters și înlocuit. Statisticile create prin aplicarea criteriilor selectate
+                de către utilizator vor fi afișate după acționarea butonului „Prezentă statistici”. Informațiile pot fi descărcate în aceleași formate ca cele din pagina de vizualizare. 4. Pagina cu detalii despre site conține descrierea conținutului
+                proiectului și facilitățile pe care le pune la dispoziție. Fiecare pagină conține un antet cu butoane care permit navigarea prin site pentru a facilita accesul către celelate componente.
             </p>
-       </section>
+        </section>
         <section id="bibliografie">
             <h2>8. Bibliografie</h2>
             <dl>
@@ -131,7 +174,7 @@
             </dl>
         </section>
         <section id="autori" typeof="sa:AuthorsList">
-            <h2>Autori</h2>
+            <h2>9.Autori</h2>
             <ul>
                 <li typeof="sa:ContributorRole" property="schema:author">
                     <span typeof="schema:Person">
