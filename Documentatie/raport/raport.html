@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ro">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link href="./raport.css" type="text/css" rel="stylesheet">
+    <title>Scholarly HTML Report</title>
+</head>
+
+<body>
+    <article>
+        <header>
+
+            <h1>Date șomaj România</h1>
+        </header>
+        <div role="contentinfo">
+            <ol role="directory">
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#introducere">Introducere</a></li>
+                <li><a href="#module">Module</a>
+                    <ol role="directory">
+                        <li><a href="#view">Vizualizare</a></li>
+                        <li><a href="#criterial">Comparare</a></li>
+                        <li><a href="#about">Despre</a></li>
+                    </ol>
+                </li>
+                <li><a href="#tehnologii">Tehnologii utilizate</a></li>
+                <li><a href="#etape">Etape de implementare</a></li>
+                <li><a href="#utilizare">Ghid de utilizare</a></li>
+                <li><a href="#bibliografie">Bibliografie</a></li>
+                <li><a href="#autori">Autori</a></li>
+            </ol>
+
+        </div>
+        <section id="abstract" role="doc-abstract" typeof="sa:Abstract">
+            <h2>1. Abstract</h2>
+            <p>Date șomaj România - O platformă WEB pentru vizualizare și comparare multi-criterială a datelor referitoare la șomajul din România.
+            </p>
+        </section>
+
+        <section id="introducere" role="doc-introduction">
+            <h2>2. Introducere</h2>
+            <p>Aplicația noastră realizează un management a resurselor și prezintă statistici despre șomajul din România, acestea putând fi vizualizate în 4 maniere, cu posibilitatea de a fi exportate în formatele: CSV, SVG și PDF.
+            </p>
+        </section>
+        <section id="module">
+            <h2>3. Module</h2>
+            <p>Toate modulele din site dispun de un design user-friendly.Toate paginile site-ului sunt responsive, elementele ce le compun redimensionandu-se in pagina in functie de dispozitivul utilizat, paginile oferind astfel o experienta placuta inclusiv
+                pe device-uri ca iPhone 5 SE ce are un ecran ingust si scurt.</p>
+            <section id="vizualizare">
+                <h3>3.1. Vizualizare</h3>
+                <p>
+                    Modulul de vizualizare conține reprezentarea cartografică a informațiilor despre șomaj la nivelul fiecărui județ. Sunt disponibile
+                    informațiile din ultimele 15 luni și pot fi afișate în funcție de următoarele criterii: gen, mediu, studii și categorii de vârstă.
+                    Criteriile nu pot fi suprapuse. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG, PDF.
+                </p>
+            </section>
+            <section id="comparare">
+                <h3>3.2. Comparare</h3>
+                <p>
+                    Modulul de comparare presupune reprezentarea statisticilor legate de șomaj sub forma a 4 grafice: Line-chart, Bar-chart, Pie-chart sau Radar-chart. Sunt disponibile
+                    6 criterii care permit configurarea statisticilor. Trei sunt obligatorii: perioada de comparare, zona (unul sau mai multe județe/toată țara) și un criteriu principal, ales dintre:
+                    gen, mediu, studii și categorii de vârstă, iar trei sunt optionale. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG, PDF.
+                </p>
+            </section>
+            <section id="about">
+                <h3>3.3. Despre</h3>
+                <p>
+                    În cadrul acestui modul am descris felul în care utilizatorii pot folosi acest site și modul în care i-ar ajuta.
+                </p>
+
+            </section>
+        </section>
+        <section id="tehnologii">
+            <h2>5. Tehnologii utilizate</h2>
+            <p>Pentru afișarea conținutului am folosit suita HTML5, CSS3 și JavaScript. În cadrul modulului Vizualizare, pentru reprezentarea cartografică am folosit librăriile OpenLayers, iar în modulul Comparare pentru reprezentarea statisticilor am folosit
+                librăria Chart.js.
+            </p>
+        </section>
+        <section id="etape">
+            <h2>6. Etape de implementare</h2>
+            <p>În cadrul echipei am lucrat în paralel, astfel încât să asigurăm o eficiență cât mai mare. În prima etapă a fost schițat site-ul, a fost alesă paleta de culori și au fost împărțite componentele paginilor. A doua etapă a fost de realizare a
+                obiectivelor de bază: pagina principală, pagina de vizualizare, pagina de comparare cu 3 tipuri de reprezentare a statisticilor și o pagină cu detalii despre proiect. În cea de-a treia etapa am adăugat posibilitatea de a traduce site-ul
+                în limba engleză, formatul pentru site-ul Mobil și îmbunătățiri ale aspectului per total.
+            </p>
+
+        </section>
+       <section id="utilizare">
+           <h2>7.Ghid de utilizare</h2>
+           <p>
+               Site-ul pune la dispoziție utilizatorului 4 pagini Web, după cum urmează:
+               1. Pagina principală care servește ca landing page și oferă posibilitatea de a accesa paginile de vizualizare și comparare prin intermediul
+               a două butoane dispuse central.
+               2. Pagina de vizualizare permite utilizatorului să analizeze informații legate de șomaj la nivelul întregii țări sub forma unei hărți. Informațiile despre fiecare județ
+               pot fi accesate prin selectarea tag-ului unei reședințe de judeș, iar informațiile vor fi afișate printr-o fereastră pop-up la nivelul hărții. Utilizatorul
+               poate alege informațiile care vor fi afișate în funcție de lună și un anumit criteriu pe care le poate selecta din panoul din dreapta hărții.   
+               3. Pagina de comparare permite utilizatorului să analizeze informațiile despre șomaj sub forma unui grafic. Acesta poate alege tipul graficului cu ajutor a 4 butoane, unul pentru fiecare
+               format: Line-chart, Bar-chart, Pie-chart sau Radar-chart. Statisticile pot fi configurate selectând criterii în panoul din dreapta graficului. Trei criterii sunt obligatorii, iar trei 
+               sunt opționale. Un criteriu opțional poate fi șters și înlocuit. Statisticile create prin aplicarea criteriilor selectate de către utilizator vor fi afișate după
+               acționarea butonului „Prezentă statistici”. Informațiile pot fi descărcate în aceleași formate ca cele din pagina de vizualizare.
+               4. Pagina cu detalii despre site conține descrierea conținutului proiectului și facilitățile pe care le pune la dispoziție.
+               Fiecare pagină conține un antet cu butoane care permit navigarea prin site pentru a facilita accesul către celelate componente.
+            </p>
+       </section>
+        <section id="bibliografie">
+            <h2>8. Bibliografie</h2>
+            <dl>
+                <dt></dt>
+                <dd property="schema:citation" typeof="schema:ScholarlyArticle">
+                    <cite property="schema:name"><a
+                            href="https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html">https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html
+                        </a></cite>
+                </dd>
+            </dl>
+            <dl>
+                <dt></dt>
+                <dd property="schema:citation" typeof="schema:ScholarlyArticle">
+                    <cite property="schema:name"><a
+                            href="https://w3c.github.io/scholarly-html/">https://w3c.github.io/scholarly-html/
+                        </a></cite>
+                </dd>
+            </dl>
+            <dl>
+                <dt></dt>
+                <dd property="schema:citation" typeof="schema:ScholarlyArticle">
+                    <cite property="schema:name"><a
+                            href="https://developer.chrome.com/extensions">https://developer.chrome.com/extensions
+                        </a></cite>
+                </dd>
+            </dl>
+        </section>
+        <section id="autori" typeof="sa:AuthorsList">
+            <h2>Autori</h2>
+            <ul>
+                <li typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person">
+                        <meta property="schema:givenName" content="Lazar">
+                        <meta property="schema:additionalName" content="Catalina">
+                        <span property="schema:name">Lazăr Cătălina</span>
+                    </span>
+                </li>
+                <li typeof="sa:ContributorRole" property="schema:author">
+                    <span typeof="schema:Person">
+                        <meta property="schema:givenName" content="Stratianu">
+                        <meta property="schema:familyName" content="bianca">
+                        <span property="schema:name">Strătianu Bianca</span>
+                    </span>
+                </li>
+            </ul>
+        </section>
+    </article>
+</body>
+
+</html>
