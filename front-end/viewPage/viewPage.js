@@ -1,74 +1,90 @@
-//insert Map
-var map = new ol.Map({
-    target: 'map',
-    layers: [
-      new ol.layer.Tile({
-        source: new ol.source.OSM()
-      })
-    ],view: new ol.View({
-        center: ol.proj.fromLonLat([24.75,46.14]),
-        zoom: 6
-      })
-});
 
-//Arrow on county
-const fillStyle = new ol.style.Fill({
-    color: [245,49,49,0.8],
-})
-const strokeStyle = new ol.style.Stroke({
-    color: [46, 45, 45, 0.3],
-    width: 1.2
-}) 
-const arrowStyle = new ol.style.Style({
-    fill: fillStyle,
-    stroke: strokeStyle,
-    image: new ol.style.RegularShape({
+    //insert Map
+    var map = new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],view: new ol.View({
+            center: ol.proj.fromLonLat([24.75,46.14]),
+            zoom: 6
+          })
+    });
+    
+    //Arrow on county
+    const fillStyle = new ol.style.Fill({
+        color: [245,49,49,0.8],
+    })
+    const strokeStyle = new ol.style.Stroke({
+        color: [46, 45, 45, 0.3],
+        width: 1.2
+    }) 
+    const arrowStyle = new ol.style.Style({
         fill: fillStyle,
         stroke: strokeStyle,
-        points: 3,
-        radius: 13,
-        rotation: Math.PI / 3,
-        angle: 0,
-        displacement:[-11,7],
-      })
-})
+        image: new ol.style.RegularShape({
+            fill: fillStyle,
+            stroke: strokeStyle,
+            points: 3,
+            radius: 13,
+            rotation: Math.PI / 3,
+            angle: 0,
+            displacement:[-11,7],
+          })
+    })
 
-const countyList = new ol.layer.VectorImage({
+var countyList = new ol.layer.VectorImage({
     source: new ol.source.Vector({
-        url:'libs/map.geojson',
+        url:file,
         format: new ol.format.GeoJSON()
     }),
     visible:true,
     title: 'Rata șomajului la nivelul fiecărui județ',
     style: arrowStyle,
 })
-
-map.addLayer(countyList)
-
-
-//Show Info
-
-const overlayContainer = document.querySelector('.overlay-container');
-const overlayInfo = new ol.Overlay({
-    element: overlayContainer
-})
-map.addOverlay(overlayInfo);
-
-const overlayCounty = document.getElementById('overlay-county-name');
-const overlayCountyInfo = document.getElementById('overlay-county-info');
-
-map.on('click', showInfo)
-function showInfo(event){
-    overlayInfo.setPosition(undefined);
-    map.forEachFeatureAtPixel(event.pixel, function(feature, layer){
-       let coordinate = event.coordinate;
-       let countyName = feature.get('Name');
-       let countyInfo = "Număr șomeri: ".concat(feature.get('Value')); 
-       overlayInfo.setPosition(coordinate);
-       overlayCounty.innerHTML= countyName;
-       overlayCountyInfo.innerHTML = countyInfo;
+    
+map.addLayer(countyList);
+function initializeInfo(file){
+    map.removeLayer(countyList);    
+    countyList = new ol.layer.VectorImage({
+        source: new ol.source.Vector({
+            url:file,
+            format: new ol.format.GeoJSON()
+        }),
+        visible:true,
+        title: 'Rata șomajului la nivelul fiecărui județ',
+        style: arrowStyle,
     })
+        
+    map.addLayer(countyList);
+    
+    //Show Info
+    
+    const overlayContainer = document.querySelector('.overlay-container');
+    const overlayInfo = new ol.Overlay({
+        element: overlayContainer
+    })
+    map.addOverlay(overlayInfo);
+    
+    const overlayCounty = document.getElementById('overlay-county-name');
+    const overlayCountyInfo = document.getElementById('overlay-county-info');
+    
+    map.on('click', showInfo)
+    function showInfo(event){
+        overlayInfo.setPosition(undefined);
+        map.forEachFeatureAtPixel(event.pixel, function(feature, layer){
+           let coordinate = event.coordinate;
+           let countyName = feature.get('Name');
+           let countyInfo = "Număr șomeri: ".concat(feature.get('Value')); 
+           overlayInfo.setPosition(coordinate);
+           overlayCounty.innerHTML= countyName;
+           overlayCountyInfo.innerHTML = countyInfo;
+        })
+    }
 }
+
+initializeInfo('libs/map.geojson');
 
 //get info
 var monthForData = document.getElementById("drop-perioada");
@@ -77,42 +93,40 @@ var criterion = document.getElementById("criterion");
 document.getElementById('criteria_get_data').addEventListener('click', getMapData);
 function getMapData (event){
         const Http = new XMLHttpRequest();
-        const url='https://unwetw.herokuapp.com/rest/age';
+        const url='http://localhost:8090/api/v1/criterion';
         console.log(monthForData.value);
         console.log(criterion.value);
        
-        const newURL = url.concat("/", monthForData.value, "/", criterion.value, "/", "entire"); 
+        const newURL = url.concat("?monthID=", monthForData.value, "&", criterion.value, "&county=", "entire"); 
         console.log(newURL);
-        /* Http.open("GET", url);
-        console.log('Aduc date intr o fericire');
-        Http.send();
+        Http.open("GET", newURL);
+        Http.setRequestHeader('Accept', 'application/json'); 
         Http.onreadystatechange = function() {
-            parseMapData(Http.responseText);
-        } */
-}
+            parseMapData(Http.responseText);            
+        }
+        Http.send();
+    }
 
 function parseMapData(text){
     var data = JSON.parse(text);
+    var textFile = './libs/map.geojson';
     fetch('./libs/map.geojson')
         .then(results => results.json())
         .then(results => {
-            for(var i = 0; i < data.judete.length; i++){
+            for(var i = 0; i < data.groups.length; i++){
+                const obj = data.groups[i];
                 for(var j = 0; i < results.features.length; i++)
                 {
-                    if(results.features[j].proprieties['Identifier'] == data.judete[i].nume)
-                    results.features[j].proprieties['Value'] = data.judete[i].numar; 
+                    const obj1 = results.features[j].properties;
+                    if(obj1['Identifier'] == obj["county"])
+                    results.features[j].properties['Value'] = obj["number"]; 
                 }
-            }
-        }         
-        );
-    
-                    /*
-    for(var i = 0; i < data.judete.length; i++){
-        for(var j = 0; i < data.features.length; i++)
-        {
-
-        } 
-    }*/
+                
+            var data1 = new Blob([JSON.stringify(results)], {type: 'application/json'});
+            window.URL.revokeObjectURL(textFile);
+            textFile = window.URL.createObjectURL(data1);
+            initializeInfo(textFile);
+        }});
 }
 
 

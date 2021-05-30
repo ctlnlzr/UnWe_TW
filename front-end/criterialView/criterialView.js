@@ -10,7 +10,7 @@ lineChartBtn.addEventListener("click", lineViewFormat);
 barChartBtn.addEventListener("click", barViewFormat);
 pieChartBtn.addEventListener("click", pieViewFormat);
 radarChartBtn.addEventListener("click", radarViewFormat);
-
+var selectedChart = 0;
 //FORMAT Line chart
 var dataLine = [
       {
@@ -71,6 +71,7 @@ var pieChart;
 var radarChart;
 
 function lineViewFormat(event){
+    selectedChart=1;
     chartText.classList.add("chart_text_view");
     if(barChart != undefined){
         barChart.destroy();
@@ -103,6 +104,7 @@ function lineViewFormat(event){
 }
 
 function barViewFormat(event){
+    selectedChart=2;
     chartText.classList.add("chart_text_view");
     if(lineChart != undefined){
         lineChart.destroy();
@@ -135,6 +137,8 @@ function barViewFormat(event){
 }
 
 function pieViewFormat(event){
+    selectedChart=3;
+
     chartText.classList.add("chart_text_view");
 
     if(lineChart != undefined){
@@ -171,6 +175,7 @@ function pieViewFormat(event){
 
 function radarViewFormat(event){
     chartText.classList.add("chart_text_view");
+    selectedChart=4;
 
     if(lineChart != undefined){
         lineChart.destroy();
@@ -233,21 +238,26 @@ var principalCriterion = document.getElementById("principal-criterion");
 document.getElementById('criteria_create').addEventListener('click', getChartData);
 function getChartData (event){
         const Http = new XMLHttpRequest();
-        const url='https://unwetw.herokuapp.com/rest/age';
+        const url='http://localhost:8090/api/v1/criterion';
+        var counties="";
         var selected = [...countyForComparison.options]
         .filter(option => option.selected)
         .map(option => option.value);
-
-        const newURL = url.concat("/", timePeriod.value, "/", principalCriterion.value, "/", selected); 
+        selected.map(option => counties += "county=" + option + "&");
+        counties = counties.slice(0,-1);
+        const newURL = url.concat("?monthID=", timePeriod.value, "&", principalCriterion.value, "&", counties); 
         console.log(newURL);
-        /* Http.open("GET", url);
-        console.log('Aduc date intr o fericire');
-        Http.send();
+        Http.open("GET", newURL);
+        Http.setRequestHeader('Accept', 'application/json'); 
         Http.onreadystatechange = function() {
+            if(Http.status==200){
+             console.log(Http.responseText);
              parseDataLine(Http.responseText, selected, timePeriod.value);
              parseDataPie(Http.responseText, selected, timePeriod.value);
-            } */
-}
+            }
+        }
+        Http.send();
+        }
 
 
 const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ]
@@ -260,117 +270,141 @@ const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(25
        mai multe judete -> label din {} va fi numele judetului -> luna - criteriu -> titlu
        mai multe luni + mai multe judete : label {nume judet}, labels lunile, titlu - criteriu 
        */
-       labelsLine.clear();
-       dataLine.clear();
+       labelsLine = [];
+       dataLine = [];
        var d = new Date();
        var currentMonth = d.getMonth() + 1;
        if (monthsID >= 16 ){
-            var noOfMonths = 1;
+            var noOfMonths;
+            console.log(monthsID);
             switch (monthsID){
-                case 16: noOfMonths = 2; break;
-                case 17: noOfMonths = 6; break;
-                case 18: noOfMonths = 12; break;
+                case "16": {noOfMonths = 2; break;}
+                case "17": {noOfMonths = 6; break;}
+                case "18": {noOfMonths = 12; break;}
                 default: noOfMonths = 1;
             }
             for (var i = 0; i < noOfMonths ; i++ ){
-                labelsLine.push( months["ro"][currentMonth + i]);
+                if(currentMonth-i==-1) currentMonth=12+i-1;
+                labelsLine.push( months["ro"][currentMonth - i]);
                }   
-            
-               if(counties.length() > 1){ // mai multe luni, mai multe judete
-                for (var i = 0; i < counties.length(); i++){
-                   var values = [];
-                   for (var j = 0; j< data.length(); j++){
-                        for (var k=0; k < data[i].judete.length(); k++){
-                            if(data[i].judete[k].nume == counties[i]){
-                                values.push(data[i].judete[k].numar);
-                            }
-                        }
-                   }
-                   dataLine.push({label : counties[i], 
-                    data: values, 
+            console.log(noOfMonths);
+               if(counties.length > 1){ // mai multe luni, mai multe judete
+                
+                var dataMtx = new Array(counties.length);
+                for(i=0; i < dataMtx.length; i++){
+                    dataMtx[i] = new Array(noOfMonths);
+                } 
+
+                var j=0;
+                for(i=0; i < data.groups.length; i++){
+                    if(j==counties.length) j = 0;
+                    const obj = data.groups[i];   
+                    dataMtx[j][obj["month"]-1] = obj["number"];
+                    j++;
+                }
+
+                for (var i = 0; i < counties.length; i++){
+                    dataLine.push({label : counties[i], 
+                    data: dataMtx[i], 
                     borderColor: borderColors[i], 
                     backgroundColor: 'rgba(0, 0, 0, 0)'});
                 }
             }
-            else { // mai multe luni, un judet
-                for( var i = 0; i < data.criterii.length(); i++){
-                    dataLine.push({label : data.criterii[i].nume, 
-                        data: data.criterii[i].numar, 
-                        borderColor: borderColors[i], 
-                        backgroundColor: 'rgba(0, 0, 0, 0)'});
+            else { // mai multe luni, un judet + labelsLine
+                const keys=Object.keys(data.groups[0]);
+                var dataMtx = new Array(keys.length-2);
+                for(i=0; i < dataMtx.length; i++){
+                    dataMtx[i] = new Array(data.groups.length);
                 }
-            }
-       }
+                for( var i = 0; i < data.groups.length; i++){
+                    const obj = data.groups[i];   
+                    for (var j = 2; j< keys.length; j++){
+                        dataMtx[j-2][i]= obj[keys[j]];
+                    }
+                }
+                
+                for(j=2; j<keys.length;j ++){               
+                dataLine.push({label : keys[j], 
+                    data: dataMtx[j-2], 
+                    borderColor: borderColors[j-2], 
+                    backgroundColor: 'rgba(0, 0, 0, 0)'});
+                    }
+                }
+           }
        else {   
-        if( counties.length() > 1){//o luna, mai multe judete
-                   for (var j = 0; j< data.judete.length(); j++){
-                    dataLine.push({label : data.judete[j].nume, 
-                        data: data.judete[j].numar, 
+        if( counties.length > 1){//o luna, mai multe judete
+                   for (var i = 0; i< data.groups.length; i++){
+                    const keys = Object.keys(data.groups[i]);
+                    const obj = data.groups[i];    
+                    dataLine.push({label : obj["county"], 
+                        data: [obj["number"],obj["number"],obj["number"],obj["number"],obj["number"]], 
                         borderColor: borderColors[i], 
                         backgroundColor: 'rgba(0, 0, 0, 0)'});     
-                   }
-                  
+                   
+                }
         } else {// o luna, un judet
-            for (var j = 0; j< data.criterii.length(); j++){
-                dataLine.push({label : data.criterii[j].nume, 
-                    data: data.criterii[j].numar, 
-                    borderColor: borderColors[i], 
+            const keys = Object.keys(data.groups[0]);
+            const obj = data.groups[0];
+            for (var j = 2; j< keys.length; j++){
+                dataLine.push({label : keys[j], 
+                    data: [obj[keys[j]],obj[keys[j]],obj[keys[j]],obj[keys[j]],obj[keys[j]],obj[keys[j]]], 
+                    borderColor: borderColors[j-2], 
                     backgroundColor: 'rgba(0, 0, 0, 0)'});     
                }
         }
 
        }
-
+    switch (selectedChart){
+    case 1: lineViewFormat(); break;
+    case 2: barViewFormat(); break;
+    case 3: pieViewFormat(); break;
+    case 4: radarViewFormat(); break;
+    }
+      console.log(dataLine);
     }
 
-function chooseAnotherChartType(){
-    if(barChart != undefined){
-        barChart.destroy();
-        barChart = undefined;
-    }
-    if(pieChart != undefined){
-        pieChart.destroy();
-        pieChart = undefined;
-    }
-    if(radarChart != undefined){
-        radarChart.destroy();
-        radarChart = undefined;
-    }
-    if(lineChart != undefined){
-        lineChart.destroy();
-        lineChart = undefined;
-    }
-
-    document.getElementById("chart_canva__text").innerText="Mod de reprezentare incompatibil cu criteriile alese. Alegeti un alt mod de reprezentare.";
-}
 const backgroundColors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)' ];
 function parseDataPie(text, counties, monthsID){
     var data = JSON.parse(text);
-    dataPie.clear();
-    labelsPie.clear();
-    if(counties.length() > 1 && monthsID >= 16) {// trigger default can not be used
-        chooseAnotherChartType();
+    dataPie = [];
+    labelsPie= [];
+    if(counties.length > 1 && monthsID >= 16) {// trigger default can not be used
+        labelsPie.push("Choose another chart type");
     }else{
         var values = [];   
         var bkgColors = [];
-        if (counties.length() > 1) { //o luna, mai multe judete
-        for (var i = 0; i < data.judete.length(); i++){
-           values.push(data.judete[i].numar);
-           labelsPie.push(data.judete[i].nume);
+        if (counties.length > 1) { //o luna, mai multe judete
+        for (var i = 0; i < data.groups.length; i++){
+           const obj = data.groups[i];
+           values.push(obj["number"]);
+           labelsPie.push(obj["county"]);
            bkgColors.push(backgroundColors[i]);
         }
         dataPie.push({label : data.luna, data: values, backgroundColor: bkgColors });
        } else
           if (monthsID >= 16){ // mai multe luni, un judet
-            chooseAnotherChartType();
-          } else { // o luna un judet
-            for (var i = 0; i < data.criterii.length(); i++){
-                values.push(data.criterii[i].numar);
-                labelsPie.push(data.criterii[i].nume);
-                bkgColors.push(backgroundColors[i]);
+              labelsPie.push("Choose another chart type");
+        } else { // o luna un judet
+            const obj = data.groups[0];
+            const keys = Object.keys(obj);
+            var values = [];   
+            var bkgColors = [];
+            for (var i = 2; i < keys.length; i++){
+                values.push(obj[keys[i]]);
+                console.log(obj[keys[i]]);
+                labelsPie.push(keys[i]);
+                bkgColors.push(backgroundColors[i-2]);
              }
+             dataPie.push({label : data.luna, data: values, backgroundColor: bkgColors });
           } 
     }
+    switch (selectedChart){
+        case 1: lineViewFormat(); break;
+        case 2: barViewFormat(); break;
+        case 3: pieViewFormat(); break;
+        case 4: radarViewFormat(); break;
+        }
+    console.log(dataPie);
 }
 
 //modify principal criterion depending on multiselect
@@ -379,36 +413,37 @@ function modifyPrincipalCriterion(select){
         .filter(option => option.selected)
         .map(option => option.value);
    
-     if((selected.length > 1) || (select.value > 15) ){
-        document.getElementById("principal-criterion").innerHTML= ` <optgroup label="` + optionLng[lang][17] +`" name="genderOpt"><option class="text text_option" id="woman">`+ optionLng[lang][0] +`</option>
-        <option class="text text_option" id="man">`+optionLng[lang][1]+`</option>
+     if(selected.length > 1 ){
+        document.getElementById("principal-criterion").innerHTML= ` <optgroup label="` + optionLng[lang][17] +`" name="genderOpt">
+        <option class="text text_option" id="woman" value="female">`+ optionLng[lang][0] +`</option>
+        <option class="text text_option" id="man" value="male">`+optionLng[lang][1]+`</option>
    </optgroup>
    <optgroup label="`+optionLng[lang][18]+`" name="studiesOpt">
-       <option class="text text_option" id="noStudies">`+ optionLng[lang][2] +`</option>
-       <option class="text text_option" id="primarySchool">`+ optionLng[lang][3] +`</option>
-       <option class="text text_option" id="secondarySchool">`+ optionLng[lang][4] +`</option>
-       <option class="text text_option" id="highschool">`+ optionLng[lang][5] +`</option>
-       <option class="text text_option" id="postsecodarySchool">`+ optionLng[lang][6] +`</option>
-       <option class="text text_option" id="vocationalEducation">`+ optionLng[lang][7] +`</option>
-       <option class="text text_option" id="universityEducation">`+ optionLng[lang][8] +`</option>
+       <option class="text text_option" id="noStudies" value="noStudies">`+ optionLng[lang][2] +`</option>
+       <option class="text text_option" id="primarySchool" value="primarySchool">`+ optionLng[lang][3] +`</option>
+       <option class="text text_option" id="secondarySchool" value="secondarySchool">`+ optionLng[lang][4] +`</option>
+       <option class="text text_option" id="highschool" value="highschool">`+ optionLng[lang][5] +`</option>
+       <option class="text text_option" id="postsecodarySchool" value="postsecodarySchool">`+ optionLng[lang][6] +`</option>
+       <option class="text text_option" id="vocationalEducation" value="vocationalEducation">`+ optionLng[lang][7] +`</option>
+       <option class="text text_option" id="universityEducation" value="universityEducation">`+ optionLng[lang][8] +`</option>
    </optgroup>
    <optgroup label="`+ optionLng[lang][19] +`" name="envOpt">
-       <option class="text text_option">`+ optionLng[lang][9] +`</option>
-       <option class="text text_option">`+ optionLng[lang][10] +`</option>
+       <option class="text text_option" value="urban">`+ optionLng[lang][9] +`</option>
+       <option class="text text_option" value="rural">`+ optionLng[lang][10] +`</option>
    </optgroup>
    <optgroup label="`+ optionLng[lang][20] +`" name="ageOpt">
-       <option class="text text_option" id="under" >`+ optionLng[lang][11] +`</option>
-           <option class="text text_option">`+ optionLng[lang][12] +`</option>
-           <option class="text text_option">`+ optionLng[lang][13] +`</option>
-           <option class="text text_option">`+ optionLng[lang][14] +`</option>
-           <option class="text text_option">`+ optionLng[lang][15] +`</option>
-           <option class="text text_option" id="over">`+ optionLng[lang][16] +`</option>
+       <option class="text text_option" id="under" value="under25" >`+ optionLng[lang][11] +`</option>
+           <option class="text text_option" value="between25and29">`+ optionLng[lang][12] +`</option>
+           <option class="text text_option" value="between30and39">`+ optionLng[lang][13] +`</option>
+           <option class="text text_option" value="between40and49">`+ optionLng[lang][14] +`</option>
+           <option class="text text_option" value="between50and55">`+ optionLng[lang][15] +`</option>
+           <option class="text text_option" id="over" value="over55">`+ optionLng[lang][16] +`</option>
    </optgroup>`;
      } else {
-        document.getElementById("principal-criterion").innerHTML=` <option class="text text_option" value="gen" id="gender">Gen</option>
-        <option class="text text_option" value="mediu" id="environment">Mediu</option>
-        <option class="text text_option" value="educatie" id="studies">Studii</option>
-        <option class="text text_option" value="varsta" id="age">Categorii de vârstă</option>`;}
+        document.getElementById("principal-criterion").innerHTML=` <option class="text text_option" value="gender" id="gender">Gen</option>
+        <option class="text text_option" value="environment" id="environment">Mediu</option>
+        <option class="text text_option" value="education" id="studies">Studii</option>
+        <option class="text text_option" value="age" id="age">Categorii de vârstă</option>`;}
 }
 /*Last 15 months*/
 let months ={ 

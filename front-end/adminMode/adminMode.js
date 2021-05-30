@@ -5,9 +5,10 @@ newMonth.addEventListener('click', addNewMonth);
 const deleteM = document.getElementById("delete-month");
 deleteM.addEventListener('click', deleteMonth);
 var counterDrops = 0;
-
+var optionsDiv = document.getElementById("options");
 function addNewAdmin(){
     if(counterDrops == 0){
+      optionsDiv.classList.add("admin-options_selected");  
      document.getElementById("new-admin-div").classList.add("admin-option_on-click");
      newAdmin.insertAdjacentHTML("afterend",`
         <form id="add-admin-form">
@@ -30,6 +31,7 @@ function addNewAdmin(){
 function addNewMonth(){
     if(counterDrops == 0){
         document.getElementById("new-month-div").classList.add("admin-option_on-click");
+        optionsDiv.classList.add("admin-options_selected");  
         newMonth.insertAdjacentHTML("afterend",`
         <div id="add-data">
         <button type="button" class=" text-admin btn1" id="upload"> Incarca CSV </button>       
@@ -46,7 +48,9 @@ function addNewMonth(){
 function deleteMonth(){
     if(counterDrops == 0){
      document.getElementById("delete-div").classList.add("admin-option_on-click");
-    deleteM.insertAdjacentHTML("afterend",`
+     optionsDiv.classList.add("admin-options_selected");  
+     
+     deleteM.insertAdjacentHTML("afterend",`
     <form id="delete-month-form">
              <div class="form-input">
                  <label for="admin-username" class="text-admin">Luna: </label>
@@ -65,9 +69,8 @@ function deleteMonth(){
     }
 }
 
-
-
 function eliminateOption(option){
+    optionsDiv.classList.remove("admin-options_selected");  
     switch(counterDrops){
     case 1: 
     document.getElementById("new-admin-div").classList.remove("admin-option_on-click");

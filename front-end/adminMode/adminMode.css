@@ -1,14 +1,16 @@
 .admin-options{
     position: absolute;
-    top:20%;
-    left:34%;
+    top:8%;
+    left:25%;
     display: flex;
-    border-radius: 7%;
     flex-direction: column;
-    padding: 6em 7em;
-    background-color: rgba(94, 163, 241, 0.452);
+    padding: 13em 15em;
+    z-index: -1;
+    background-color: rgba(94, 163, 241, 0.6);
 }
-
+.admin-options_selected{
+    padding-bottom: 6em ;
+}
 .admin-option{
     margin-bottom: 1em;
     border-bottom: 2px solid black;
@@ -21,7 +23,8 @@
 }
 .text-admin{
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;  
-    font-size: large;  
+    font-size: larger;  
+    font-weight: 300;
 }
 
 .add-admin-form{
@@ -41,7 +44,7 @@
     border: none;
     color: #000000;
     text-align: center;
-    font-size: large;
+    font-size: larger;
     padding: 0.5em;
     width: 15em;
     transition: all 0.5s;
@@ -80,7 +83,7 @@
   color: white;
   padding: 8px 16px;
   text-align: center;
-  font-size: large;
+  font-size: larger;
   margin: 4px 2px;
   opacity: 0.6;
   transition: 0.3s;

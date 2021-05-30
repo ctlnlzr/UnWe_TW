@@ -1,0 +1,331 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: UnWe API
+host: localhost:8090
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /api/v1/admin:
+    post:
+      description: Login admin
+      summary: D
+      operationId: postAdmin
+      parameters:
+        - name: username
+          in: query
+          description: Admin username
+          type: string
+        - name: password
+          in: query
+          description: Admin password
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+        "405":
+          description: Not allowed
+  /api/v1/age:
+    post:
+      description: Post file .csv on database
+      summary: D
+      operationId: post Age
+      parameters:
+        - name: filePath
+          in: query
+          description: filePath
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    get:
+      description: Get data about a month and a county
+      summary: D
+      operationId: get Age
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    delete:
+      description: Delete data about a month and a county
+      summary: D
+      operationId: Delete Age
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+  /api/v1/education:
+    post:
+      description: Post file .csv on database
+      summary: D
+      operationId: post Education
+      parameters:
+        - name: filePath
+          in: query
+          description: filePath
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    get:
+      description: Get data about a month and a county
+      summary: D
+      operationId: get Education
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    delete:
+      description: Delete data about a month and a county from education
+      summary: D
+      operationId: Delete Education
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+  /api/v1/environment:
+    post:
+      description: Post file .csv on database
+      summary: D
+      operationId: post Environment
+      parameters:
+        - name: filePath
+          in: query
+          description: filePath
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    get:
+      description: Get data about a month and a county from environment
+      summary: D
+      operationId: get environment
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    delete:
+      description: Delete data about a month and a countyfrom environment
+      summary: D
+      operationId: Delete environment
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+  /api/v1/total:
+    post:
+      description: Post file .csv on database
+      summary: D
+      operationId: post total
+      parameters:
+        - name: filePath
+          in: query
+          description: filePath
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    get:
+      description: Get data about a month and a county from total
+      summary: D
+      operationId: get Total
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+    delete:
+      description: Delete data about a month and a county from Total
+      summary: D
+      operationId: Delete Total
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "404":
+          description: Not found
+  /api/v1/criterion:
+    get:
+      description: Get data
+      summary: D
+      operationId: get criterion
+      parameters:
+        - name: month
+          in: query
+          description: Month
+          type: number
+        - name: county
+          in: query
+          description: County
+          type: string
+        - name: criterion
+          in: query
+          description: criterion
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            type: string
+            properties:
+              username:
+                type: string
+        "405":
+          description: Not allowed
+
+
