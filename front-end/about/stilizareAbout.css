@@ -57,7 +57,7 @@
 
 /*Phone version*/
 
-@media (min-width: 601px) and (max-height: 1400px) {
+@media (min-width: 599px) and (max-height: 1400px) {
     footer {
         position: fixed;
     }
@@ -68,7 +68,7 @@
         display: block;
     }
     .text_menu {
-        font-size: medium;
+        font-size: x-large;
         color: black;
         font-weight: 300;
     }
@@ -76,7 +76,7 @@
         font-size: small;
     }
     main {
-        margin-top: 22%;
+        margin-top: 18%;
         font-size: 90%;
     }
     .images {

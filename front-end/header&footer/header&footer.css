@@ -230,7 +230,7 @@ h6 {
     display: block;
 }
 
-@media (min-width:374px) and (max-width:376px) and(min-height:811px)and (max-height:813px) {
+@media screen and (min-width:374px) and (max-width:481px) and(min-height:811px)and (max-height:860px) {
     .footer2 {
         display: none;
     }
@@ -251,6 +251,9 @@ h6 {
         justify-items: center;
         flex-wrap: nowrap;
     }
+    .footer2 {
+        display: none;
+    }
     #aboutFtr {
         padding: 0;
         margin: 0;
@@ -260,6 +263,24 @@ h6 {
         color: white;
         text-align: center;
         margin: 1em 1em 0 0;
+    }
+    .text_hf {
+        font-size: 120%;
+    }
+    #menu_title {
+        font-size: 150%;
+    }
+    .phone_meniu {
+        width: 50%;
+    }
+    #phone_meniu_btn {
+        font-size: 120%;
+    }
+    .classForLogo {
+        width: 100%;
+    }
+    #headerTitle {
+        font-size: 150%;
     }
 }
 
@@ -344,8 +365,10 @@ h6 {
     }
     #phone_meniu_btn {
         position: absolute;
-        top: -20%;
-        right: 5%;
+        top: -45%;
+        right: 3%;
+        width: 20%;
+        text-align: center;
     }
     .languageButton {
         padding: 0;
@@ -368,7 +391,31 @@ h6 {
     }
 }
 
-@media (min-width:280px)and (max-width: 376px) and (min-height:568px) and (max-height: 569px) {
+@media (max-width: 1400px)and (min-width:1000px) and (min-height:1200px) and (max-height: 1400px) {
+    .classForLogo {
+        width: 40%;
+    }
+    .headerBtn {
+        width: 40%;
+    }
+    .header-Btn {
+        width: 120%;
+        margin: 2%;
+        text-align: center;
+        font-size: large;
+    }
+    #headerTitle {
+        font-size: xx-large;
+    }
+    #imgLogo {
+        width: 100%;
+    }
+    .text_hf {
+        font-size: large;
+    }
+}
+
+@media (max-width: 400px) and (min-height:300px) and (max-height: 700px) {
     .headerNormalView {
         width: 100%;
         flex-wrap: wrap;
@@ -394,8 +441,10 @@ h6 {
     }
     #phone_meniu_btn {
         position: absolute;
-        top: -20%;
-        right: 5%;
+        top: -43%;
+        right: 3%;
+        width: 21%;
+        font-size: small;
     }
     .languageButton {
         padding: 0;
@@ -415,5 +464,8 @@ h6 {
     }
     .footer2 {
         display: none;
+    }
+    #headerTitle {
+        font-size: medium;
     }
 }
