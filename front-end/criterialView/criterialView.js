@@ -250,7 +250,7 @@ function getChartData (event){
         Http.open("GET", newURL);
         Http.setRequestHeader('Accept', 'application/json'); 
         Http.onreadystatechange = function() {
-            if(Http.status==200){
+            if(Http.readyState==4){
              console.log(Http.responseText);
              parseDataLine(Http.responseText, selected, timePeriod.value);
              parseDataPie(Http.responseText, selected, timePeriod.value);

@@ -1,6 +1,45 @@
 
-    //insert Map
-    var map = new ol.Map({
+var Http = new XMLHttpRequest();
+            Http.open("GET", "http://localhost:8090/api/v1/criterion?monthID=1&male&county=entire");
+            var onError = function() {
+                console.log("error on first call");
+              }
+            Http.onerror = onError;
+            Http.setRequestHeader('Accept', 'application/json'); 
+            Http.onload = function() {
+                if (Http.status == 200) {
+                    var data = JSON.parse(Http.responseText);
+                    fetch('./libs/map.geojson')
+                    .then(results => results.json())
+                    .then(results =>{
+                        console.log(data.groups.length);
+                     for(var i = 0; i < data.groups.length; i++){
+                         const obj = data.groups[i];
+                         for(var j = 0; j < results.features.length; j++)
+                         {
+                             const obj1 = results.features[j].properties;
+                             if(obj1['Identifier'] == obj["county"])
+                             results.features[j].properties['Value'] = obj["number"]; 
+                         }
+                    }
+                    console.log(results);
+                    var data1 = new Blob([JSON.stringify(results)], {type: 'application/json'});
+                    textFile = window.URL.createObjectURL(data1);
+                    configMap(textFile);           
+                });
+                } else {
+                    onError();
+                }
+                }
+            Http.send();
+
+//insert Map
+var map, countyList, overlayInfo;
+var overlayCounty, overlayCountyInfo, overlayContainer;
+
+function configMap(textFile){
+   
+    map = new ol.Map({
         target: 'map',
         layers: [
           new ol.layer.Tile({
@@ -11,7 +50,8 @@
             zoom: 6
           })
     });
-    
+   
+
     //Arrow on county
     const fillStyle = new ol.style.Fill({
         color: [245,49,49,0.8],
@@ -20,6 +60,7 @@
         color: [46, 45, 45, 0.3],
         width: 1.2
     }) 
+
     const arrowStyle = new ol.style.Style({
         fill: fillStyle,
         stroke: strokeStyle,
@@ -34,41 +75,35 @@
           })
     })
 
-var countyList = new ol.layer.VectorImage({
-    source: new ol.source.Vector({
-        url:file,
-        format: new ol.format.GeoJSON()
-    }),
-    visible:true,
-    title: 'Rata șomajului la nivelul fiecărui județ',
-    style: arrowStyle,
-})
-    
-map.addLayer(countyList);
-function initializeInfo(file){
-    map.removeLayer(countyList);    
-    countyList = new ol.layer.VectorImage({
-        source: new ol.source.Vector({
-            url:file,
-            format: new ol.format.GeoJSON()
-        }),
-        visible:true,
+    var vectorSource = new ol.source.Vector({
+        format: new ol.format.GeoJSON(),
+        url: textFile /* function() {
+        vectorSource.addFeatures(
+         vectorSource.getFormat().readFeatures(results));   
+         console.log(vectorSource);        
+         }*/
+       });
+        
+ 
+        countyList = new ol.layer.VectorImage({
+        source: vectorSource,
+        visible: true,
         title: 'Rata șomajului la nivelul fiecărui județ',
         style: arrowStyle,
-    })
-        
+        })
+  
     map.addLayer(countyList);
-    
+
     //Show Info
     
-    const overlayContainer = document.querySelector('.overlay-container');
-    const overlayInfo = new ol.Overlay({
+    overlayContainer = document.querySelector('.overlay-container');
+    overlayInfo = new ol.Overlay({
         element: overlayContainer
     })
     map.addOverlay(overlayInfo);
     
-    const overlayCounty = document.getElementById('overlay-county-name');
-    const overlayCountyInfo = document.getElementById('overlay-county-info');
+    overlayCounty = document.getElementById('overlay-county-name');
+    overlayCountyInfo = document.getElementById('overlay-county-info');
     
     map.on('click', showInfo)
     function showInfo(event){
@@ -82,10 +117,61 @@ function initializeInfo(file){
            overlayCountyInfo.innerHTML = countyInfo;
         })
     }
+
 }
+function reconfigMap(textFile){
+        map.removeLayer(countyList);
+        map.removeOverlay(overlayInfo);
 
-initializeInfo('libs/map.geojson');
-
+        const fillStyle = new ol.style.Fill({
+            color: [245,49,49,0.8],
+        })
+        const strokeStyle = new ol.style.Stroke({
+            color: [46, 45, 45, 0.3],
+            width: 1.2
+        }) 
+    
+        const arrowStyle = new ol.style.Style({
+            fill: fillStyle,
+            stroke: strokeStyle,
+            image: new ol.style.RegularShape({
+                fill: fillStyle,
+                stroke: strokeStyle,
+                points: 3,
+                radius: 13,
+                rotation: Math.PI / 3,
+                angle: 0,
+                displacement:[-11,7],
+              })
+        })
+    
+        var vectorSource = new ol.source.Vector({
+            format: new ol.format.GeoJSON(),
+            url: textFile /* function() {
+            vectorSource.addFeatures(
+             vectorSource.getFormat().readFeatures(results));   
+             console.log(vectorSource);        
+             }*/
+           });
+            
+     
+            countyList = new ol.layer.VectorImage({
+            source: vectorSource,
+            visible: true,
+            title: 'Rata șomajului la nivelul fiecărui județ',
+            style: arrowStyle,
+            })
+      
+        map.addLayer(countyList);
+    
+        //Show Info
+        
+        overlayInfo = new ol.Overlay({
+            element: overlayContainer
+        })
+        map.addOverlay(overlayInfo);
+        
+}
 //get info
 var monthForData = document.getElementById("drop-perioada");
 var criterion = document.getElementById("criterion");
@@ -97,36 +183,40 @@ function getMapData (event){
         console.log(monthForData.value);
         console.log(criterion.value);
        
-        const newURL = url.concat("?monthID=", monthForData.value, "&", criterion.value, "&county=", "entire"); 
+        const newURL = url.concat("?monthID=", monthForData.value, "&", criterion.value, "&county=entire"); 
         console.log(newURL);
         Http.open("GET", newURL);
         Http.setRequestHeader('Accept', 'application/json'); 
         Http.onreadystatechange = function() {
-            parseMapData(Http.responseText);            
+            if(Http.readyState==4){
+            parseMapData(Http.responseText);
+            }            
         }
         Http.send();
     }
 
 function parseMapData(text){
     var data = JSON.parse(text);
+    console.log(data);
     var textFile = './libs/map.geojson';
     fetch('./libs/map.geojson')
         .then(results => results.json())
         .then(results => {
+            console.log(data.groups.length);
             for(var i = 0; i < data.groups.length; i++){
                 const obj = data.groups[i];
-                for(var j = 0; i < results.features.length; i++)
+                for(var j = 0; j < results.features.length; j++)
                 {
                     const obj1 = results.features[j].properties;
                     if(obj1['Identifier'] == obj["county"])
-                    results.features[j].properties['Value'] = obj["number"]; 
+                        results.features[j].properties['Value'] = obj["number"]; 
                 }
-                
+            }
+            console.log(results);
             var data1 = new Blob([JSON.stringify(results)], {type: 'application/json'});
-            window.URL.revokeObjectURL(textFile);
             textFile = window.URL.createObjectURL(data1);
-            initializeInfo(textFile);
-        }});
+            reconfigMap(textFile);         
+    });
 }
 
 
