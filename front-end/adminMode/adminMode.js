@@ -20,7 +20,7 @@ function addNewAdmin(){
             <label for="admin-password" class="text-admin">Parola:</label>
             <input type="password" id="admin-password">
             </div>
-            <button type="button" class=" text-admin btn1" id="login"> Adauga </button>
+            <button type="submit" class=" text-admin login btn1" id="login"> Adauga </button>
         </form>`);
         counterDrops = 1;
    } else{
@@ -34,7 +34,8 @@ function addNewMonth(){
         optionsDiv.classList.add("admin-options_selected");  
         newMonth.insertAdjacentHTML("afterend",`
         <div id="add-data">
-        <button type="button" class=" text-admin btn1" id="upload"> Incarca CSV </button>       
+        <label for="upload" class="text-admin"> Incarca CSV </label>
+        <input type="file" id="upload">
         <button type="button" class=" text-admin btn1" id="add-db"> Adauga in baza de date </button>
         </div> 
         `);
@@ -53,14 +54,14 @@ function deleteMonth(){
      deleteM.insertAdjacentHTML("afterend",`
     <form id="delete-month-form">
              <div class="form-input">
-                 <label for="admin-username" class="text-admin">Luna: </label>
+                 <label for="month" class="text-admin">Luna: </label>
                  <input type="text" id="month"> 
              </div>
              <div class="form-input">
-             <label for="admin-password" class="text-admin">Anul: </label>
+             <label for="year" class="text-admin">Anul: </label>
              <input type="text" id="year">
              </div>
-             <button type="button" class="text-admin btn1" id="login"> Sterge din baza de date </button>
+             <button type="button" class="text-admin btn1" id="delete"> Sterge din baza de date </button>
          </form>`);
          counterDrops = 3;
         }
@@ -97,4 +98,53 @@ function eliminateOption(option){
     else counterDrops= 0;
 
 
+}
+
+//Http requests
+document.addEventListener('click', function(e){
+    switch(e.target.id){
+        case 'login': addAdmin(); break;
+        case 'upload': uploadFile(); break;
+        case 'add-db': sendFile(); break;
+        case 'delete': deleteData(); break;
+    } 
+});
+
+
+function addAdmin(){
+    console.log("admin");
+    const Http = new XMLHttpRequest();
+    const url='http://localhost:8090/api/v1/admin';
+   
+    const username = document.getElementById("admin-username").value;
+    const password = document.getElementById("admin-password").value;
+    const data = { username: username, password: password};
+    
+    Http.open("POST", url, true);
+    Http.setRequestHeader('Accept', 'application/json'); 
+    Http.setRequestHeader('Authorization', localStorage.getItem("token").toString());
+    Http.onload = function() {
+         if(Http.readyState = 4 && Http.status==200){
+            const ans = JSON.parse(Http.responseText);
+            if(ans.response == "You added a new admin!" ){
+            //create u added admin info, snackbar
+            }else{
+             console.log(ans.response);
+              //create already exists
+            }
+        } 
+      }
+    Http.send(JSON.stringify(data));
+}
+
+function uploadFile(){
+ 
+}
+
+function sendFile(){
+    console.log("sendFile");
+}
+
+function deleteData(){
+    console.log("delete");
 }

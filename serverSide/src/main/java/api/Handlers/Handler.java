@@ -46,6 +46,8 @@ public abstract class Handler {
         Headers headers = new Headers();
         headers.add(key, value);
         headers.add("Access-Control-Allow-Origin", "*");
+
+
         return headers;
     }
 
