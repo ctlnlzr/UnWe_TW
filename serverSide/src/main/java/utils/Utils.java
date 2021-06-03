@@ -1,5 +1,8 @@
 package utils;
 
+import database.entitymanager.EntityManagerProvider;
+
+import javax.persistence.EntityManager;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Arrays;
@@ -12,6 +15,7 @@ import static java.util.stream.Collectors.*;
 
 public class Utils {
 
+    private static final EntityManager entityManager= EntityManagerProvider.getEntityManagerFactory().createEntityManager();
     private static String decode(final String encoded) {
         try {
             return encoded == null ? null : URLDecoder.decode(encoded, "UTF-8");
@@ -27,5 +31,9 @@ public class Utils {
         return Pattern.compile("&").splitAsStream(query)
                 .map(s -> Arrays.copyOf(s.split("="), 2))
                 .collect(groupingBy(s -> decode(s[0]), mapping(s -> decode(s[1]), toList())));
+    }
+
+    public static EntityManager getEntityManager() {
+        return entityManager;
     }
 }

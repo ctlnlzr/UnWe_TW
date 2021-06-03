@@ -4,6 +4,7 @@ package services;
 import database.entity.TotalPerMonth;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.TotalPerMonthRepository;
+import utils.Utils;
 
 import javax.persistence.EntityManager;
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class TotalPerMonthService {
-    EntityManager entityManager = EntityManagerProvider.getEntityManagerFactory().createEntityManager();
+    EntityManager entityManager = Utils.getEntityManager();
 
 
     public List<TotalPerMonth> getByMonth(int month) {

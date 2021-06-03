@@ -5,6 +5,7 @@ import database.entity.Education;
 import database.entity.Environment;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.EducationRepository;
+import utils.Utils;
 
 import javax.persistence.EntityManager;
 import java.io.BufferedReader;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EducationService {
-    EntityManager entityManager = EntityManagerProvider.getEntityManagerFactory().createEntityManager();
+    EntityManager entityManager = Utils.getEntityManager();
 
     public List<Education> getByMonth(int month) {
         EducationRepository educationRepository = new EducationRepository(entityManager);

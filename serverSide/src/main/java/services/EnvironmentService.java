@@ -3,6 +3,7 @@ package services;
 import database.entity.Environment;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.EnvironmentRepository;
+import utils.Utils;
 
 import javax.persistence.EntityManager;
 import java.io.BufferedReader;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnvironmentService {
-    EntityManager entityManager = EntityManagerProvider.getEntityManagerFactory().createEntityManager();
+    EntityManager entityManager = Utils.getEntityManager();
 
     public List<Environment> getByMonth(int month) {
         EnvironmentRepository environmentRepository = new EnvironmentRepository(entityManager);

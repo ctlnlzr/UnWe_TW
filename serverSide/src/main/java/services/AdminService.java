@@ -5,12 +5,14 @@ package services;
 import database.entity.Admin;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.AdminRepository;
+import utils.Utils;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 public class AdminService {
-    EntityManager entityManager = EntityManagerProvider.getEntityManagerFactory().createEntityManager();
+    EntityManager entityManager = Utils.getEntityManager();
     public boolean find(Admin admin) {
         AdminRepository adminRepository = new AdminRepository(entityManager);
         return !adminRepository.find(admin.getUsername(), admin.getPassword()).isEmpty();

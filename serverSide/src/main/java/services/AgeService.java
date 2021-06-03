@@ -4,6 +4,7 @@ package services;
 import database.entity.Age;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.AgeRepository;
+import utils.Utils;
 
 import javax.persistence.EntityManager;
 import java.io.BufferedReader;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AgeService {
-    EntityManager entityManager = EntityManagerProvider.getEntityManagerFactory().createEntityManager();
+    EntityManager entityManager = Utils.getEntityManager();
 
     public List<Age> getByMonth(int month) {
         AgeRepository ageRepository = new AgeRepository(entityManager);
