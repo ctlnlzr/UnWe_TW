@@ -42,7 +42,7 @@ public class EducationHandler extends Handler {
                 os.close();
                 break;
             case "POST":
-                if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
+                if (exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityCreate = doCreate(exchange.getRequestBody());
                     exchange.getResponseHeaders().putAll(entityCreate.getHeaders());
                     exchange.sendResponseHeaders(entityCreate.getStatusCode(), 0);
@@ -53,7 +53,7 @@ public class EducationHandler extends Handler {
                     ValidationResponse validationResponse = new ValidationResponse();
                     validationResponse.setResponse("Not Authorized!");
                     respText = super.writeResp(validationResponse);
-                }
+                 }
                 break;
             case "DELETE":
                 if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {

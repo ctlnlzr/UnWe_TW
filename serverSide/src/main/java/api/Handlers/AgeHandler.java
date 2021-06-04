@@ -38,12 +38,21 @@ public class AgeHandler extends Handler {
                 respText = super.writeResp(entity.getBody());
                 break;
             case "POST":
-                if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
+                if (exchange.getRequestHeaders() != null){
+                    if( adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
+                    System.out.println("Create");
                     ResponseEntity<ValidationResponse> entityCreate = doCreate(exchange.getRequestBody());
                     exchange.getResponseHeaders().putAll(entityCreate.getHeaders());
                     exchange.sendResponseHeaders(entityCreate.getStatusCode(), 0);
                     respText = super.writeResp(entityCreate.getBody());
                 } else {
+                    exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
+                    exchange.sendResponseHeaders(401, 0);
+                    ValidationResponse validationResponse = new ValidationResponse();
+                    validationResponse.setResponse("Not Authorized!");
+                    respText = super.writeResp(validationResponse);
+                }
+              } else {
                     exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
                     exchange.sendResponseHeaders(401, 0);
                     ValidationResponse validationResponse = new ValidationResponse();

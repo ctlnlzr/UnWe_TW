@@ -34,6 +34,12 @@ function addNewMonth(){
         optionsDiv.classList.add("admin-options_selected");  
         newMonth.insertAdjacentHTML("afterend",`
         <div id="add-data">
+        <select id="type-of-file">
+        <option value=1 > Varsta <option>
+        <option value=2 > Educatie <option>
+        <option value=3 > Mediu <option>
+        <option value=4 > Total <option>
+        </select>
         <label for="upload" class="text-admin"> Incarca CSV </label>
         <input type="file" id="upload">
         <button type="button" class=" text-admin btn1" id="add-db"> Adauga in baza de date </button>
@@ -138,7 +144,38 @@ function addAdmin(){
 }
 
 function uploadFile(){
- 
+  const typeOfFile = document.getElementById("type-of-file");
+  var URL;
+  switch (typeOfFile.value){
+      case 1: 
+         URL = "http://localhost:8090/api/v1/age";
+         break;
+      case 2: 
+        URL = "http://localhost:8090/api/v1/education";
+      break;
+      case 3: 
+      URL = "http://localhost:8090/api/v1/environment";
+      break;
+      case 4: 
+      URL = "http://localhost:8090/api/v1/total";
+      break;
+  } 
+  var data = "schimba csv ul in json";
+  Http.open("Post", "http://localhost:8090/api/v1/age", true);
+  Http.setRequestHeader('Accept', 'application/json'); 
+  Http.setRequestHeader('Authorization', localStorage.getItem("token").toString());
+  Http.onload = function() {
+     if(Http.readyState = 4 && Http.status==200){
+        const ans = JSON.parse(Http.responseText);
+        if(ans.response == "Data wad added" ){
+        //create u add data 
+        }else{
+         console.log(ans.response);
+          //create already exists
+        }
+    } 
+  }
+  Http.send(JSON.stringify(data)); 
 }
 
 function sendFile(){
@@ -146,5 +183,5 @@ function sendFile(){
 }
 
 function deleteData(){
-    console.log("delete");
+    
 }

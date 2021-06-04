@@ -83,13 +83,18 @@ public class AdminHandler extends Handler {
 
                 if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
-                    if (params.containsKey("logout")) {
-                        ResponseEntity<ValidationResponse> entity = doLogout(exchange.getRequestHeaders().get("Authorization").get(0));
-                        exchange.getResponseHeaders().putAll(entity.getHeaders());
-                        exchange.sendResponseHeaders(entity.getStatusCode(), 0);
-                        respText = super.writeResp(entity.getBody());
+                    if (!params.isEmpty()) {
+                        if (params.containsKey("logout") && params.keySet().size() == 1) {
+                            ResponseEntity<ValidationResponse> entity = doLogout(exchange.getRequestHeaders().get("Authorization").get(0));
+                            exchange.getResponseHeaders().putAll(entity.getHeaders());
+                            exchange.sendResponseHeaders(entity.getStatusCode(), 0);
+                            respText = super.writeResp(entity.getBody());
+                        } else {
+                            exchange.getResponseHeaders().putAll(getHeaders("Content-Type", "application/json"));
+                            exchange.sendResponseHeaders(404, -1);
+                            respText = "Not found".getBytes();
+                        }
                     } else {
-                        System.out.println("here");
                         ResponseEntity<ValidationResponse> entity = doAddNewAdmin(exchange.getRequestBody());
                         exchange.getResponseHeaders().putAll(entity.getHeaders());
                         exchange.sendResponseHeaders(entity.getStatusCode(), 0);

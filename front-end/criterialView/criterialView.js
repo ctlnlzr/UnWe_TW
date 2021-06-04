@@ -214,11 +214,6 @@ function radarViewFormat(event){
 
 
 
-//download format
-let CSVdownloadBtn = document.getElementById("CSVbtn");
-let SVGdownloadBtn = document.getElementById("SVGbtn");
-let PDFdownloadBtn = document.getElementById("PDFbtn");
-
 
 let optionLng = {
     "en": { 0: "Woman", 1: "Man", 2: "No studies", 3: "Primary education", 4: "Secondary education", 5: "Highschool education", 6: "Postsecondary education", 7: "Vocational education", 8: "University education", 9: "Urban", 10: "Rural", 11: "under 25", 12: "25-29", 13: "30-39", 14: "40-49", 15: "50-55",16: "over 50", 17: 'Gender', 18: 'Studies level', 19: 'Environment', 20:'Age range' },
@@ -234,7 +229,7 @@ function setLang(string){
 var timePeriod = document.getElementById("time-period");
 var countyForComparison = document.getElementById("county-for-comparison");
 var principalCriterion = document.getElementById("principal-criterion");
-
+var dataInfo;
 document.getElementById('criteria_create').addEventListener('click', getChartData);
 function getChartData (event){
         const Http = new XMLHttpRequest();
@@ -252,6 +247,7 @@ function getChartData (event){
         Http.onreadystatechange = function() {
             if(Http.readyState==4){
              console.log(Http.responseText);
+             dataInfo=Http.responseText;
              parseDataLine(Http.responseText, selected, timePeriod.value);
              parseDataPie(Http.responseText, selected, timePeriod.value);
             }
@@ -470,6 +466,37 @@ for (var i = 0; i < 15; i++) {
 }
 
 
+//download format
+document.getElementById("CSVbtn").addEventListener('click', transfromToCSV);
+document.getElementById("SVGbtn").addEventListener('click', transfromToSVG);
+document.getElementById("PDFbtn").addEventListener('click', transfromToPDF);
+
+function transfromToCSV(){
+    if(dataInfo == undefined){
+        console.log("can't do that yet");
+    } else{
+        const objJson = JSON.parse(dataInfo);
+        var json = objJson.groups;
+        var fields = Object.keys(json[0]);
+        var replacer = function(key, value) { return value === null ? '' : value } 
+        var csv = json.map(function(row){
+          return fields.map(function(fieldName){
+            return JSON.stringify(row[fieldName], replacer);
+          }).join(',');
+        })
+        csv.unshift(fields.join(',')); // add header column
+         csv = csv.join('\r\n');
+        console.log(csv);
+    }
+}
+
+function transfromToSVG(){
+    console.log("transform to svg");
+}
+
+function transfromToPDF(){
+    console.log("transform to pdf");
+}
 
 function changeMonth() {
     var currentMonthCh = d.getMonth();
