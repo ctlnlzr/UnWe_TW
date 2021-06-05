@@ -1,16 +1,12 @@
 package api.Handlers;
 
-
-import api.ResponseEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
-import java.util.List;
 import io.vavr.control.Try;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 
 public abstract class Handler {
@@ -46,8 +42,6 @@ public abstract class Handler {
         Headers headers = new Headers();
         headers.add(key, value);
         headers.add("Access-Control-Allow-Origin", "*");
-
-
         return headers;
     }
 

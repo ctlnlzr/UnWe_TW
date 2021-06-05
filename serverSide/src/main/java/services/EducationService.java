@@ -1,6 +1,7 @@
 package services;
 
 
+import api.JsonModels.EducationJsonModels.EducationCreate;
 import database.entity.Education;
 import database.entity.Environment;
 import database.entitymanager.EntityManagerProvider;
@@ -48,50 +49,32 @@ public class EducationService {
         return educationRepository.filterByMonths(month, county);
     }
 
-    public boolean saveEducation(String filePath)  {
+    public boolean saveEducation(EducationCreate educationCreate)  {
         int month=0;
 
         EducationRepository educationRepository = new EducationRepository(entityManager);
-        try{
-        BufferedReader line = new BufferedReader(new FileReader(filePath));
-        line.readLine();
-        String lineText = null;
-        while ((lineText = line.readLine()) != null) {
-            String[] data = lineText.split(",");
-            String judet = data[0];
-            String faraStudii=data[2];
-            String invatamantPrimar=data[3];
-            String invatamantGimnazial=data[4];
-            String invatamantLiceal=data[5];
-            String invatamantPostliceal=data[6];
-            String invatamantProfesional=data[7];
-            String invatamantUniversitar=data[8];
+        for(int i = 0; i<educationCreate.getGroups().size(); i++){
             Education education=new Education();
-            education.setJudet(judet);
+            education.setJudet(educationCreate.getGroups().get(i).getVarJudet());
             education.setLuna(month);
-            education.setFaraStudii(Integer.parseInt(faraStudii));
-            education.setPrimar(Integer.parseInt(invatamantPrimar));
-            education.setGimnaziu(Integer.parseInt(invatamantGimnazial));
-            education.setLiceu(Integer.parseInt(invatamantLiceal));
-            education.setPostliceala(Integer.parseInt(invatamantPostliceal));
-            education.setProfesionala(Integer.parseInt(invatamantProfesional));
-            education.setUniversitate(Integer.parseInt(invatamantUniversitar));
+            education.setFaraStudii(educationCreate.getGroups().get(i).getVarFarastudii());
+            education.setPrimar(educationCreate.getGroups().get(i).getVarInvatamantprimar());
+            education.setGimnaziu(educationCreate.getGroups().get(i).getVarInvatamantgimnazial());
+            education.setLiceu(educationCreate.getGroups().get(i).getVarInvatamantliceal());
+            education.setPostliceala(educationCreate.getGroups().get(i).getVarInvatamantposticeal());
+            education.setProfesionala(educationCreate.getGroups().get(i).getVarInvatamantprofesionalartesimeserii());
+            education.setUniversitate(educationCreate.getGroups().get(i).getVarInvatamantuniversitar());
             educationRepository.create(education);
-
-        }
-        line.close();
-        }catch (Exception e){
-            return  false;
         }
         return true;
     }
 
-    public boolean deleteEducation(int month, String county) {
+    public boolean deleteEducation(int month) {
         EducationRepository educationRepository = new EducationRepository(entityManager);
-        if (educationRepository.findByLunaAndCounty(month, county).isEmpty()) {
+        if (educationRepository.findByLuna(month).isEmpty()) {
             return false;
         }
-        educationRepository.delete(month, county);
+        educationRepository.delete(month);
         return true;
     }
 

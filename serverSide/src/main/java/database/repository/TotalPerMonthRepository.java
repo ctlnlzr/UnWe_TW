@@ -5,6 +5,7 @@ package database.repository;
 import database.entity.TotalPerMonth;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -51,10 +52,11 @@ public class TotalPerMonthRepository {
         return query.getResultList();
     }
 
-    public void delete(int month, String county) {
-        TypedQuery<TotalPerMonth> query = entityManager.createNamedQuery("TotalPerMonth.deleteByMonthAndCounty", TotalPerMonth.class);
-        query.setParameter("lunaParam", month);
-        query.setParameter("judetParam", county);
+    public void delete(int month) {
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("DELETE FROM TotalPerMonth g WHERE g.luna=:lunaParam").setParameter("lunaParam", month);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
     }
 
     public void update(TotalPerMonth totalPerMonth) {

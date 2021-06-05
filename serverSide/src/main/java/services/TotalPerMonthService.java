@@ -1,6 +1,7 @@
 package services;
 
 
+import api.JsonModels.TotalJsonModels.TotalCreate;
 import database.entity.TotalPerMonth;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.TotalPerMonthRepository;
@@ -48,44 +49,26 @@ public class TotalPerMonthService {
         }
         return totalRepository.filterByMonths(month, county);
     }
-    public boolean saveTotalPerMonth(String filePath) {
+    public boolean saveTotalPerMonth(TotalCreate totalCreate) {
         TotalPerMonthRepository totalRepository = new TotalPerMonthRepository(entityManager);
         int month=0;
-      try {
-          BufferedReader line = new BufferedReader(new FileReader(filePath));
-          line.readLine();
-          String lineText = null;
-          while ((lineText = line.readLine()) != null) {
-              String[] data = lineText.split(",");
-              String judet = data[0];
-              String[] data3 = lineText.split("\", ");
-              String[] data2 = lineText.split("\"");
-              // String maiMic25 = data[11];
-              // StringTokenizer token = new StringTokenizer(maiMic25, " ");
-              StringTokenizer token2 = new StringTokenizer(data3[1], ",");
-              String maiMic29 = data2[1];
-              String corect = maiMic29.replace(",", "");
-              String corect2 = corect.replace(" ", "");
-              TotalPerMonth totalPerMonth = new TotalPerMonth();
-              totalPerMonth.setLuna(month);
-              totalPerMonth.setJudet(judet);
-              totalPerMonth.setTotal(Integer.parseInt(corect2));
-              totalPerMonth.setRata(Float.parseFloat(token2.nextToken()));
-              totalRepository.create(totalPerMonth);
-          }
-          line.close();
-      }catch (Exception e){
-          return  false;
-      }
+           for(int i =0 ; i< totalCreate.getGroups().size(); i++) {
+               TotalPerMonth totalPerMonth = new TotalPerMonth();
+               totalPerMonth.setLuna(month);
+               totalPerMonth.setJudet(totalCreate.getGroups().get(i).getVarJudet());
+               totalPerMonth.setTotal(totalCreate.getGroups().get(i).getVarNumartotalsomeri());
+               totalPerMonth.setRata(totalCreate.getGroups().get(i).getVarRatasomajului());
+               totalRepository.create(totalPerMonth);
+           }
         return true;
     }
 
-    public boolean deleteTotalPerMonth(int month, String county) {
+    public boolean deleteTotalPerMonth(int month) {
         TotalPerMonthRepository totalRepository = new TotalPerMonthRepository(entityManager);
-        if (totalRepository.findByLunaAndCounty(month, county).isEmpty()) {
+        if (totalRepository.findByLuna(month).isEmpty()) {
             return false;
         }
-        totalRepository.delete(month, county);
+        totalRepository.delete(month);
         return true;
     }
 

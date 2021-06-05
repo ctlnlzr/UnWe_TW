@@ -1,8 +1,7 @@
 package api.Handlers;
 
-
+import api.JsonModels.EducationJsonModels.EducationCreate;
 import api.JsonModels.EducationJsonModels.EducationGetResponse;
-import api.JsonModels.commonModels.CreateRequest;
 import api.JsonModels.commonModels.ValidationResponse;
 import api.ResponseEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,8 +9,7 @@ import com.sun.net.httpserver.HttpExchange;
 import services.AdminService;
 import services.EducationService;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +27,13 @@ public class EducationHandler extends Handler {
 
     @Override
     protected void execute(HttpExchange exchange) throws Exception {
+        if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
+            exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "POST, DELETE");
+            exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Authorization");
+            exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+            exchange.sendResponseHeaders(204, -1);
+            return;
+        }
         byte[] respText;
         Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
         switch (exchange.getRequestMethod()) {
@@ -56,7 +61,7 @@ public class EducationHandler extends Handler {
                  }
                 break;
             case "DELETE":
-                if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
+                if (exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityDelete = doDelete(params);
                     exchange.getResponseHeaders().putAll(entityDelete.getHeaders());
                     exchange.sendResponseHeaders(entityDelete.getStatusCode(), 0);
@@ -101,8 +106,8 @@ public class EducationHandler extends Handler {
 
     ResponseEntity<ValidationResponse> doCreate(InputStream is) {
         ValidationResponse response = new ValidationResponse();
-        CreateRequest request = super.readResp(is, CreateRequest.class);
-        if (educationService.saveEducation(request.getFilePath())) response.setResponse("Data wad added");
+        EducationCreate request = super.readResp(is, EducationCreate.class);
+        if (educationService.saveEducation(request)) response.setResponse("Data wad added");
         else response.setResponse("Data wasn`t added");
         return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
     }
@@ -110,11 +115,11 @@ public class EducationHandler extends Handler {
 
     ResponseEntity<ValidationResponse> doDelete(Map<String, List<String>> params) {
         ValidationResponse validationResponse = new ValidationResponse();
-        if (!params.containsKey("monthID") || !params.containsKey("county")) {
+        if (!params.containsKey("monthID")) {
             validationResponse.setResponse("Data not found!");
             return new ResponseEntity<>(validationResponse, super.getHeaders("Content-Type", "application/json"), 404);
         }
-        if (educationService.deleteEducation(Integer.parseInt(params.get("monthID").get(0)), params.get("county").get(0)))
+        if (educationService.deleteEducation(Integer.parseInt(params.get("monthID").get(0))))
             validationResponse.setResponse("Data was deleted!");
         else
             validationResponse.setResponse("There is no data to delete!");

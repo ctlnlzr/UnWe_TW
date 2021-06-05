@@ -5,6 +5,7 @@ package database.repository;
 import database.entity.Age;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -52,10 +53,11 @@ public class AgeRepository {
         return query.getResultList();
     }
 
-    public void delete(int month, String county) {
-        TypedQuery<Age> query = entityManager.createNamedQuery("Age.deleteByMonthAndCounty", Age.class);
-        query.setParameter("lunaParam", month);
-        query.setParameter("judetParam", county);
+    public void delete(int month) {
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("DELETE FROM Age g WHERE g.luna=:lunaParam").setParameter("lunaParam", month);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
     }
 
     public void update(Age age) {

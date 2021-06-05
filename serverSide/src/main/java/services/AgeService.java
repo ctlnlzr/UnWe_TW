@@ -1,15 +1,13 @@
 package services;
 
 
+import api.JsonModels.AgeJsonModels.AgeCreate;
 import database.entity.Age;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.AgeRepository;
 import utils.Utils;
 
 import javax.persistence.EntityManager;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,46 +46,30 @@ public class AgeService {
         return ageRepository.filterByMonths(month, county);
     }
 
-    public boolean saveAge(String filePath) {
+    public boolean saveAge(AgeCreate ageCreate) {
         int month = 0;
         AgeRepository ageRepository = new AgeRepository(entityManager);
-        try {
-            BufferedReader line = new BufferedReader(new FileReader(filePath));
-            line.readLine();
-            String lineText = null;
-            while ((lineText = line.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String judet = data[0];
-                String sub25 = data[2];
-                String intre25Si29 = data[3];
-                String intre30Si39 = data[4];
-                String intre40Si49 = data[5];
-                String intre50Si55 = data[6];
-                String peste55 = data[7];
+        for(int i =0 ; i < ageCreate.getGroups().size(); i ++){
                 Age age = new Age();
-                age.setJudet(judet);
+                age.setJudet(ageCreate.getGroups().get(i).getVarJudet());
                 age.setLuna(month);
-                age.setMaiMic25(Integer.parseInt(sub25));
-                age.setIntre25si29(Integer.parseInt(intre25Si29));
-                age.setIntre30si39(Integer.parseInt(intre30Si39));
-                age.setIntre40si49(Integer.parseInt(intre40Si49));
-                age.setIntre50si55(Integer.parseInt(intre50Si55));
-                age.setPeste55(Integer.parseInt(peste55));
+                age.setMaiMic25(ageCreate.getGroups().get(i).getVarSub25ani());
+                age.setIntre25si29(ageCreate.getGroups().get(i).getVar2529ani());
+                age.setIntre30si39(ageCreate.getGroups().get(i).getVar3039ani());
+                age.setIntre40si49(ageCreate.getGroups().get(i).getVar4049ani());
+                age.setIntre50si55(ageCreate.getGroups().get(i).getVar5055ani());
+                age.setPeste55(ageCreate.getGroups().get(i).getVarPeste55ani());
                 ageRepository.create(age);
-            }
-            line.close();
-        } catch (Exception e) {
-            return false;
         }
         return true;
     }
 
-    public boolean deleteAge(int month, String county) {
+    public boolean deleteAge(int month) {
         AgeRepository ageRepository = new AgeRepository(entityManager);
-        if (ageRepository.findByLunaAndCounty(month, county).isEmpty()) {
+        if (ageRepository.findByLuna(month).isEmpty()) {
             return false;
         }
-        ageRepository.delete(month, county);
+        ageRepository.delete(month);
         return true;
     }
 

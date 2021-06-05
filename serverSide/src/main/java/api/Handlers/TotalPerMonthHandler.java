@@ -1,7 +1,7 @@
 package api.Handlers;
 
+import api.JsonModels.TotalJsonModels.TotalCreate;
 import api.JsonModels.TotalJsonModels.TotalGetResponse;
-import api.JsonModels.commonModels.CreateRequest;
 import api.JsonModels.commonModels.ValidationResponse;
 import api.ResponseEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -28,6 +28,13 @@ public class TotalPerMonthHandler extends Handler {
 
     @Override
     protected void execute(HttpExchange exchange) throws Exception {
+        if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
+            exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "POST, DELETE");
+            exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Authorization");
+            exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+            exchange.sendResponseHeaders(204, -1);
+            return;
+        }
         byte[] respText;
         Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
         switch (exchange.getRequestMethod()) {
@@ -38,8 +45,7 @@ public class TotalPerMonthHandler extends Handler {
                 respText = super.writeResp(entity.getBody());
                 break;
             case "POST":
-                if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
-
+                if (exchange.getRequestHeaders().containsKey("Authorization") &&  adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityCreate = doCreate(exchange.getRequestBody());
                     exchange.getResponseHeaders().putAll(entityCreate.getHeaders());
                     exchange.sendResponseHeaders(entityCreate.getStatusCode(), 0);
@@ -53,7 +59,7 @@ public class TotalPerMonthHandler extends Handler {
                 }
                 break;
             case "DELETE":
-                if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
+                if ( exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityDelete = doDelete(params);
                     exchange.getResponseHeaders().putAll(entityDelete.getHeaders());
                     exchange.sendResponseHeaders(entityDelete.getStatusCode(), 0);
@@ -98,11 +104,11 @@ public class TotalPerMonthHandler extends Handler {
 
     private ResponseEntity<ValidationResponse> doDelete(Map<String, List<String>> params) {
         ValidationResponse response = new ValidationResponse();
-        if (!params.containsKey("monthID") || !params.containsKey("county")) {
+        if (!params.containsKey("monthID")) {
             response.setResponse("Data not found!");
             return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 404);
         }
-        if (service.deleteTotalPerMonth(Integer.parseInt(params.get("monthID").get(0)), params.get("county").get(0)))
+        if (service.deleteTotalPerMonth(Integer.parseInt(params.get("monthID").get(0))))
             response.setResponse("Data was deleted!");
         else response.setResponse("There is no data to delete!");
         return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
@@ -110,8 +116,8 @@ public class TotalPerMonthHandler extends Handler {
 
     private ResponseEntity<ValidationResponse> doCreate(InputStream is) {
         ValidationResponse response = new ValidationResponse();
-        CreateRequest request = super.readResp(is, CreateRequest.class);
-        if (service.saveTotalPerMonth(request.getFilePath())) response.setResponse("The data was added!");
+        TotalCreate request = super.readResp(is, TotalCreate.class);
+        if (service.saveTotalPerMonth(request)) response.setResponse("The data was added!");
         else response.setResponse("The data wasn't added!");
         return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
     }

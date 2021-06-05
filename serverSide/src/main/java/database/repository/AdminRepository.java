@@ -38,7 +38,6 @@ public class AdminRepository {
         entityManager.getTransaction().begin();
         admin.setToken(String.valueOf(0));
         entityManager.merge(admin);
-        System.out.println("direct dupa merge");
         entityManager.getTransaction().commit();
     }
 

@@ -1,6 +1,6 @@
 package api.Handlers;
 
-import api.JsonModels.commonModels.CreateRequest;
+import api.JsonModels.AgeJsonModels.AgeCreate;
 import api.JsonModels.AgeJsonModels.AgeGetResponse;
 import api.JsonModels.commonModels.ValidationResponse;
 import api.ResponseEntity;
@@ -28,6 +28,13 @@ public class AgeHandler extends Handler {
 
     @Override
     protected void execute(HttpExchange exchange) throws Exception {
+        if (exchange.getRequestMethod().equalsIgnoreCase("OPTIONS")) {
+            exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "POST, DELETE");
+            exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Authorization");
+            exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+            exchange.sendResponseHeaders(204, -1);
+            return;
+        }
         byte[] respText;
         Map<String, List<String>> params = splitQuery(exchange.getRequestURI().getRawQuery());
         switch (exchange.getRequestMethod()) {
@@ -38,9 +45,7 @@ public class AgeHandler extends Handler {
                 respText = super.writeResp(entity.getBody());
                 break;
             case "POST":
-                if (exchange.getRequestHeaders() != null){
-                    if( adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
-                    System.out.println("Create");
+                if(exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityCreate = doCreate(exchange.getRequestBody());
                     exchange.getResponseHeaders().putAll(entityCreate.getHeaders());
                     exchange.sendResponseHeaders(entityCreate.getStatusCode(), 0);
@@ -52,16 +57,9 @@ public class AgeHandler extends Handler {
                     validationResponse.setResponse("Not Authorized!");
                     respText = super.writeResp(validationResponse);
                 }
-              } else {
-                    exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
-                    exchange.sendResponseHeaders(401, 0);
-                    ValidationResponse validationResponse = new ValidationResponse();
-                    validationResponse.setResponse("Not Authorized!");
-                    respText = super.writeResp(validationResponse);
-                }
                 break;
             case "DELETE":
-                if (adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
+                if (exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityDelete = doDelete(params);
                     exchange.getResponseHeaders().putAll(entityDelete.getHeaders());
                     exchange.sendResponseHeaders(entityDelete.getStatusCode(), 0);
@@ -107,11 +105,11 @@ public class AgeHandler extends Handler {
 
     private ResponseEntity<ValidationResponse> doDelete(Map<String, List<String>> params) {
         ValidationResponse response = new ValidationResponse();
-        if (!params.containsKey("monthID") || !params.containsKey("county")) {
+        if (!params.containsKey("monthID")) {
             response.setResponse("Data not found!");
             return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 404);
         }
-        if (ageService.deleteAge(Integer.parseInt(params.get("monthID").get(0)), params.get("county").get(0)))
+        if (ageService.deleteAge(Integer.parseInt(params.get("monthID").get(0))))
             response.setResponse("Data was deleted!");
         else response.setResponse("There is no data to delete!");
         return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
@@ -119,8 +117,8 @@ public class AgeHandler extends Handler {
 
     private ResponseEntity<ValidationResponse> doCreate(InputStream is) {
         ValidationResponse response = new ValidationResponse();
-        CreateRequest request = super.readResp(is, CreateRequest.class);
-        if (ageService.saveAge(request.getFilePath())) response.setResponse("The data was added!");
+        AgeCreate request = super.readResp(is, AgeCreate.class);
+        if (ageService.saveAge(request)) response.setResponse("The data was added!");
         else response.setResponse("The data wasn't added!");
         return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
     }

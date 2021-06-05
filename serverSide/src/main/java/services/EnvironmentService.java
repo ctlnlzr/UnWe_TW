@@ -1,5 +1,7 @@
 package services;
 
+import api.JsonModels.EducationJsonModels.EducationCreate;
+import api.JsonModels.EnvironmentJsonModels.EnvironmentCreate;
 import database.entity.Environment;
 import database.entitymanager.EntityManagerProvider;
 import database.repository.EnvironmentRepository;
@@ -47,44 +49,30 @@ public class EnvironmentService {
         return environmentRepository.filterByMonths(month, county);
     }
 
-    public boolean saveEnvironment(String filePath) {
+    public boolean saveEnvironment(EnvironmentCreate environmentCreate) {
         int month = 0;
         EnvironmentRepository environmentRepository = new EnvironmentRepository(entityManager);
 
-        try {
-            BufferedReader line = new BufferedReader(new FileReader(filePath));
-            line.readLine();
-            String lineText = null;
-            while ((lineText = line.readLine()) != null) {
-                String[] data = lineText.split(",");
-                String judet = data[0];
-                String femeiUrban = data[5];
-                String barbatiUrban = data[6];
-                String femeiRural = data[8];
-                String barbatiRural = data[9];
+        for(int i = 0; i < environmentCreate.getGroups().size(); i++){
                 Environment environment = new Environment();
                 environment.setLuna(month);
-                environment.setJudet(judet);
-                environment.setBarbatiDinMediulRural(Integer.parseInt(barbatiRural));
-                environment.setBarbatiDinMediulUrban(Integer.parseInt(barbatiUrban));
-                environment.setFemeiDinMediulRural(Integer.parseInt(femeiRural));
-                environment.setFemeiDinMediulUrban(Integer.parseInt(femeiUrban));
+                environment.setJudet(environmentCreate.getGroups().get(i).getVarJudet());
+                environment.setBarbatiDinMediulRural(environmentCreate.getGroups().get(i).getVarNumarsomeribarbatidinmediulrural());
+                environment.setBarbatiDinMediulUrban(environmentCreate.getGroups().get(i).getVarNumarsomeribarbatidinmediulurban());
+                environment.setFemeiDinMediulRural(environmentCreate.getGroups().get(i).getVarNumarsomerifemeidinmediulrural());
+                environment.setFemeiDinMediulUrban(environmentCreate.getGroups().get(i).getVarNumarsomerifemeidinmediulurban());
                 environmentRepository.create(environment);
             }
-            line.close();
-        } catch (Exception e) {
-            return false;
-        }
 
         return true;
     }
 
-    public boolean deleteEnvironment(int month, String county) {
+    public boolean deleteEnvironment(int month) {
         EnvironmentRepository environmentRepository = new EnvironmentRepository(entityManager);
-        if (environmentRepository.findByLunaAndCounty(month, county).isEmpty()) {
+        if (environmentRepository.findByLuna(month).isEmpty()) {
             return false;
         }
-        environmentRepository.delete(month, county);
+        environmentRepository.delete(month);
         return true;
     }
 

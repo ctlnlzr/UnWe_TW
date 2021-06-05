@@ -3,6 +3,7 @@ package database.repository;
 import database.entity.Education;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -49,10 +50,11 @@ public class EducationRepository {
         return query.getResultList();
     }
 
-    public void delete(int month, String county) {
-        TypedQuery<Education> query = entityManager.createNamedQuery("Education.deleteByMonthAndCounty", Education.class);
-        query.setParameter("lunaParam", month);
-        query.setParameter("judetParam", county);
+    public void delete(int month) {
+        entityManager.getTransaction().begin();
+        Query query = entityManager.createQuery("DELETE FROM Education g WHERE g.luna=:lunaParam").setParameter("lunaParam", month);
+        query.executeUpdate();
+        entityManager.getTransaction().commit();
     }
 
     public void update(Education education) {
