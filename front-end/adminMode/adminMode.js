@@ -13,14 +13,14 @@ function addNewAdmin(){
      newAdmin.insertAdjacentHTML("afterend",`
         <form id="add-admin-form">
             <div class="form-input">
-                <label for="admin-username" class="text-admin"> Username: </label>
+                <label for="admin-username" class="text-admin" id="admin-name">`+ langAdminMode[a].adminName +`</label>
                 <input type="text" id="admin-username"> 
             </div>
             <div class="form-input">
-            <label for="admin-password" class="text-admin">Parola:</label>
+            <label for="admin-password" class="text-admin" id="password">`+ langAdminMode[a].password +`</label>
             <input type="password" id="admin-password">
             </div>
-            <button type="submit" class=" text-admin login btn1" id="login"> Adauga </button>
+            <button type="button" class=" text-admin login btn1" id="add-admin-btn">`+ langAdminMode[a].addAdminBtn+`</button>
         </form>`);
         counterDrops = 1;
    } else{
@@ -35,15 +35,19 @@ function addNewMonth(){
         optionsDiv.classList.add("admin-options_selected");  
         newMonth.insertAdjacentHTML("afterend",`
         <div id="add-data">
-        <select id="type-of-file">
-        <option value=1 selected> Varsta </option>
-        <option value=2> Educatie </option>
-        <option value=3> Mediu </option>
-        <option value=4> Total </option>
-        </select>
-        <label for="upload" class="text-admin"> Incarca CSV </label>
-        <input type="file" id="upload">
-        <button type="button" class=" text-admin btn1" id="add-db"> Adauga in baza de date </button>
+            <div class="criteria__arrow">
+                <select class="drop-list" id="type-of-file">
+                    <option class="text_option" value=1 selected id="age-option">`+langAdminMode[a].ageOption+`</option>
+                    <option class="text_option" value=2 id="education-option">`+langAdminMode[a].educationOption+`</option>
+                    <option class="text_option" value=3 id="env-option">`+ langAdminMode[a].envOption +`</option>
+                    <option class="text_option" value=4 > Total </option>
+                </select>
+                <span class="arrow"></span>
+            </div>
+            <label for="upload" class="text-admin btn1" id="add-csv"> 
+            <input type="file" id="upload" style="display: none;"/>
+            `+ langAdminMode[a].addCsv +` </label>
+            <button type="button" class="text-admin btn1" id="add-db"> `+ langAdminMode[a].addDb +` </button>
         </div> 
         `);
         counterDrops = 2;
@@ -61,10 +65,13 @@ function deleteMonth(){
      optionsDiv.classList.add("admin-options_selected");  
      
      deleteM.insertAdjacentHTML("afterend",`
-            <div id ="delete-month-form">             
+            <div id ="delete-month-form"> 
+            <div class="criteria__arrow">
             <select class="drop-list" id="drop-perioada">
             </select>
-             <button type="button" class="text-admin btn1" id="delete"> Sterge din baza de date </button>
+            <span class="arrow"></span>
+            </div>
+             <button type="button" class="text-admin btn1" id="delete">`+ langAdminMode[a].delete +`</button>
             <div>`);
          counterDrops = 3;
          let months = {
@@ -78,7 +85,6 @@ function deleteMonth(){
              var option = document.createElement('option');
              option.innerHTML=months["ro"][currentMonth].concat(' ').concat(currentYear.toString());
              var select = document.getElementById("drop-perioada");
-             option.classList.add("text");
              option.classList.add("text_option");
              option.value = i+1;
              select.insertAdjacentElement("beforeend",option);
@@ -108,10 +114,9 @@ function logout(){
          if(Http.readyState = 4 && Http.status==200){
             const ans = JSON.parse(Http.responseText);
             if(ans.response == "You've been logged out!" ){
-                console.log(ans.response);
-                localStorage.removeItem("token");
-            }else{
-             console.log(ans.response);
+                window.location.href = "../principal/proiect.html";
+                showSnackbar(ans.response);
+                localStorage.removeItem("token");   
             }
         } 
       }
@@ -175,14 +180,10 @@ function addAdmin(){
     Http.setRequestHeader('Accept', 'application/json'); 
     Http.setRequestHeader('Authorization', localStorage.getItem("token").toString());
     Http.onload = function() {
-         if(Http.readyState = 4 && Http.status==200){
-            const ans = JSON.parse(Http.responseText);
-            if(ans.response == "You added a new admin!" ){
-            //create u added admin info, snackbar
-            }else{
-             console.log(ans.response);
-              //create already exists
-            }
+         if( Http.readyState == 4 && Http.status==200){
+           const ans = JSON.parse(Http.responseText);
+           console.log(ans.response);
+           showSnackbar(ans.response);
         } 
       }
     Http.send(JSON.stringify(data));
@@ -276,13 +277,8 @@ function sendFile(){
         Http.setRequestHeader('Authorization', localStorage.getItem("token").toString());
         Http.onload = function() {
             if(Http.readyState = 4 && Http.status==200){
-            const ans = JSON.parse(Http.responseText);
-                if(ans.response == "Data wad added" ){
-                    //create u add data 
-                }else{    
-                    console.log(ans.response);
-                      //create already exists
-                }
+            const ans = JSON.parse(Http.responseText);   
+            showSnackbar(ans.response)
             } 
     }
        Http.send(data);
@@ -294,7 +290,7 @@ function sendFile(){
  
 function deleteData(){
     monthID = document.getElementById('drop-perioada').value;
-
+    counter = 0;
     const urls = ["http://localhost:8090/api/v1/age?monthID=","http://localhost:8090/api/v1/education?monthID=","http://localhost:8090/api/v1/environment?monthID=","http://localhost:8090/api/v1/total?monthID="];
     for(var i=0; i < 4; i++){
     const Http = new XMLHttpRequest();
@@ -305,14 +301,119 @@ function deleteData(){
         if(Http.readyState = 4 && Http.status==200){
         const ans = JSON.parse(Http.responseText);
             if(ans.response == "Data was deleted!" ){
-                //create u add data 
-            }else{    
-                console.log(ans.response);
-                  //create already exists
+                counter++; 
             }
         } 
     }
    Http.send();
   }   
+  if(counter == 4){
+      showSnackbar("Data was deleted!");
+  }else{
+      showSnackbar("A problem occured, try again!");
+  }
 }
 
+
+function showSnackbar(text){
+var x = document.getElementById("snackbar");
+  x.textContent = text;
+  x.className = "show";
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 2000);
+}
+
+
+//Ro - En
+
+function changeMonth(lang){
+    var currentMonthCh = d.getMonth();
+    var currentYearCh = d.getFullYear();
+    let mySelect = document.getElementById("drop-perioada");
+    let selectLen = mySelect.length;
+    for(var j=0; j < selectLen ; j++){
+       mySelect.options[j].innerHTML = months[lang][currentMonthCh].concat(' ').concat(currentYearCh.toString()); 
+       currentMonthCh = currentMonthCh-1;
+    if(currentMonthCh == -1){
+        currentMonthCh = 11;
+        currentYearCh = currentYearCh-1;
+    }
+  }
+}
+
+let langAdminMode = {
+    "en": {
+        "addAdmin": "Add a new admin",
+        "addData": "Add new data",
+        "deleteData": 'Delete data',
+        "logout": 'Logout',
+        "adminName": 'Username:',
+        "password": 'Password:',
+        "addAdminBtn" : "Add",
+        "addDb": "Add in database",
+        "ageOption": "Age",
+        "educationOption": "Education",
+        "envOption": "Environment",
+        "delete": "Delete from database",
+        "addCsv": "Add CSV"
+    },
+    "ro": { 
+        "addAdmin": "Adaugă un admin nou",
+        "addData": "Adaugă date",
+        "deleteData": 'Șterge date',
+        "logout": 'Deconectare',
+        "adminName": 'Nume admin:',
+        "password": 'Parolă:',
+        "addAdminBtn" : "Adaugă",
+        "addDb": "Adaugă în baza de date",
+        "ageOption": "Vârstă",
+        "educationOption": "Educație",
+        "envOption": "Mediu",
+        "delete": "Șterge din baza de date",
+        "addCsv":"Adaugă CSV"
+    }
+}
+
+let addAdministrator = document.getElementById("add-admin");
+let addData = document.getElementById("add-data-button");
+let delData = document.getElementById("delete-data");
+let logoutBtn = document.getElementById("logout");
+
+
+var a ="ro";
+link.forEach(e1 => {
+    e1.addEventListener("click", () => {
+        a = e1.getAttribute("lang");
+        addAdministrator.textContent = langAdminMode[a].addAdmin; 
+        addData.textContent = langAdminMode[a].addData;
+        delData.textContent = langAdminMode[a].deleteData;
+        logoutBtn.textContent = langAdminMode[a].logout;
+        if(counterDrops == 1){
+            let adminName = document.getElementById("admin-name");
+            let password = document.getElementById("password");
+            let addAdminBtn = document.getElementById("add-admin-btn");
+
+            adminName.textContent = langAdminMode[a].adminName;
+            password.textContent = langAdminMode[a].password;
+            addAdminBtn.textContent = langAdminMode[a].addAdminBtn;}
+        if(counterDrops == 2){
+            let addDb = document.getElementById("add-db");
+            let ageOption = document.getElementById("age-option");
+            let educationOption = document.getElementById("education-option");
+            let envOption = document.getElementById("env-option");
+            let addCsv = document.getElementById("add-csv");
+
+            addDb.textContent = langAdminMode[a].addDb;
+            ageOption.textContent = langAdminMode[a].ageOption;
+            educationOption.textContent = langAdminMode[a].educationOption;
+            envOption.textContent = langAdminMode[a].envOption;
+            addCsv.textContent = langAdminMode[a].addCsv;
+        }
+        if(counterDrops == 3){
+            changeMonth(a);
+            let del = document.getElementById("delete");
+
+            del.textContent = langAdminMode[a].delete;
+        }
+    });
+
+})

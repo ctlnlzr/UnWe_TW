@@ -13,9 +13,11 @@ import com.sun.net.httpserver.HttpExchange;
 import database.entity.Age;
 import database.entity.Education;
 import database.entity.Environment;
+import database.entity.TotalPerMonth;
 import services.AgeService;
 import services.EducationService;
 import services.EnvironmentService;
+import services.TotalPerMonthService;
 
 
 import java.io.OutputStream;
@@ -30,11 +32,12 @@ public class PageHandler extends Handler{
     private final EnvironmentService environmentService = new EnvironmentService();
     private final EducationService educationService = new EducationService();
     private final AgeService ageService = new AgeService();
+    private final TotalPerMonthService totalService = new TotalPerMonthService();
 
     public PageHandler(ObjectMapper objectMapper) {
         super(objectMapper);
-
     }
+
     @Override
     protected void execute(HttpExchange exchange) throws Exception {
         byte[] respText;
@@ -55,35 +58,37 @@ public class PageHandler extends Handler{
             switch (criterion){
                 case "gender":
                    ResponseEntity<GenderResponse> entity = doGetByGender(Integer.parseInt(params.get("monthID").get(0)), noOfMonths, params.get("county"));
-                   exchange.getResponseHeaders().putAll(entity.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                    exchange.sendResponseHeaders(entity.getStatusCode(),0);
                    respText = super.writeResp(entity.getBody());
                    break;
                 case "environment":
                     ResponseEntity<EnvironmentResponse> environmentEntity = doGetByEnvironment(Integer.parseInt(params.get("monthID").get(0)), noOfMonths, params.get("county"));
-                    exchange.getResponseHeaders().putAll(environmentEntity.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(environmentEntity.getStatusCode(),0);
                     respText = super.writeResp(environmentEntity.getBody());
                     break;
                 case "studies":
                     ResponseEntity<EducationGetResponse> educationEntity = doGetByEducation(Integer.parseInt(params.get("monthID").get(0)), noOfMonths, params.get("county"));
-                    exchange.getResponseHeaders().putAll(educationEntity.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(educationEntity.getStatusCode(),0);
                     respText = super.writeResp(educationEntity.getBody());
                     break;
                 case "age":
                     ResponseEntity<AgeGetResponse> ageEntity = doGetByAge(Integer.parseInt(params.get("monthID").get(0)), noOfMonths, params.get("county"));
-                    exchange.getResponseHeaders().putAll(ageEntity.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(ageEntity.getStatusCode(),0);
                     respText = super.writeResp(ageEntity.getBody());
                     break;
                 default:
                     ResponseEntity<CriterionResponse> responseEntity = doGetByCriterion(Integer.parseInt(params.get("monthID").get(0)), noOfMonths, criterion, params.get("county"));
-                    exchange.getResponseHeaders().putAll(responseEntity.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(responseEntity.getStatusCode(),0);
                     respText = super.writeResp(responseEntity.getBody());
                }
         } else {
+            exchange.getResponseHeaders().putAll(super.getHeaders());
+            exchange.sendResponseHeaders(400,0);
             respText = "Method not allowed".getBytes();
         }
         OutputStream os = exchange.getResponseBody();
@@ -100,13 +105,24 @@ public class PageHandler extends Handler{
                     response.addGroups(getResponse(counties, crit, i));
                 }
             else response.addGroups(getResponse(counties, crit, month));
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type","application/json"),200);
+        return new ResponseEntity<>(response, 200);
     }
 
     private List<Criterion> getResponse(List<String> counties, String crit, int month) {
      List<Criterion> response = new ArrayList<>();
     for (String county : counties) {
             switch (crit) {
+                case "total":
+                    List<TotalPerMonth> listTotal;
+                    if(county.equals("entire")) listTotal = totalService.getByMonth(month);
+                    else listTotal = totalService.getByMonthAndCounty(month, county);
+                    for (TotalPerMonth total : listTotal) {
+                        Criterion criterion = new Criterion();
+                        criterion.setMonth(total.getLuna());
+                        criterion.setCounty(total.getJudet());
+                        criterion.setNumber(total.getTotal());
+                        response.add(criterion);}
+                    break;
                 case "female":
                     List<Environment> list;
                     if(county.equals("entire")) list = environmentService.getByMonth(month);
@@ -332,7 +348,7 @@ public class PageHandler extends Handler{
                 response.addGroups(fromEnvToGender(environmentService.getByMonthAndCounty(month,county)));
             }
         }
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type","application/json"),200 );
+        return new ResponseEntity<>(response, 200 );
     }
 
 
@@ -350,7 +366,7 @@ public class PageHandler extends Handler{
                 response.addGroups(environmentService.getByMonthAndCounty(month,county));
             }
         }
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type","application/json"),200 );
+        return new ResponseEntity<>(response, 200 );
     }
    private ResponseEntity<EducationGetResponse> doGetByEducation(int month, int noOfMonths, List<String> counties){
        EducationGetResponse response = new EducationGetResponse();
@@ -366,7 +382,7 @@ public class PageHandler extends Handler{
                response.addGroups(educationService.getByMonthAndCounty(month,county));
            }
        }
-       return new ResponseEntity<>(response, super.getHeaders("Content-Type","application/json"),200 );
+       return new ResponseEntity<>(response, 200 );
    }
 
    private ResponseEntity<AgeGetResponse> doGetByAge(int month,int noOfMonths, List<String> counties){
@@ -383,6 +399,6 @@ public class PageHandler extends Handler{
                response.addGroups(ageService.getByMonthAndCounty(month,county));
            }
        }
-       return new ResponseEntity<>(response, super.getHeaders("Content-Type","application/json"),200 );
+       return new ResponseEntity<>(response, 200 );
    }
 }

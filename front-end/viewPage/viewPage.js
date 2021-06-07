@@ -1,6 +1,6 @@
 
 var Http = new XMLHttpRequest();
-            Http.open("GET", "http://localhost:8090/api/v1/criterion?monthID=1&male&county=entire");
+            Http.open("GET", "http://localhost:8090/api/v1/criterion?monthID=1&total&county=entire");
             var onError = function() {
                 console.log("error on first call");
               }
@@ -77,11 +77,7 @@ function configMap(textFile){
 
     var vectorSource = new ol.source.Vector({
         format: new ol.format.GeoJSON(),
-        url: textFile /* function() {
-        vectorSource.addFeatures(
-         vectorSource.getFormat().readFeatures(results));   
-         console.log(vectorSource);        
-         }*/
+        url: textFile
        });
         
  
@@ -147,11 +143,7 @@ function reconfigMap(textFile){
     
         var vectorSource = new ol.source.Vector({
             format: new ol.format.GeoJSON(),
-            url: textFile /* function() {
-            vectorSource.addFeatures(
-             vectorSource.getFormat().readFeatures(results));   
-             console.log(vectorSource);        
-             }*/
+            url: textFile
            });
             
      
@@ -279,7 +271,8 @@ let langViewPage = {
         "vocationalEducation": "Vocational education",
         "universityEducation": "University education",
         "under": "under 25",
-        "over": "over 50"
+        "over": "over 50",
+        "getData" : "Show info"
     },
     "ro": { 
         "month": "Selectează luna:",
@@ -298,8 +291,8 @@ let langViewPage = {
         "vocationalEducation": "Învățământ profesional/arte și meserii",
         "universityEducation": "Învățământ universitar",
         "under": "sub 25",
-        "over": "peste 50"
-   
+        "over": "peste 50",
+        "getData": "Prezintă informații"
     }
 }
 
@@ -309,8 +302,8 @@ let genderOpt = document.getElementById("genderOpt");
 let studiesOpt = document.getElementById("studiesOpt");
 let envOpt = document.getElementById("envOpt");
 let ageOpt = document.getElementById("ageOpt");
-let woman = document.getElementById("woman");
-let man = document.getElementById("man");
+let woman = document.getElementById("female");
+let man = document.getElementById("male");
 let noStudies = document.getElementById("noStudies");
 let primarySchool = document.getElementById("primarySchool");
 let secondarySchool = document.getElementById("secondarySchool");
@@ -318,13 +311,13 @@ let highschool = document.getElementById("highschool");
 let postsecodarySchool = document.getElementById("postsecondarySchool");
 let vocationalEducation = document.getElementById("vocationalEducation");
 let universityEducation = document.getElementById("universityEducation");
-let under = document.getElementById("under");
-let over = document.getElementById("over");
+let under = document.getElementById("under25");
+let over = document.getElementById("over50");
+let getData = document.getElementById("criteria_get_data");
 
 link.forEach(e1 => {
     e1.addEventListener("click", () => {
         let a = e1.getAttribute("lang");
-        
         month.textContent = langViewPage[a].month;
         category.textContent = langViewPage[a].category;
         genderOpt.setAttribute('label',langViewPage[a].genderOpt);
@@ -340,6 +333,7 @@ link.forEach(e1 => {
         postsecodarySchool.textContent = langViewPage[a].postsecodarySchool;
         vocationalEducation.textContent = langViewPage[a].vocationalEducation;
         universityEducation.textContent = langViewPage[a].universityEducation;
+        getData.textContent = langViewPage[a].getData;
         over.textContent = langViewPage[a].over;
         under.textContent = langViewPage[a].under;
         changeMonth(a);

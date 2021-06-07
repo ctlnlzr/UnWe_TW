@@ -38,9 +38,9 @@ public abstract class Handler {
             return null;
         }
     }
-    protected Headers getHeaders (String key, String value){
+    protected Headers getHeaders (){
         Headers headers = new Headers();
-        headers.add(key, value);
+        headers.add("Content-Type", "application/json");
         headers.add("Access-Control-Allow-Origin", "*");
         return headers;
     }

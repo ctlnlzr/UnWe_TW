@@ -40,14 +40,14 @@ public class AdminHandler extends Handler {
         } else {
             response.setResponse("Bad credentials!");
         }
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response, 200);
     }
 
     private ResponseEntity<ValidationResponse> doLogout(String authorization) {
         ValidationResponse response = new ValidationResponse();
         adminService.deleteToken(authorization);
         response.setResponse("You've been logged out!");
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response, 200);
     }
 
     private ResponseEntity<ValidationResponse> doAddNewAdmin(InputStream is) {
@@ -59,7 +59,7 @@ public class AdminHandler extends Handler {
         if (adminService.saveAdmin(admin)) response.setResponse("You added a new admin!");
         else response.setResponse("The admin already exists!");
 
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response, 200);
     }
 
 
@@ -76,7 +76,7 @@ public class AdminHandler extends Handler {
         if ("POST".equals(exchange.getRequestMethod())) {
             if (exchange.getRequestHeaders().get("Authorization") == null) {
                 ResponseEntity<ValidationResponse> entity = doLogin(exchange.getRequestBody());
-                exchange.getResponseHeaders().putAll(entity.getHeaders());
+                exchange.getResponseHeaders().putAll(super.getHeaders());
                 exchange.sendResponseHeaders(entity.getStatusCode(), 0);
                 respText = super.writeResp(entity.getBody());
             } else {
@@ -86,22 +86,22 @@ public class AdminHandler extends Handler {
                     if (!params.isEmpty()) {
                         if (params.containsKey("logout") && params.keySet().size() == 1) {
                             ResponseEntity<ValidationResponse> entity = doLogout(exchange.getRequestHeaders().get("Authorization").get(0));
-                            exchange.getResponseHeaders().putAll(entity.getHeaders());
+                            exchange.getResponseHeaders().putAll(super.getHeaders());
                             exchange.sendResponseHeaders(entity.getStatusCode(), 0);
                             respText = super.writeResp(entity.getBody());
                         } else {
-                            exchange.getResponseHeaders().putAll(getHeaders("Content-Type", "application/json"));
+                            exchange.getResponseHeaders().putAll(super.getHeaders());
                             exchange.sendResponseHeaders(404, -1);
                             respText = "Not found".getBytes();
                         }
                     } else {
                         ResponseEntity<ValidationResponse> entity = doAddNewAdmin(exchange.getRequestBody());
-                        exchange.getResponseHeaders().putAll(entity.getHeaders());
+                        exchange.getResponseHeaders().putAll(super.getHeaders());
                         exchange.sendResponseHeaders(entity.getStatusCode(), 0);
                         respText = super.writeResp(entity.getBody());
                     }
                 } else {
-                    exchange.getResponseHeaders().putAll(getHeaders("Content-Type", "application/json"));
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(401, -1);
                     respText = "No Authorization".getBytes();
                 }

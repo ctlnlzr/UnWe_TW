@@ -29,23 +29,21 @@ let dataLang = {
         "title": "ROMANIAN UNEMPLOYMENT DATA",
         "resource": "Resources:",
         "language": "Language:",
-        "aboutFooter": "Unemployment data Romania",
-        "aboutFtr": "About",
         "menu": "Menu",
         "titleMenu": "Romanian unemployment data",
         "viewMenu": "View",
-        "compareMenu": "Comparison"
+        "compareMenu": "Comparison",
+        "aboutWe": "Admin Mode"
     },
     "ro": {
         "title": "DATE SOMAJ ROMANIA",
         "resource": "Resurse:",
         "language": "Limba:",
-        "aboutFooter": "Date somaj Romania",
-        "aboutFtr": "Despre",
         "menu": "Meniu",
         "titleMenu": "Date somaj Romania",
         "viewMenu": "Vizualizare",
-        "compareMenu": "Comparare"
+        "compareMenu": "Comparare",
+        "aboutWe": "Mod adminstrare"
     }
 }
 
@@ -56,31 +54,28 @@ let view = document.getElementById("viewButton");
 let compare = document.getElementById("compareButton");
 let about = document.getElementById("aboutButton");
 let resource = document.querySelector(".resource");
-let aboutFooter = document.getElementById("aboutWe");
-let aboutFtr = document.getElementById("about")
 let titleMenu = document.getElementById("menu_title");
 let viewMenu = document.getElementById("viewMenu");
 let compareMenu = document.getElementById("compareMenu");
 let aboutMenu = document.getElementById("aboutMenu");
 let language2 = document.querySelector(".lang");
+let aboutWe = document.getElementById("aboutWe");
 
 link.forEach(e1 => {
     e1.addEventListener("click", () => {
         let a = e1.getAttribute("lang");
-
         titleDoc.textContent = dataLang[a].title;
         view.textContent = dataLang[a].viewMenu;
         compare.textContent = dataLang[a].compareMenu;
         about.textContent = dataLang[a].aboutFtr;
         resource.textContent = dataLang[a].resource;
         language2.textContent = dataLang[a].language;
-        aboutFooter.textContent = dataLang[a].aboutFooter;
-        aboutFtr.textContent = dataLang[a].aboutFtr;
         about.textContent = dataLang[a].aboutFtr;
         titleMenu.textContent = dataLang[a].titleMenu;
         viewMenu.textContent = dataLang[a].viewMenu;
         compareMenu.textContent = dataLang[a].compareMenu;
         aboutMenu.textContent = dataLang[a].aboutMenu;
+        aboutWe.textContent = dataLang[a].aboutWe
     });
 
 })

@@ -40,19 +40,19 @@ public class EnvironmentHandler extends Handler {
         switch (exchange.getRequestMethod()) {
             case "GET":
                 ResponseEntity<EnvironmentResponse> entity = doGet(params);
-                exchange.getResponseHeaders().putAll(entity.getHeaders());
+                exchange.getResponseHeaders().putAll(super.getHeaders());
                 exchange.sendResponseHeaders(entity.getStatusCode(), 0);
                 respText = super.writeResp(entity.getBody());
                 break;
             case "POST":
                 if (exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityCreate = doCreate(exchange.getRequestBody());
-                    exchange.getResponseHeaders().putAll(entityCreate.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(entityCreate.getStatusCode(), 0);
                     respText = super.writeResp(entityCreate.getBody());
                 } else {
-                    exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
                     exchange.sendResponseHeaders(401, 0);
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     ValidationResponse validationResponse = new ValidationResponse();
                     validationResponse.setResponse("Not Authorized!");
                     respText = super.writeResp(validationResponse);
@@ -61,21 +61,21 @@ public class EnvironmentHandler extends Handler {
             case "DELETE":
                 if (exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityDelete = doDelete(params);
-                    exchange.getResponseHeaders().putAll(entityDelete.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(entityDelete.getStatusCode(), 0);
                     respText = super.writeResp(entityDelete.getBody());
                     break;
                 } else {
-                    exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
                     exchange.sendResponseHeaders(401, 0);
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     ValidationResponse validationResponse = new ValidationResponse();
                     validationResponse.setResponse("Not Authorized!");
                     respText = super.writeResp(validationResponse);
                 }
                 break;
             default:
-                exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
                 exchange.sendResponseHeaders(405, 0);
+                exchange.getResponseHeaders().putAll(super.getHeaders());
                 ValidationResponse validationResponse = new ValidationResponse();
                 validationResponse.setResponse("Method not allowed!");
                 respText = super.writeResp(validationResponse);
@@ -100,22 +100,22 @@ public class EnvironmentHandler extends Handler {
 
         if (response.getGroups().isEmpty()) {
 
-            return new ResponseEntity<>(null, super.getHeaders("Content-Type", "application/json"), 404);
+            return new ResponseEntity<>(null, 404);
         }
 
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response,200);
     }
 
     private ResponseEntity<ValidationResponse> doDelete(Map<String, List<String>> params) {
         ValidationResponse response = new ValidationResponse();
         if (!params.containsKey("monthID")) {
             response.setResponse("Data not found!");
-            return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 404);
+            return new ResponseEntity<>(response, 404);
         }
         if (environmentService.deleteEnvironment(Integer.parseInt(params.get("monthID").get(0))))
             response.setResponse("Data was deleted!");
         else response.setResponse("There is no data to delete!");
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response, 200);
     }
 
     private ResponseEntity<ValidationResponse> doCreate(InputStream is) {
@@ -123,6 +123,6 @@ public class EnvironmentHandler extends Handler {
         EnvironmentCreate request = super.readResp(is, EnvironmentCreate.class);
         if (environmentService.saveEnvironment(request)) response.setResponse("The data was added!");
         else response.setResponse("The data wasn't added!");
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response, 200);
     }
 }

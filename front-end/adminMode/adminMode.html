@@ -25,7 +25,7 @@
             <nav class="phone_meniu" id="phone__menu">
                 <p class="menu_title" id="menu_title">Meniu</p>
                 <div class="menuBtn">
-                    <a href="./viewPage.html" class="header-Btn text_hf text_menu viewMenu" id="viewMenu">Vizualizare</a>
+                    <a href="../viewPage/viewPage.html" class="header-Btn text_hf text_menu viewMenu" id="viewMenu">Vizualizare</a>
                     <a href="../criterialView/criterialView.html" class="header-Btn text_hf text_menu compareMenu" id="compareMenu">Comparare</a>
                     <a href="../about/despre.html" class="header-Btn text_hf text_menu aboutMenu" id="aboutMenu">Despre</a>
                 </div>
@@ -37,18 +37,19 @@
 <body>
     <div class="admin-options" id="options">
     <div class= "admin-option" id="new-admin-div">
-        <button type="button" class="text-admin btn" id="add-new-admin"> <span> Adauga un nou administrator </span> </button>
+        <button type="button" class="text-admin btn" id="add-new-admin"> <span id="add-admin"> Adaugă un nou administrator </span> </button>
     </div>
     <div class= "admin-option" id="new-month-div">
-        <button type="button" class="text-admin btn" id="add-new-month"> <span>Adauga date </span> </button>
+        <button type="button" class="text-admin btn" id="add-new-month"> <span id="add-data-button">Adaugă date </span> </button>
     </div>
     <div class= "admin-option" id="delete-div">
-        <button type="button"  class="text-admin btn" id="delete-month"> <span> Sterge date </span> </button>
+        <button type="button"  class="text-admin btn" id="delete-month"> <span id="delete-data"> Șterge date </span> </button>
     </div>
     <div class= "admin-option" >
-        <button type="button" class="text-admin btn" id="logout"><span> Logout </span> </button>
+        <button type="button" class="text-admin btn" id="logout"> <span id="logout-span"> Deconectare </span> </button>
     </div>
     </div>
+    <div id="snackbar"></div>
 </body>
 
 <footer>

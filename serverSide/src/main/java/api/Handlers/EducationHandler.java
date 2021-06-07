@@ -39,22 +39,19 @@ public class EducationHandler extends Handler {
         switch (exchange.getRequestMethod()) {
             case "GET":
                 ResponseEntity<EducationGetResponse> entity = doGet(params);
-                exchange.getResponseHeaders().putAll(entity.getHeaders());
+                exchange.getResponseHeaders().putAll(super.getHeaders());
                 exchange.sendResponseHeaders(entity.getStatusCode(), 0);
                 respText = super.writeResp(entity.getBody());
-                OutputStream os = exchange.getResponseBody();
-                os.write(respText);
-                os.close();
                 break;
             case "POST":
                 if (exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityCreate = doCreate(exchange.getRequestBody());
-                    exchange.getResponseHeaders().putAll(entityCreate.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(entityCreate.getStatusCode(), 0);
                     respText = super.writeResp(entityCreate.getBody());
                 } else {
-                    exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
                     exchange.sendResponseHeaders(401, 0);
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     ValidationResponse validationResponse = new ValidationResponse();
                     validationResponse.setResponse("Not Authorized!");
                     respText = super.writeResp(validationResponse);
@@ -63,20 +60,20 @@ public class EducationHandler extends Handler {
             case "DELETE":
                 if (exchange.getRequestHeaders().containsKey("Authorization") && adminService.existToken(exchange.getRequestHeaders().get("Authorization").get(0))) {
                     ResponseEntity<ValidationResponse> entityDelete = doDelete(params);
-                    exchange.getResponseHeaders().putAll(entityDelete.getHeaders());
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(entityDelete.getStatusCode(), 0);
                     respText = super.writeResp(entityDelete.getBody());
                 } else {
-                    exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
                     exchange.sendResponseHeaders(401, 0);
+                    exchange.getResponseHeaders().putAll(super.getHeaders());
                     ValidationResponse validationResponse = new ValidationResponse();
                     validationResponse.setResponse("Not Authorized!");
                     respText = super.writeResp(validationResponse);
                 }
                 break;
             default:
-                exchange.getResponseHeaders().putAll(super.getHeaders("Content-Type", "application/json"));
                 exchange.sendResponseHeaders(405, 0);
+                exchange.getResponseHeaders().putAll(super.getHeaders());
                 ValidationResponse validationResponse = new ValidationResponse();
                 validationResponse.setResponse("Method not allowed!");
                 respText = super.writeResp(validationResponse);
@@ -99,9 +96,9 @@ public class EducationHandler extends Handler {
         } else response.setGroups(null);
 
         if (response.getGroups().isEmpty()) {
-            return new ResponseEntity<>(null, super.getHeaders("Content-Type", "application/json"), 404);
+            return new ResponseEntity<>(null, 404);
         }
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response, 200);
     }
 
     ResponseEntity<ValidationResponse> doCreate(InputStream is) {
@@ -109,7 +106,7 @@ public class EducationHandler extends Handler {
         EducationCreate request = super.readResp(is, EducationCreate.class);
         if (educationService.saveEducation(request)) response.setResponse("Data wad added");
         else response.setResponse("Data wasn`t added");
-        return new ResponseEntity<>(response, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(response, 200);
     }
 
 
@@ -117,14 +114,14 @@ public class EducationHandler extends Handler {
         ValidationResponse validationResponse = new ValidationResponse();
         if (!params.containsKey("monthID")) {
             validationResponse.setResponse("Data not found!");
-            return new ResponseEntity<>(validationResponse, super.getHeaders("Content-Type", "application/json"), 404);
+            return new ResponseEntity<>(validationResponse, 404);
         }
         if (educationService.deleteEducation(Integer.parseInt(params.get("monthID").get(0))))
             validationResponse.setResponse("Data was deleted!");
         else
             validationResponse.setResponse("There is no data to delete!");
 
-        return new ResponseEntity<>(validationResponse, super.getHeaders("Content-Type", "application/json"), 200);
+        return new ResponseEntity<>(validationResponse, 200);
     }
 }
 

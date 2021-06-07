@@ -38,3 +38,41 @@ function exitBadCredentialsWarning(event){
     badCredentials.classList.remove("bad-credentials_shown");
   }
 }
+
+//Ro - En
+
+let langAdminLogin = {
+  "en": {
+      "loginAdmin": "Admin login",
+      "adminName": 'Username:',
+      "password": 'Password:',
+      "login":"Login",
+      "wrongCredentials" : "Wrong credentials"
+  },
+  "ro": { 
+      "loginAdmin": "Conectare administrator",
+      "adminName": 'Nume de admin:',
+      "password": 'Parolă:',
+      "login":"Conectare",
+      "wrongCredentials" : "Credențiale greșite"
+  }
+}
+
+let loginAdmin = document.getElementById("login-admin");
+let adminName = document.getElementById("admin-name");
+let password = document.getElementById("password");
+let login = document.getElementById("login");
+let wrongCredentials = document.getElementById("wrong-credentials");
+
+
+link.forEach(e1 => {
+  e1.addEventListener("click", () => {
+      let a = e1.getAttribute("lang");
+      loginAdmin.textContent = langAdminLogin[a].loginAdmin;
+      adminName.textContent = langAdminLogin[a].adminName;
+      password.textContent = langAdminLogin[a].password;
+      login.textContent = langAdminLogin[a].login;
+      wrongCredentials.textContent = langAdminLogin[a].wrongCredentials; 
+  });
+
+})

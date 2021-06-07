@@ -11,7 +11,7 @@ barChartBtn.addEventListener("click", barViewFormat);
 pieChartBtn.addEventListener("click", pieViewFormat);
 radarChartBtn.addEventListener("click", radarViewFormat);
 var selectedChart = 0;
-//FORMAT Line chart
+//dummy data
 var dataLine = [
       {
         label: 'maiMic25',
@@ -53,7 +53,7 @@ var dataLine = [
     var labelsLine = ["Mai", "Iunie", "Iulie", "August", "Septembrie"];
 
 
-//FORMAT PIE,BAR,RADIX
+//Format pie, radix, bar, dummy data
 var dataPie = [
     {
       label: 'Dataset 1',
@@ -189,6 +189,7 @@ function radarViewFormat(event){
         pieChart.destroy();
         pieChart = undefined;
     }
+
     radarChart = new Chart(ctx,{
         type:'radar',
         data: {
@@ -246,7 +247,6 @@ function getChartData (event){
         Http.setRequestHeader('Accept', 'application/json'); 
         Http.onreadystatechange = function() {
             if(Http.readyState==4){
-             console.log(Http.responseText);
              dataInfo=Http.responseText;
              parseDataLine(Http.responseText, selected, timePeriod.value);
              parseDataPie(Http.responseText, selected, timePeriod.value);
@@ -279,11 +279,7 @@ const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(25
                 case "18": {noOfMonths = 12; break;}
                 default: noOfMonths = 1;
             }
-            for (var i = 0; i < noOfMonths ; i++ ){
-                if(currentMonth-i==-1) currentMonth=12+i-1;
-                labelsLine.push( months["ro"][currentMonth - i]);
-               }   
-            console.log(noOfMonths);
+          
                if(counties.length > 1){ // mai multe luni, mai multe judete
                 
                 var dataMtx = new Array(counties.length);
@@ -305,6 +301,10 @@ const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(25
                     borderColor: borderColors[i], 
                     backgroundColor: 'rgba(0, 0, 0, 0)'});
                 }
+                for (var i = 0; i < noOfMonths ; i++ ){
+                    if(currentMonth-i==-1) currentMonth=12+i-1;
+                    labelsLine.push( months["ro"][currentMonth - i]);
+                   }   
             }
             else { // mai multe luni, un judet + labelsLine
                 const keys=Object.keys(data.groups[0]);
@@ -325,6 +325,10 @@ const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(25
                     borderColor: borderColors[j-2], 
                     backgroundColor: 'rgba(0, 0, 0, 0)'});
                     }
+                    for (var i = 0; i < noOfMonths ; i++ ){
+                        if(currentMonth-i==-1) currentMonth=12+i-1;
+                        labelsLine.push( months["ro"][currentMonth - i]);
+                       }   
                 }
            }
        else {   
@@ -356,7 +360,6 @@ const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(25
     case 3: pieViewFormat(); break;
     case 4: radarViewFormat(); break;
     }
-      console.log(dataLine);
     }
 
 const backgroundColors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)' ];

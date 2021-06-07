@@ -24,7 +24,7 @@
                 <nav class="phone_meniu" id="phone__menu">
                     <p class="menu_title" id="menu_title">Meniu</p>
                     <div class="menuBtn">
-                        <a href="./viewPage.html" class="header-Btn text_hf text_menu viewMenu" id="viewMenu">Vizualizare</a>
+                        <a href="../viewPage/viewPage.html" class="header-Btn text_hf text_menu viewMenu" id="viewMenu">Vizualizare</a>
                         <a href="../criterialView/criterialView.html" class="header-Btn text_hf text_menu compareMenu" id="compareMenu">Comparare</a>
                         <a href="../about/despre.html" class="header-Btn text_hf text_menu aboutMenu" id="aboutMenu">Despre</a>
                     </div>
@@ -35,22 +35,22 @@
     </header>
     <body>
         <div class= "login-panel"> 
-        <h1 class="text-login">Administrator login</h1>
+        <h1 class="text-login" id="login-admin">Conectare administrator</h1>
         <form>
             <div class="form-input">
-                <label for="admin-username" class="text-login"> Username: </label>
+                <label for="admin-username" class="text-login" id="admin-name"> Nume de admin: </label>
                 <input type="text" id="admin-username"> 
             </div>
             <div class="form-input">
-            <label for="admin-password" class="text-login">Parola:</label>
+            <label for="admin-password" class="text-login" id="password">Parolă:</label>
             <input type="password" id="admin-password">
             </div>
-            <button type="button" class="form-input text-login" id="login"> Login </button>
+            <button type="button" class="form-input text-login" id="login"> Conectare </button>
         </form>
     </div>
   
     <div class="bad_credentials" id="bad-credentials">
-        <p class="text-login bad-credentials_text" > Credențiale greșite </p>     
+        <p class="text-login bad-credentials_text" id="wrong-credentials"> Credențiale greșite </p>     
     </div>
     <div class="bad-credentials_grey-bkg" id="grey-bkg"></div>
     </body>
