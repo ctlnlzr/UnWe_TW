@@ -16,6 +16,7 @@
         </header>
         <div role="contentinfo">
             <ol role="directory">
+                <li><a href="#cerinta">Cerinta</a></li>
                 <li><a href="#abstract">Abstract</a></li>
                 <li><a href="#introducere">Introducere</a></li>
                 <li><a href="#module">Module</a>
@@ -36,30 +37,48 @@
             </ol>
 
         </div>
+        <section id="cerinta" role="doc-cerinta" typeof="sa:Cerinta">
+            <h2>1. Cerinta</h2>
+            <p>
+                Să se realizeze un instrument Web de vizualizare și de comparare multi-criteriala (pe județe, nivel de educație, grupe de vârstă, mediu, perioadă de timp etc.) a
+                <span typeof="schema:GovernmentOrganization" resource="https://data.gov.ro/dataset">
+                    <span property="schema:copyrightHolder" typeof="Organization">
+                        <meta property="schema:name" content="Data Governamental">
+                        <meta property="schema:url" content="https://data.gov.ro">
+                    </span>
+                <a href="https://data.gov.ro/dataset?q=somaj&sort=metadata_modified+desc">
+                    <span property="schema:name">
+                            datelor publice referitoare la șomajul din România
+                        </span>
+                </a>
+                </span>
+                pe ultimele N luni (minim 12). De asemenea, Statisticile, plus vizualizările generate – minim 3 maniere, plus cele cartografice pe baza unor servicii Web de profil – vor putea fi exportate in formatele CSV, SVG si PDF.
+            </p>
+        </section>
         <section id="abstract" role="doc-abstract" typeof="sa:Abstract">
-            <h2>1. Abstract</h2>
+            <h2>2. Abstract</h2>
             <p>Date șomaj România - O platformă WEB pentru vizualizare și comparare multi-criterială a datelor referitoare la șomajul din România.
             </p>
         </section>
 
         <section id="introducere" role="doc-introduction">
-            <h2>2. Introducere</h2>
+            <h2>3. Introducere</h2>
             <p>Aplicația noastră realizează un management a resurselor și prezintă statistici despre șomajul din România, acestea putând fi vizualizate în 4 maniere, cu posibilitatea de a fi exportate în formatele: CSV, SVG și PDF.
             </p>
         </section>
         <section id="module">
-            <h2>3. Module</h2>
+            <h2>4. Module</h2>
             <p>Toate modulele din site dispun de un design user-friendly.Toate paginile site-ului sunt responsive, elementele ce le compun redimensionandu-se in pagina in functie de dispozitivul utilizat, paginile oferind astfel o experienta placuta inclusiv
                 pe device-uri ca iPhone 5 SE ce are un ecran ingust si scurt.</p>
             <section id="vizualizare">
-                <h3>3.1. Vizualizare</h3>
+                <h3>4.1. Vizualizare</h3>
                 <p>
                     Modulul de vizualizare conține reprezentarea cartografică a informațiilor despre șomaj la nivelul fiecărui județ. Sunt disponibile informațiile din ultimele 15 luni și pot fi afișate în funcție de următoarele criterii: gen, mediu, studii și categorii
                     de vârstă. Criteriile nu pot fi suprapuse. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG, PDF.
                 </p>
             </section>
             <section id="comparare">
-                <h3>3.2. Comparare</h3>
+                <h3>4.2. Comparare</h3>
                 <p>
                     Modulul de comparare presupune reprezentarea statisticilor legate de șomaj sub forma a 4 grafice: Line-chart, Bar-chart, Pie-chart sau Radar-chart. Sunt disponibile 6 criterii care permit configurarea statisticilor. Trei sunt obligatorii: perioada de
                     comparare, zona (unul sau mai multe județe/toată țara) și un criteriu principal, ales dintre: gen, mediu, studii și categorii de vârstă, iar trei sunt optionale. Datele pot fi descărcate într-unul dintre cele trei formate: CSV, SVG,
@@ -67,19 +86,19 @@
                 </p>
             </section>
             <section id="about">
-                <h3>3.3. Despre</h3>
+                <h3>4.3. Despre</h3>
                 <p>
                     În cadrul acestui modul am descris felul în care utilizatorii pot folosi acest site și modul în care i-ar ajuta.
                 </p>
 
             </section>
             <section id="api">
-                <h3>3.4. API</h3>
+                <h3>4.4. API</h3>
                 <p>
                     Am creat un API public, care oferă posibilitatea adaugării, ștergerii și actualizării datelor despre șomajul din România, dar si obținerea datelor în format JSON.</p>
             </section>
             <section id="administrator">
-                <h3>3.5. Administrator</h3>
+                <h3>4.5. Administrator</h3>
                 <p>
                     Administratorul gestionează datele din baza de date, poate adăuga, șterge si actualiza date, dar poate să adauge și un alt administrator.
                 </p>
@@ -87,7 +106,7 @@
             </section>
         </section>
         <section id="arhitectura">
-            <h2>4. Arhitectura API</h2>
+            <h2>5. Arhitectura API</h2>
             <p>Controllers:</p>
             <ol>
                 <li>AdminHandler.java</li>
@@ -116,14 +135,14 @@
             </ol>
         </section>
         <section id="tehnologii">
-            <h2>5. Tehnologii utilizate</h2>
+            <h2>6. Tehnologii utilizate</h2>
             <p>Pentru afișarea conținutului am folosit suita HTML5, CSS3 și JavaScript. În cadrul modulului Vizualizare, pentru reprezentarea cartografică am folosit librăriile OpenLayers, iar în modulul Comparare pentru reprezentarea statisticilor am folosit
                 librăria Chart.js. Baza de date a aplicației a fost creată cu ajutorul MySQL, fiind hostată pe Heroku, datele au fost preluate de pe site-ul oficial (<a href="https://data.gov.ro/">GOV</a>).
 
             </p>
         </section>
         <section id="etape">
-            <h2>6. Etape de implementare</h2>
+            <h2>7. Etape de implementare</h2>
             <p>În cadrul echipei am lucrat în paralel, astfel încât să asigurăm o eficiență cât mai mare. În prima etapă a fost schițat site-ul, a fost alesă paleta de culori și au fost împărțite componentele paginilor. A doua etapă a fost de realizare a
                 obiectivelor de bază: pagina principală, pagina de vizualizare, pagina de comparare cu 3 tipuri de reprezentare a statisticilor și o pagină cu detalii despre proiect. În cea de-a treia etapa am adăugat posibilitatea de a traduce site-ul
                 în limba engleză, formatul pentru site-ul Mobil și îmbunătățiri ale aspectului per total. Atașez diagrama UML a aplicației:
@@ -135,7 +154,7 @@
 
         </section>
         <section id="utilizare">
-            <h2>7.Ghid de utilizare</h2>
+            <h2>8.Ghid de utilizare</h2>
             <p>
                 Site-ul pune la dispoziție utilizatorului 4 pagini Web, după cum urmează: 1. Pagina principală care servește ca landing page și oferă posibilitatea de a accesa paginile de vizualizare și comparare prin intermediul a două butoane dispuse central. 2. Pagina
                 de vizualizare permite utilizatorului să analizeze informații legate de șomaj la nivelul întregii țări sub forma unei hărți. Informațiile despre fiecare județ pot fi accesate prin selectarea tag-ului unei reședințe de judeș, iar informațiile
@@ -147,7 +166,7 @@
             </p>
         </section>
         <section id="bibliografie">
-            <h2>8. Bibliografie</h2>
+            <h2>9. Bibliografie</h2>
             <dl>
                 <dt></dt>
                 <dd property="schema:citation" typeof="schema:ScholarlyArticle">
@@ -174,20 +193,24 @@
             </dl>
         </section>
         <section id="autori" typeof="sa:AuthorsList">
-            <h2>9.Autori</h2>
+            <h2>10.Autori</h2>
             <ul>
                 <li typeof="sa:ContributorRole" property="schema:author">
                     <span typeof="schema:Person">
                         <meta property="schema:givenName" content="Lazar">
                         <meta property="schema:additionalName" content="Catalina">
+                        <a href="https://github.com/ctlnlzr">
                         <span property="schema:name">Lazăr Cătălina</span>
+                    </a>
                     </span>
                 </li>
                 <li typeof="sa:ContributorRole" property="schema:author">
                     <span typeof="schema:Person">
                         <meta property="schema:givenName" content="Stratianu">
-                        <meta property="schema:familyName" content="bianca">
+                        <meta property="schema:familyName" content="Bianca">
+                        <a href="https://github.com/StratianuBianca">
                         <span property="schema:name">Strătianu Bianca</span>
+                    </a>
                     </span>
                 </li>
             </ul>

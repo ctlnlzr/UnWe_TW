@@ -8,121 +8,133 @@
     <link rel="stylesheet" href="./criterialView.css">
     <link rel="stylesheet" href="../header&footer/header&footer.css">
 
-    <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js> </script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js>
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="libs/canvas2svg.js"></script>
+    <script src="libs/export.js"></script>
     <title>Criterial View</title>
 </head>
-<body class="entire-page">
-<header>
-    <div class="headerNormalView">
-        <a href="../principal/proiect.html" class="classForLogo">
-            <img alt="Logo" src="../header&footer/logo.png" id="imgLogo">
-            <p class="text_hf" id="headerTitle"> Date șomaj România</p>
-        </a>
-        <div id="space"></div>
-        <div class="headerBtn">
-            <a href="../viewPage/viewPage.html" class="text_hf header-Btn" id="viewButton">Vizualizare</a>
-            <a href="../criterialView/criterialView.html" class="text_hf header-Btn" id="compareButton">Comparare</a>
-            <a href="../about/despre.html" class="text_hf header-Btn" id="aboutButton">Despre</a>
-        </div>
-        <div class="phone_header_menu">
-            <nav class="phone_meniu" id="phone__menu">
-                <p class="menu_title" id="menu_title">Meniu</p>
-                <div class="menuBtn">
-                    <a href="../viewPage/viewPage.html" class="header-Btn text_hf text_menu" id="viewMenu">Vizualizare</a>
-                    <a href="./criterialView.html" class="header-Btn text_hf text_menu" id="compareMenu">Comparare</a>
-                    <a href="../about/despre.html" class="header-Btn text_hf text_menu" id="aboutMenu">Despre</a>
-                </div>
-            </nav>
-            <button type="button" class="header-Btn" id="phone_meniu_btn">Meniu</button>
-        </div>
-    </div>
-</header>
 
-<main class="criterial-specific">
-    <div class="chart">
-        <div class="chart__format" id="chartView">
-            <p class="text" id="data-repr">Alegeti formatul pentru reprezentarea datelor:</p>
-            <div class="chart_Btn">
-                <button type="submit" class="chart__format__btn text" id="LineChartBtn">Line-chart</button>
-                <button type="submit" class="chart__format__btn text" id="BarChartBtn">Bar-chart</button>
-                <button type="submit" class="chart__format__btn text" id="PieChartBtn">Pie-chart</button>
-                <button type="submit" class="chart__format__btn text" id="RadarChartBtn">Radar-chart</button>
+<body class="entire-page">
+    <header>
+        <div class="headerNormalView">
+            <a href="../principal/proiect.html" class="classForLogo">
+                <img alt="Logo" src="../header&footer/logo.png" id="imgLogo">
+                <p class="text_hf" id="headerTitle"> Date șomaj România</p>
+            </a>
+            <div id="space"></div>
+            <div class="headerBtn">
+                <a href="../viewPage/viewPage.html" class="text_hf header-Btn" id="viewButton">Vizualizare</a>
+                <a href="../criterialView/criterialView.html" class="text_hf header-Btn" id="compareButton">Comparare</a>
+                <a href="../about/despre.html" class="text_hf header-Btn" id="aboutButton">Despre</a>
+            </div>
+            <div class="phone_header_menu">
+                <nav class="phone_meniu" id="phone__menu">
+                    <p class="menu_title" id="menu_title">Meniu</p>
+                    <div class="menuBtn">
+                        <a href="../viewPage/viewPage.html" class="header-Btn text_hf text_menu" id="viewMenu">Vizualizare</a>
+                        <a href="./criterialView.html" class="header-Btn text_hf text_menu" id="compareMenu">Comparare</a>
+                        <a href="../about/despre.html" class="header-Btn text_hf text_menu" id="aboutMenu">Despre</a>
+                    </div>
+                </nav>
+                <button type="button" class="header-Btn" id="phone_meniu_btn">Meniu</button>
             </div>
         </div>
-        <div class="chart_canva" >
-            <canvas width="650" height="480" id="statistics_chart"></canvas>
-            <p class="text" id="chart_canva__text">Alegeți un mod de afișare</p>
-        </div>
-        <div class="chart__format">
-            <p class="text" id="download">Format descărcare:</p>
-            <div class="chart_Btn">
-                <button type="button" class="chart__format__btn text" id="CSVbtn">CSV ⇣</button>
-                <button type="button" class="chart__format__btn text" id="SVGbtn">SVG ⇣</button>
-                <button type="button" class="chart__format__btn text" id="PDFbtn">PDF ⇣</button>
+    </header>
+
+    <main class="criterial-specific">
+        <div class="chart">
+            <div class="chart__format" id="chartView">
+                <p class="text" id="data-repr">Alegeti formatul pentru reprezentarea datelor:</p>
+                <div class="chart_Btn">
+                    <button type="submit" class="chart__format__btn text" id="LineChartBtn">Line-chart</button>
+                    <button type="submit" class="chart__format__btn text" id="BarChartBtn">Bar-chart</button>
+                    <button type="submit" class="chart__format__btn text" id="PieChartBtn">Pie-chart</button>
+                    <button type="submit" class="chart__format__btn text" id="RadarChartBtn">Radar-chart</button>
+                </div>
+            </div>
+            <div class="chart_canva">
+                <canvas width="650" height="480" id="statistics_chart"></canvas>
+                <p class="text" id="chart_canva__text">Alegeți un mod de afișare</p>
+            </div>
+            <div class="chart__format">
+                <p class="text" id="download">Format descărcare:</p>
+                <div class="chart_Btn">
+                    <button type="button" class="chart__format__btn text" id="CSVbtn">CSV ⇣</button>
+                    <button type="button" class="chart__format__btn text" id="SVGbtn">SVG ⇣</button>
+                    <button type="button" class="chart__format__btn text" id="PDFbtn">PDF ⇣</button>
+                    <div id="download"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <form class="criteria">
-        <h2 class="text" id="criteria-title">Criterii pentru compararea datelor</h2>
-        <div class="criteria__period">
-            <p class="text criteria__text" >Perioada pentru comparare</p>
-            <div class="criteria__arrow">
-                <select class="drop-list" id="time-period" onChange="modifyPrincipalCriterion(this)">
+        <form class="criteria">
+            <h2 class="text" id="criteria-title">Criterii pentru compararea datelor</h2>
+            <div class="criteria__period">
+                <p class="text criteria__text">Perioada pentru comparare</p>
+                <div class="criteria__arrow">
+                    <select class="drop-list" id="time-period" onChange="modifyPrincipalCriterion(this)">
                     <option class="text text_option" value=16 id="2Months">Ultimele 2 luni</option>
                     <option class="text text_option" value=17 id="6months">Ultimele 6 luni</option>
                     <option class="text text_option" value=18 id="oneYear">Ultimul an</option>
                 </select>
-                <span class="arrow"></span>
+                    <span class="arrow"></span>
+                </div>
             </div>
-        </div>
-        
-        <div class="criteria__second">
-            <p class="text criteria__text">Județ</p>
-            <div class="criteria__arrow">
-                <select class="drop-list" id="county-for-comparison" multiple size="3" onChange="modifyPrincipalCriterion(this)"></select>
-                
+
+            <div class="criteria__second">
+                <p class="text criteria__text">Județ</p>
+                <div class="criteria__arrow">
+                    <select class="drop-list" id="county-for-comparison" multiple size="3" onChange="modifyPrincipalCriterion(this)"></select>
+
+                </div>
             </div>
-        </div>
-        <div class="criteria__first">
-            <p class="text criteria__text">Criteriu principal</p>
-            <div class="criteria__arrow">
-                <select class="drop-list" id="principal-criterion">
+            <div class="criteria__first">
+                <p class="text criteria__text">Criteriu principal</p>
+                <div class="criteria__arrow">
+                    <select class="drop-list" id="principal-criterion">
                     <option class="text text_option" value="gender" id="gender">Gen</option>
                     <option class="text text_option" value="environment" id="environment">Mediu</option>
                     <option class="text text_option" value="education" id="studies">Studii</option>
                     <option class="text text_option" value="age" id="age">Categorii de vârstă</option>
                 </select>
-                <span class="arrow"></span>
+                    <span class="arrow"></span>
+                </div>
             </div>
+            <button type="button" class="text criteria_form_btn" id="criteria_create">Prezintă statistici</button>
+        </form>
+
+    </main>
+
+
+
+    <footer>
+        <section class="footerElem">
+            <div class="resource text_hf"> Resurse: </div>
+            <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
+        </section>
+        <div class="aboutFtr footerElem">
+            <a href="../adminLogin/adminLogin.html" class="header-Btn text_hf text_menu" id="aboutWe"> Mod administrare </a>
         </div>
-        <button type="button" class="text criteria_form_btn" id="criteria_create">Prezintă statistici</button>
-    </form>
-  
-</main>
-
-
-
-<footer>
-    <section class="footerElem">
-        <div class="resource text_hf"> Resurse: </div>
-        <a href=https://data.gov.ro class="text_hf"> DATA.GOV.RO</a>
-    </section>
-    <div class="aboutFtr footerElem">
-        <a href="../adminLogin/adminLogin.html" class="header-Btn text_hf text_menu" id="aboutWe"> Mod administrare </a>
-    </div>
-    <section class=" footerElem languageChange">
-        <div class="lang text_hf">Limba:</div>
-        <div class="langBtn" id="langBtn">
-            <button type="button" lang="ro" class="languageButton text_hf">RO</button>
-            <button type="button" lang="en" class="languageButton text_hf">EN</button>
+        <section class=" footerElem languageChange">
+            <div class="lang text_hf">Limba:</div>
+            <div class="langBtn" id="langBtn">
+                <button type="button" lang="ro" class="languageButton text_hf">RO</button>
+                <button type="button" lang="en" class="languageButton text_hf">EN</button>
+            </div>
+        </section>
+        <div class="footer2">
+            <h6 class="text_hf">Lazar Catalina</h6>
+            <h6 class="text_hf">Stratianu Bianca</h6>
         </div>
-    </section>
-    <div class="footer2">
-        <h6 class="text_hf">Lazar Catalina</h6>
-        <h6 class="text_hf">Stratianu Bianca</h6>
-    </div>
-</footer>
+    </footer>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script src="https://momentjs.com/downloads/moment.min.js"></script>
+<script src="libs/canvas2svg.js"></script>
+<script src="libs/export.js"></script>
 <script src="../header&footer/header&footer.js"></script>
 <script src="./criterialView.js"></script>
 
