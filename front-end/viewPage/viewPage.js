@@ -1,4 +1,5 @@
 //get default data for map
+var dataInfo;
 var Http = new XMLHttpRequest();
 Http.open("GET", "http://localhost:8090/api/v1/criterion?monthID=1&total&county=entire");
 var onError = function() {
@@ -8,6 +9,7 @@ Http.onerror = onError;
 Http.setRequestHeader('Accept', 'application/json');
 Http.onload = function() {
     if (Http.status == 200) {
+        dataInfo = Http.responseText;
         var data = JSON.parse(Http.responseText);
         fetch('./libs/map.geojson')
             .then(results => results.json())
@@ -186,6 +188,7 @@ function getMapData(event) {
     Http.setRequestHeader('Accept', 'application/json');
     Http.onreadystatechange = function() {
         if (Http.readyState == 4) {
+            dataInfo = Http.responseText;
             parseMapData(Http.responseText);
         }
     }
