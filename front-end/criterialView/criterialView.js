@@ -686,12 +686,12 @@ function transfromToPDF() {
                 cell.innerHTML = values[i];
             }
         }
-        var dvTable = document.getElementById("download");
+        var dvTable = document.getElementById("downloadButton");
         dvTable.innerHTML = "";
         dvTable.appendChild(table);
 
         //Convert Table to PDF.
-        html2canvas(document.getElementById('download'), {
+        html2canvas(document.getElementById('downloadButton'), {
             onrendered: function(canvas) {
                 var data = canvas.toDataURL();
                 var docDefinition = {
