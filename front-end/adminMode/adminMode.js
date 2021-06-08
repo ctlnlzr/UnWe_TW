@@ -164,7 +164,7 @@ function logout(){
 //actions - Http requests controller
 document.addEventListener('click', function(e){
     switch(e.target.id){
-        case 'login': addAdmin(); break;
+        case 'add-admin-btn': addAdmin(); break;
         case 'add-db': sendFile(); break;
         case 'delete': deleteData(); break;
     } 
