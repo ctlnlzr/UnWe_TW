@@ -1,4 +1,4 @@
-
+//get default data for map
 var Http = new XMLHttpRequest();
             Http.open("GET", "http://localhost:8090/api/v1/criterion?monthID=1&total&county=entire");
             var onError = function() {
@@ -115,6 +115,8 @@ function configMap(textFile){
     }
 
 }
+
+//reconfig the map based on the new data
 function reconfigMap(textFile){
         map.removeLayer(countyList);
         map.removeOverlay(overlayInfo);
@@ -164,7 +166,8 @@ function reconfigMap(textFile){
         map.addOverlay(overlayInfo);
         
 }
-//get info
+
+//get data from database
 var monthForData = document.getElementById("drop-perioada");
 var criterion = document.getElementById("criterion");
 
@@ -187,6 +190,7 @@ function getMapData (event){
         Http.send();
     }
 
+//parsing the data for map format
 function parseMapData(text){
     var data = JSON.parse(text);
     console.log(data);

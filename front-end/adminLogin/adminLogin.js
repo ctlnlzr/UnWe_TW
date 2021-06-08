@@ -1,6 +1,7 @@
 var badCredentials = document.getElementById("bad-credentials");
 var greyBkg = document.getElementById("grey-bkg");
 
+//checking admin credentials -> admin mode page
 document.getElementById('login').addEventListener('click', checkAdminCredentials);
 function checkAdminCredentials (){
         const Http = new XMLHttpRequest();

@@ -1,3 +1,4 @@
+//add the four main buttons the drop downs with functionalities
 const newAdmin = document.getElementById("add-new-admin");
 newAdmin.addEventListener('click', addNewAdmin);
 const newMonth = document.getElementById("add-new-month");
@@ -28,6 +29,7 @@ function addNewAdmin(){
   }   
 }
 
+//adding a new month + save the uploaded csv
 var CSVfile;
 function addNewMonth(){
     if(counterDrops == 0){
@@ -100,33 +102,7 @@ function deleteMonth(){
     }
 }
 
-document.getElementById('logout').addEventListener('click', logout);
-
-function logout(){
-    if(counterDrops == 0){
-    const Http = new XMLHttpRequest();
-    const url='http://localhost:8090/api/v1/admin?logout';
-   
-    Http.open("POST", url);
-    Http.setRequestHeader('Accept', 'application/json'); 
-    Http.setRequestHeader('Authorization', localStorage.getItem("token").toString());
-    Http.onload = function() {
-         if(Http.readyState = 4 && Http.status==200){
-            const ans = JSON.parse(Http.responseText);
-            if(ans.response == "You've been logged out!" ){
-                window.location.href = "../principal/proiect.html";
-                showSnackbar(ans.response);
-                localStorage.removeItem("token");   
-            }
-        } 
-      }
-    Http.send();
-   counterDrops=4;
-}  else{
-    eliminateOption(4);
-}
-}
-
+//permit only one option to be extended
 function eliminateOption(option){
     optionsDiv.classList.remove("admin-options_selected");  
     switch(counterDrops){
@@ -154,11 +130,38 @@ function eliminateOption(option){
     case 3: deleteMonth();
    } }
     else counterDrops= 0;
-
-
 }
 
-//Http requests
+//logout -> sent a request to the database to erase the token, remove it from locale storage and send the user to the principal page
+document.getElementById('logout').addEventListener('click', logout);
+function logout(){
+    if(counterDrops == 0){
+    const Http = new XMLHttpRequest();
+    const url='http://localhost:8090/api/v1/admin?logout';
+   
+    Http.open("POST", url);
+    Http.setRequestHeader('Accept', 'application/json'); 
+    Http.setRequestHeader('Authorization', localStorage.getItem("token").toString());
+    Http.onload = function() {
+         if(Http.readyState = 4 && Http.status==200){
+            const ans = JSON.parse(Http.responseText);
+            if(ans.response == "You've been logged out!" ){
+                window.location.href = "../principal/proiect.html";
+                showSnackbar(ans.response);
+                localStorage.removeItem("token");   
+            }
+        } 
+      }
+    Http.send();
+   counterDrops=4;
+}  else{
+    eliminateOption(4);
+}
+}
+
+
+
+//actions - Http requests controller
 document.addEventListener('click', function(e){
     switch(e.target.id){
         case 'login': addAdmin(); break;
@@ -168,6 +171,7 @@ document.addEventListener('click', function(e){
 });
 
 
+//adding a new admin -> send the credentials to the database and return the answer as a toast
 function addAdmin(){
     const Http = new XMLHttpRequest();
     const url='http://localhost:8090/api/v1/admin';
@@ -189,6 +193,9 @@ function addAdmin(){
     Http.send(JSON.stringify(data));
 }
 
+
+
+//util functions for parsing CSV
 function isNumber(char){
     return "0123456789".includes(char);
 }
@@ -196,6 +203,8 @@ function isNumber(char){
 function replaceAt (string, index, replacement) {
     return string.substr(0, index) + replacement + string.substr(index + replacement.length);
 }
+
+//sending a file to the database + parsing the csv in order to send a json object
 function sendFile(){
     const typeOfFile = document.getElementById("type-of-file");
     var addURL;
@@ -288,6 +297,8 @@ function sendFile(){
     
 }
  
+
+//delete data from database from a certain month
 function deleteData(){
     monthID = document.getElementById('drop-perioada').value;
     counter = 0;

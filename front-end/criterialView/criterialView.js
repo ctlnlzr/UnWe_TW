@@ -70,20 +70,30 @@ var barChart;
 var pieChart;
 var radarChart;
 
-function lineViewFormat(event){
+//create the line Chart and deleting the others
+function lineViewFormat(){
     selectedChart=1;
     chartText.classList.add("chart_text_view");
     if(barChart != undefined){
         barChart.destroy();
+        console.log(barChart);
         barChart = undefined;
+
+    console.log("distrug barchart din linechart");
     }
     if(pieChart != undefined){
         pieChart.destroy();
+        console.log(pieChart)
         pieChart = undefined;
+    console.log("distrug piechart din linechart");
+
     }
     if(radarChart != undefined){
         radarChart.destroy();
+        console.log(radarChart);
         radarChart = undefined;
+        console.log("distrug radarchart din linechart");
+   
     }
     lineChart = new Chart(ctx,{
         type:'line',
@@ -103,20 +113,30 @@ function lineViewFormat(event){
     }); 
 }
 
-function barViewFormat(event){
+//create the bar Chart and deleting the others
+function barViewFormat(){
     selectedChart=2;
     chartText.classList.add("chart_text_view");
     if(lineChart != undefined){
         lineChart.destroy();
+        console.log(lineChart);
         lineChart = undefined;
+    console.log("distrug linechart din barchart");
+
     }
     if(pieChart != undefined){
         pieChart.destroy();
+        console.log(pieChart);
         pieChart = undefined;
+    console.log("distrug piechart din barchart");
+
     }
     if(radarChart != undefined){
         radarChart.destroy();
+        console.log(radarChart);
         radarChart = undefined;
+        console.log("distrug radarchart din barchart");
+
     }
     barChart = new Chart(ctx, {
         type: 'bar',
@@ -136,22 +156,32 @@ function barViewFormat(event){
     });
 }
 
-function pieViewFormat(event){
+//create the pie Chart and deleting the others
+function pieViewFormat(){
     selectedChart=3;
 
     chartText.classList.add("chart_text_view");
 
     if(lineChart != undefined){
         lineChart.destroy();
+        console.log(lineChart);
         lineChart = undefined;
+    console.log("distrug linechart din piechart");
+
     }
     if(barChart != undefined){
         barChart.destroy();
+        console.log(barChart);
         barChart = undefined;
+    console.log("distrug barchart din piechart");
+
     }
     if(radarChart != undefined){
         radarChart.destroy();
+        console.log(radarChart);
         radarChart = undefined;
+    console.log("distrug radarchart din piechart");
+
     }
     pieChart = new Chart(ctx,{
         type:'pie',
@@ -172,22 +202,31 @@ function pieViewFormat(event){
     
 }
 
-
-function radarViewFormat(event){
+//create the radar Chart and deleting the others
+function radarViewFormat(){
     chartText.classList.add("chart_text_view");
     selectedChart=4;
 
     if(lineChart != undefined){
         lineChart.destroy();
+        console.log(lineChart);
         lineChart = undefined;
+    console.log("distrug linechart din radarchart");
+
     }
     if(barChart != undefined){
         barChart.destroy();
+        console.log(barChart);
         barChart = undefined;
+    console.log("distrug barchart din radarchart");
+
     }
     if(pieChart != undefined){
         pieChart.destroy();
+        console.log(pieChart);
         pieChart = undefined;
+    console.log("distrug piechart din radarchart");
+
     }
 
     radarChart = new Chart(ctx,{
@@ -226,7 +265,7 @@ function setLang(string){
 }
 
 
-//criteria values & get data
+//criteria values & get data from database according to the selected criteria
 var timePeriod = document.getElementById("time-period");
 var countyForComparison = document.getElementById("county-for-comparison");
 var principalCriterion = document.getElementById("principal-criterion");
@@ -257,15 +296,9 @@ function getChartData (event){
 
 
 const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)' ]
-    //16 ultimele 2, 17 ultimele 6 luni, 18 ultimul an
+    //parsing data for line chart
     function parseDataLine(text, counties, monthsID){
        var data = JSON.parse(text);
-       /*
-       luna - judet ->titlu
-       mai multe luni -> mai multe elemente in data [] -> labelsLine cu lunile
-       mai multe judete -> label din {} va fi numele judetului -> luna - criteriu -> titlu
-       mai multe luni + mai multe judete : label {nume judet}, labels lunile, titlu - criteriu 
-       */
        labelsLine = [];
        dataLine = [];
        var d = new Date();
@@ -352,22 +385,31 @@ const borderColors = ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(25
                     backgroundColor: 'rgba(0, 0, 0, 0)'});     
                }
         }
-
        }
+    console.log("selected chart " + selectedChart);
     switch (selectedChart){
-    case 1: lineViewFormat(); break;
-    case 2: barViewFormat(); break;
-    case 3: pieViewFormat(); break;
-    case 4: radarViewFormat(); break;
+    case 1: {lineViewFormat();
+        console.log("creez line chart bc new data")
+         break;}
+    case 2: {
+        console.log("creez bar chart bc new data")
+        barViewFormat(); break;}
+    case 3: {
+        console.log("creez pie chart bc new data")
+        pieViewFormat(); break;}
+    case 4: {
+        console.log("creez radar chart bc new data")
+        radarViewFormat(); break;}
     }
     }
 
+    //parsing data for pie, bar and radar charts
 const backgroundColors = ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(75, 192, 192, 0.5)', 'rgba(153, 102, 255, 0.5)', 'rgba(255, 159, 64, 0.5)' ];
 function parseDataPie(text, counties, monthsID){
     var data = JSON.parse(text);
     dataPie = [];
     labelsPie= [];
-    if(counties.length > 1 && monthsID >= 16) {// trigger default can not be used
+    if(counties.length > 1 && monthsID >= 16) {
         labelsPie.push("Choose another chart type");
     }else{
         var values = [];   
@@ -444,7 +486,7 @@ function modifyPrincipalCriterion(select){
         <option class="text text_option" value="education" id="studies">Studii</option>
         <option class="text text_option" value="age" id="age">Categorii de vârstă</option>`;}
 }
-/*Last 15 months*/
+/*setting the last 15 months*/
 let months ={ 
     "ro": { 0: "Ianuarie", 1: "Februarie", 2: "Martie", 3: "Aprilie", 4: "Mai", 5: "Iunie", 6: "Iulie", 7: "August", 8: "Septembrie", 9: "Octombrie", 10: "Noiembrie", 11: "Decembrie" },
     "en": { 0: "January", 1: "February", 2: "March", 3: "April", 4: "May", 5: "June", 6: "July", 7: "August", 8: "September", 9: "October", 10: "November", 11: "December" }
@@ -501,6 +543,7 @@ function transfromToPDF(){
     console.log("transform to pdf");
 }
 
+//change month based on language
 function changeMonth() {
     var currentMonthCh = d.getMonth();
     var currentYearCh = d.getFullYear();
