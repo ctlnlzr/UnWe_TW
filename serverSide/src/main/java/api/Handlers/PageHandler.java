@@ -68,7 +68,7 @@ public class PageHandler extends Handler{
                     exchange.sendResponseHeaders(environmentEntity.getStatusCode(),0);
                     respText = super.writeResp(environmentEntity.getBody());
                     break;
-                case "studies":
+                case "education":
                     ResponseEntity<EducationGetResponse> educationEntity = doGetByEducation(Integer.parseInt(params.get("monthID").get(0)), noOfMonths, params.get("county"));
                     exchange.getResponseHeaders().putAll(super.getHeaders());
                     exchange.sendResponseHeaders(educationEntity.getStatusCode(),0);
