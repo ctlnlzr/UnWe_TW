@@ -516,7 +516,6 @@ function transfromToCSV() {
         })
         csv.unshift(fields.join(',')); // add header column
         csv = csv.join('\r\n');
-        //console.log(csv);
         exportFile(csv, 'cvs');
     }
 
@@ -687,13 +686,12 @@ function transfromToPDF() {
                 cell.innerHTML = values[i];
             }
         }
-        var dvTable = document.getElementById("download");
-        //    dvTable.style.display = 'none';
+        var dvTable = document.getElementById("downloadButton");
         dvTable.innerHTML = "";
         dvTable.appendChild(table);
 
         //Convert Table to PDF.
-        html2canvas(document.getElementById('download'), {
+        html2canvas(document.getElementById('downloadButton'), {
             onrendered: function(canvas) {
                 var data = canvas.toDataURL();
                 var docDefinition = {
@@ -703,7 +701,6 @@ function transfromToPDF() {
                     }]
                 };
                 pdfMake.createPdf(docDefinition).download("statistics.pdf");
-
                 //Remove the Table.
                 dvTable.innerHTML = "";
             }

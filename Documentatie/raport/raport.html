@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <link href="./raport.css" type="text/css" rel="stylesheet">
     <title>Scholarly HTML Report</title>
+    <link rel="stylesheet" href="raport.css">
 </head>
 
 <body>
@@ -102,7 +103,14 @@
                 <p>
                     Administratorul gestionează datele din baza de date, poate adăuga, șterge si actualiza date, dar poate să adauge și un alt administrator.
                 </p>
-
+                <figure typeof="sa:image ">
+                    <img src="../imagini/adminLogin.png">
+                    <figcaption>Fig. - Login admin</figcaption>
+                </figure>
+                <figure typeof="sa:image ">
+                    <img src="../imagini/functiiAdmin.png">
+                    <figcaption>Fig. - Functii admin</figcaption>
+                </figure>
             </section>
         </section>
         <section id="arhitectura">
@@ -133,27 +141,44 @@
                 <li>PageService.java</li>
                 <li>TotalPerMonthService.java</li>
             </ol>
+            <figure typeof="sa:image">
+                <img src="../imagini/api.png">
+            </figure>
         </section>
-        <section id="tehnologii">
+        <section id="tehnologii ">
             <h2>6. Tehnologii utilizate</h2>
             <p>Pentru afișarea conținutului am folosit suita HTML5, CSS3 și JavaScript. În cadrul modulului Vizualizare, pentru reprezentarea cartografică am folosit librăriile OpenLayers, iar în modulul Comparare pentru reprezentarea statisticilor am folosit
-                librăria Chart.js. Baza de date a aplicației a fost creată cu ajutorul MySQL, fiind hostată pe Heroku, datele au fost preluate de pe site-ul oficial (<a href="https://data.gov.ro/">GOV</a>).
-
+                librăria Chart.js. Baza de date a aplicației a fost creată cu ajutorul MySQL, fiind hostată pe Heroku, datele au fost preluate de pe site-ul oficial (<a href="https://data.gov.ro/ ">GOV</a>).
+            </p>
+            <p>
+                Pentru implentarea API-ului, ne-am conectat la baza de date cu ajutorul Hibernate si pentru fiecare tabel (varsta, mediu, total, admin, educatie) pe care il avem in baza de date am facut operatiile CRUD.
+                <figure typeof="sa:image ">
+                    <img src="../imagini/databaseConfig.png">
+                    <figcaption>Fig. - Configurare baza de date</figcaption>
+                </figure>
+                <figure typeof="sa:image ">
+                    <img src="../imagini/ageModel.png">
+                    <figcaption>Fig. - Model pentru varsta</figcaption>
+                </figure>
+            </p>
+            <p>
+                Pentru descărcarea datelor in format pdf am folosit librăria pdfMake, iar pentru descărcare datelor in format svg am folosit librăria canvas2SVG.
             </p>
         </section>
-        <section id="etape">
+        <section id="etape ">
             <h2>7. Etape de implementare</h2>
             <p>În cadrul echipei am lucrat în paralel, astfel încât să asigurăm o eficiență cât mai mare. În prima etapă a fost schițat site-ul, a fost alesă paleta de culori și au fost împărțite componentele paginilor. A doua etapă a fost de realizare a
                 obiectivelor de bază: pagina principală, pagina de vizualizare, pagina de comparare cu 3 tipuri de reprezentare a statisticilor și o pagină cu detalii despre proiect. În cea de-a treia etapa am adăugat posibilitatea de a traduce site-ul
                 în limba engleză, formatul pentru site-ul Mobil și îmbunătățiri ale aspectului per total. Atașez diagrama UML a aplicației:
 
             </p>
-            <figure typeof="sa:image">
-                <img src="../imagini/UML.png" alt="UML" width="800" height="600">
+            <figure typeof="sa:image ">
+                <img src="../imagini/UML.png " alt="UML " width="800 " height="600 ">
             </figure>
+            <p>In continuare am introdus datele oferite de <a href="https://data.gov.ro/ ">GOV</a> in baza de date MySQL, si am contruit API-ul pe baza tabelelor.</p>
 
         </section>
-        <section id="utilizare">
+        <section id="utilizare ">
             <h2>8.Ghid de utilizare</h2>
             <p>
                 Site-ul pune la dispoziție utilizatorului 4 pagini Web, după cum urmează: 1. Pagina principală care servește ca landing page și oferă posibilitatea de a accesa paginile de vizualizare și comparare prin intermediul a două butoane dispuse central. 2. Pagina
@@ -165,51 +190,75 @@
                 proiectului și facilitățile pe care le pune la dispoziție. Fiecare pagină conține un antet cu butoane care permit navigarea prin site pentru a facilita accesul către celelate componente.
             </p>
         </section>
-        <section id="bibliografie">
+        <section id="bibliografie ">
             <h2>9. Bibliografie</h2>
             <dl>
                 <dt></dt>
-                <dd property="schema:citation" typeof="schema:ScholarlyArticle">
-                    <cite property="schema:name"><a
-                            href="https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html">https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html
+                <dd property="schema:citation " typeof="schema:ScholarlyArticle ">
+                    <cite property="schema:name "><a
+                            href="https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html ">https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html
                         </a></cite>
                 </dd>
             </dl>
             <dl>
                 <dt></dt>
-                <dd property="schema:citation" typeof="schema:ScholarlyArticle">
-                    <cite property="schema:name"><a
-                            href="https://w3c.github.io/scholarly-html/">https://w3c.github.io/scholarly-html/
+                <dd property="schema:citation " typeof="schema:ScholarlyArticle ">
+                    <cite property="schema:name "><a
+                            href="https://w3c.github.io/scholarly-html/ ">https://w3c.github.io/scholarly-html/
                         </a></cite>
                 </dd>
             </dl>
             <dl>
                 <dt></dt>
-                <dd property="schema:citation" typeof="schema:ScholarlyArticle">
-                    <cite property="schema:name"><a
-                            href="https://developer.chrome.com/extensions">https://developer.chrome.com/extensions
+                <dd property="schema:citation " typeof="schema:ScholarlyArticle ">
+                    <cite property="schema:name "><a
+                            href="https://developer.chrome.com/extensions ">https://developer.chrome.com/extensions
+                        </a></cite>
+                </dd>
+            </dl>
+            <dl>
+                <dt></dt>
+                <dd property="schema:citation " typeof="schema:ScholarlyArticle ">
+                    <cite property="schema:name "><a
+                            href="http://pdfmake.org/#/ ">http://pdfmake.org/#/
+                        </a></cite>
+                </dd>
+            </dl>
+            <dl>
+                <dt></dt>
+                <dd property="schema:citation " typeof="schema:ScholarlyArticle ">
+                    <cite property="schema:name "><a
+                            href="https://gliffy.github.io/canvas2svg/ ">https://gliffy.github.io/canvas2svg/
+                        </a></cite>
+                </dd>
+            </dl>
+            <dl>
+                <dt></dt>
+                <dd property="schema:citation " typeof="schema:ScholarlyArticle ">
+                    <cite property="schema:name "><a
+                            href="https://hibernate.org/ ">https://hibernate.org/
                         </a></cite>
                 </dd>
             </dl>
         </section>
-        <section id="autori" typeof="sa:AuthorsList">
+        <section id="autori " typeof="sa:AuthorsList ">
             <h2>10.Autori</h2>
             <ul>
-                <li typeof="sa:ContributorRole" property="schema:author">
-                    <span typeof="schema:Person">
-                        <meta property="schema:givenName" content="Lazar">
-                        <meta property="schema:additionalName" content="Catalina">
-                        <a href="https://github.com/ctlnlzr">
-                        <span property="schema:name">Lazăr Cătălina</span>
+                <li typeof="sa:ContributorRole " property="schema:author ">
+                    <span typeof="schema:Person ">
+                        <meta property="schema:givenName " content="Lazar ">
+                        <meta property="schema:additionalName " content="Catalina ">
+                        <a href="https://github.com/ctlnlzr ">
+                        <span property="schema:name ">Lazăr Cătălina</span>
                     </a>
                     </span>
                 </li>
-                <li typeof="sa:ContributorRole" property="schema:author">
-                    <span typeof="schema:Person">
-                        <meta property="schema:givenName" content="Stratianu">
-                        <meta property="schema:familyName" content="Bianca">
-                        <a href="https://github.com/StratianuBianca">
-                        <span property="schema:name">Strătianu Bianca</span>
+                <li typeof="sa:ContributorRole " property="schema:author ">
+                    <span typeof="schema:Person ">
+                        <meta property="schema:givenName " content="Stratianu ">
+                        <meta property="schema:familyName " content="Bianca ">
+                        <a href="https://github.com/StratianuBianca ">
+                        <span property="schema:name ">Strătianu Bianca</span>
                     </a>
                     </span>
                 </li>

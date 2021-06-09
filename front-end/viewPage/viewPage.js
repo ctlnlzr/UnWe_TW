@@ -1,65 +1,67 @@
 //get default data for map
+var dataInfo;
 var Http = new XMLHttpRequest();
-            Http.open("GET", "http://localhost:8090/api/v1/criterion?monthID=1&total&county=entire");
-            var onError = function() {
-                console.log("error on first call");
-              }
-            Http.onerror = onError;
-            Http.setRequestHeader('Accept', 'application/json'); 
-            Http.onload = function() {
-                if (Http.status == 200) {
-                    var data = JSON.parse(Http.responseText);
-                    fetch('./libs/map.geojson')
-                    .then(results => results.json())
-                    .then(results =>{
-                        console.log(data.groups.length);
-                     for(var i = 0; i < data.groups.length; i++){
-                         const obj = data.groups[i];
-                         for(var j = 0; j < results.features.length; j++)
-                         {
-                             const obj1 = results.features[j].properties;
-                             if(obj1['Identifier'] == obj["county"])
-                             results.features[j].properties['Value'] = obj["number"]; 
-                         }
+Http.open("GET", "http://localhost:8090/api/v1/criterion?monthID=1&total&county=entire");
+var onError = function() {
+    console.log("error on first call");
+}
+Http.onerror = onError;
+Http.setRequestHeader('Accept', 'application/json');
+Http.onload = function() {
+    if (Http.status == 200) {
+        dataInfo = Http.responseText;
+        var data = JSON.parse(Http.responseText);
+        fetch('./libs/map.geojson')
+            .then(results => results.json())
+            .then(results => {
+                console.log(data.groups.length);
+                for (var i = 0; i < data.groups.length; i++) {
+                    const obj = data.groups[i];
+                    for (var j = 0; j < results.features.length; j++) {
+                        const obj1 = results.features[j].properties;
+                        if (obj1['Identifier'] == obj["county"])
+                            results.features[j].properties['Value'] = obj["number"];
                     }
-                    console.log(results);
-                    var data1 = new Blob([JSON.stringify(results)], {type: 'application/json'});
-                    textFile = window.URL.createObjectURL(data1);
-                    configMap(textFile);           
-                });
-                } else {
-                    onError();
                 }
-                }
-            Http.send();
+                console.log(results);
+                var data1 = new Blob([JSON.stringify(results)], { type: 'application/json' });
+                textFile = window.URL.createObjectURL(data1);
+                configMap(textFile);
+            });
+    } else {
+        onError();
+    }
+}
+Http.send();
 
 //insert Map
 var map, countyList, overlayInfo;
 var overlayCounty, overlayCountyInfo, overlayContainer;
 
-function configMap(textFile){
-   
+function configMap(textFile) {
+
     map = new ol.Map({
         target: 'map',
         layers: [
-          new ol.layer.Tile({
-            source: new ol.source.OSM()
-          })
-        ],view: new ol.View({
-            center: ol.proj.fromLonLat([24.75,46.14]),
+            new ol.layer.Tile({
+                source: new ol.source.OSM()
+            })
+        ],
+        view: new ol.View({
+            center: ol.proj.fromLonLat([24.75, 46.14]),
             zoom: 6
-          })
+        })
     });
-   
+
 
     //Arrow on county
     const fillStyle = new ol.style.Fill({
-        color: [245,49,49,0.8],
+        color: [245, 49, 49, 0.8],
     })
     const strokeStyle = new ol.style.Stroke({
         color: [46, 45, 45, 0.3],
         width: 1.2
-    }) 
+    })
 
     const arrowStyle = new ol.style.Style({
         fill: fillStyle,
@@ -71,100 +73,101 @@ function configMap(textFile){
             radius: 13,
             rotation: Math.PI / 3,
             angle: 0,
-            displacement:[-11,7],
-          })
+            displacement: [-11, 7],
+        })
     })
 
     var vectorSource = new ol.source.Vector({
         format: new ol.format.GeoJSON(),
         url: textFile
-       });
-        
- 
-        countyList = new ol.layer.VectorImage({
+    });
+
+
+    countyList = new ol.layer.VectorImage({
         source: vectorSource,
         visible: true,
         title: 'Rata șomajului la nivelul fiecărui județ',
         style: arrowStyle,
-        })
-  
+    })
+
     map.addLayer(countyList);
 
     //Show Info
-    
+
     overlayContainer = document.querySelector('.overlay-container');
     overlayInfo = new ol.Overlay({
         element: overlayContainer
     })
     map.addOverlay(overlayInfo);
-    
+
     overlayCounty = document.getElementById('overlay-county-name');
     overlayCountyInfo = document.getElementById('overlay-county-info');
-    
+
     map.on('click', showInfo)
-    function showInfo(event){
+
+    function showInfo(event) {
         overlayInfo.setPosition(undefined);
-        map.forEachFeatureAtPixel(event.pixel, function(feature, layer){
-           let coordinate = event.coordinate;
-           let countyName = feature.get('Name');
-           let countyInfo = "Număr șomeri: ".concat(feature.get('Value')); 
-           overlayInfo.setPosition(coordinate);
-           overlayCounty.innerHTML= countyName;
-           overlayCountyInfo.innerHTML = countyInfo;
+        map.forEachFeatureAtPixel(event.pixel, function(feature, layer) {
+            let coordinate = event.coordinate;
+            let countyName = feature.get('Name');
+            let countyInfo = "Număr șomeri: ".concat(feature.get('Value'));
+            overlayInfo.setPosition(coordinate);
+            overlayCounty.innerHTML = countyName;
+            overlayCountyInfo.innerHTML = countyInfo;
         })
     }
 
 }
 
 //reconfig the map based on the new data
-function reconfigMap(textFile){
-        map.removeLayer(countyList);
-        map.removeOverlay(overlayInfo);
+function reconfigMap(textFile) {
+    map.removeLayer(countyList);
+    map.removeOverlay(overlayInfo);
 
-        const fillStyle = new ol.style.Fill({
-            color: [245,49,49,0.8],
-        })
-        const strokeStyle = new ol.style.Stroke({
-            color: [46, 45, 45, 0.3],
-            width: 1.2
-        }) 
-    
-        const arrowStyle = new ol.style.Style({
+    const fillStyle = new ol.style.Fill({
+        color: [245, 49, 49, 0.8],
+    })
+    const strokeStyle = new ol.style.Stroke({
+        color: [46, 45, 45, 0.3],
+        width: 1.2
+    })
+
+    const arrowStyle = new ol.style.Style({
+        fill: fillStyle,
+        stroke: strokeStyle,
+        image: new ol.style.RegularShape({
             fill: fillStyle,
             stroke: strokeStyle,
-            image: new ol.style.RegularShape({
-                fill: fillStyle,
-                stroke: strokeStyle,
-                points: 3,
-                radius: 13,
-                rotation: Math.PI / 3,
-                angle: 0,
-                displacement:[-11,7],
-              })
+            points: 3,
+            radius: 13,
+            rotation: Math.PI / 3,
+            angle: 0,
+            displacement: [-11, 7],
         })
-    
-        var vectorSource = new ol.source.Vector({
-            format: new ol.format.GeoJSON(),
-            url: textFile
-           });
-            
-     
-            countyList = new ol.layer.VectorImage({
-            source: vectorSource,
-            visible: true,
-            title: 'Rata șomajului la nivelul fiecărui județ',
-            style: arrowStyle,
-            })
-      
-        map.addLayer(countyList);
-    
-        //Show Info
-        
-        overlayInfo = new ol.Overlay({
-            element: overlayContainer
-        })
-        map.addOverlay(overlayInfo);
-        
+    })
+
+    var vectorSource = new ol.source.Vector({
+        format: new ol.format.GeoJSON(),
+        url: textFile
+    });
+
+
+    countyList = new ol.layer.VectorImage({
+        source: vectorSource,
+        visible: true,
+        title: 'Rata șomajului la nivelul fiecărui județ',
+        style: arrowStyle,
+    })
+
+    map.addLayer(countyList);
+
+    //Show Info
+
+    overlayInfo = new ol.Overlay({
+        element: overlayContainer
+    })
+    map.addOverlay(overlayInfo);
+
 }
 
 //get data from database
@@ -172,26 +175,28 @@ var monthForData = document.getElementById("drop-perioada");
 var criterion = document.getElementById("criterion");
 
 document.getElementById('criteria_get_data').addEventListener('click', getMapData);
-function getMapData (event){
-        const Http = new XMLHttpRequest();
-        const url='http://localhost:8090/api/v1/criterion';
-        console.log(monthForData.value);
-        console.log(criterion.value);
-       
-        const newURL = url.concat("?monthID=", monthForData.value, "&", criterion.value, "&county=entire"); 
-        console.log(newURL);
-        Http.open("GET", newURL);
-        Http.setRequestHeader('Accept', 'application/json'); 
-        Http.onreadystatechange = function() {
-            if(Http.readyState==4){
+
+function getMapData(event) {
+    const Http = new XMLHttpRequest();
+    const url = 'http://localhost:8090/api/v1/criterion';
+    console.log(monthForData.value);
+    console.log(criterion.value);
+
+    const newURL = url.concat("?monthID=", monthForData.value, "&", criterion.value, "&county=entire");
+    console.log(newURL);
+    Http.open("GET", newURL);
+    Http.setRequestHeader('Accept', 'application/json');
+    Http.onreadystatechange = function() {
+        if (Http.readyState == 4) {
+            dataInfo = Http.responseText;
             parseMapData(Http.responseText);
-            }            
         }
-        Http.send();
     }
+    Http.send();
+}
 
 //parsing the data for map format
-function parseMapData(text){
+function parseMapData(text) {
     var data = JSON.parse(text);
     console.log(data);
     var textFile = './libs/map.geojson';
@@ -199,61 +204,61 @@ function parseMapData(text){
         .then(results => results.json())
         .then(results => {
             console.log(data.groups.length);
-            for(var i = 0; i < data.groups.length; i++){
+            for (var i = 0; i < data.groups.length; i++) {
                 const obj = data.groups[i];
-                for(var j = 0; j < results.features.length; j++)
-                {
+                for (var j = 0; j < results.features.length; j++) {
                     const obj1 = results.features[j].properties;
-                    if(obj1['Identifier'] == obj["county"])
-                        results.features[j].properties['Value'] = obj["number"]; 
+                    if (obj1['Identifier'] == obj["county"])
+                        results.features[j].properties['Value'] = obj["number"];
                 }
             }
             console.log(results);
-            var data1 = new Blob([JSON.stringify(results)], {type: 'application/json'});
+            var data1 = new Blob([JSON.stringify(results)], { type: 'application/json' });
             textFile = window.URL.createObjectURL(data1);
-            reconfigMap(textFile);         
-    });
+            reconfigMap(textFile);
+        });
 }
 
 
 /*Last 15 months*/
 
 let months = {
-    "ro": {0: "Ianuarie", 1: "Februarie", 2: "Martie", 3:"Aprilie", 4:"Mai", 5:"Iunie", 6:"Iulie", 7:"August", 8:"Septembrie", 9:"Octombrie", 10:"Noiembrie", 11:"Decembrie"},
-    "en": {0:"January", 1:"February", 2:"March", 3:"April", 4:"May", 5:"June", 6:"July", 7:"August", 8:"September", 9:"October", 10:"November", 11:"December"}}
+    "ro": { 0: "Ianuarie", 1: "Februarie", 2: "Martie", 3: "Aprilie", 4: "Mai", 5: "Iunie", 6: "Iulie", 7: "August", 8: "Septembrie", 9: "Octombrie", 10: "Noiembrie", 11: "Decembrie" },
+    "en": { 0: "January", 1: "February", 2: "March", 3: "April", 4: "May", 5: "June", 6: "July", 7: "August", 8: "September", 9: "October", 10: "November", 11: "December" }
+}
 var d = new Date();
 var currentMonth = d.getMonth();
 var currentYear = d.getFullYear()
 
-for(var i=0 ; i <15; i++){
-     var option = document.createElement('option');
-     option.innerHTML=months["ro"][currentMonth].concat(' ').concat(currentYear.toString());
-     var select = document.getElementById("drop-perioada");
-     option.classList.add("text");
-     option.classList.add("text_option");
-     option.value = i+1;
-     select.insertAdjacentElement("beforeend",option);
-    currentMonth = currentMonth-1;
-    if(currentMonth == -1){
+for (var i = 0; i < 15; i++) {
+    var option = document.createElement('option');
+    option.innerHTML = months["ro"][currentMonth].concat(' ').concat(currentYear.toString());
+    var select = document.getElementById("drop-perioada");
+    option.classList.add("text");
+    option.classList.add("text_option");
+    option.value = i + 1;
+    select.insertAdjacentElement("beforeend", option);
+    currentMonth = currentMonth - 1;
+    if (currentMonth == -1) {
         currentMonth = 11;
-        currentYear = currentYear-1;
+        currentYear = currentYear - 1;
     }
- }
+}
 
 /*Romanian-English*/
-function changeMonth(lang){
+function changeMonth(lang) {
     var currentMonthCh = d.getMonth();
     var currentYearCh = d.getFullYear();
     let mySelect = document.getElementById("drop-perioada");
     let selectLen = mySelect.length;
-    for(var j=0; j < selectLen ; j++){
-       mySelect.options[j].innerHTML = months[lang][currentMonthCh].concat(' ').concat(currentYearCh.toString()); 
-       currentMonthCh = currentMonthCh-1;
-    if(currentMonthCh == -1){
-        currentMonthCh = 11;
-        currentYearCh = currentYearCh-1;
+    for (var j = 0; j < selectLen; j++) {
+        mySelect.options[j].innerHTML = months[lang][currentMonthCh].concat(' ').concat(currentYearCh.toString());
+        currentMonthCh = currentMonthCh - 1;
+        if (currentMonthCh == -1) {
+            currentMonthCh = 11;
+            currentYearCh = currentYearCh - 1;
+        }
     }
-  }
 }
 
 
@@ -265,7 +270,7 @@ let langViewPage = {
         "studiesOpt": 'Studies level',
         "envOpt": 'Environment',
         "ageOpt": 'Age range',
-        "woman" : "Woman",
+        "woman": "Woman",
         "man": "Man",
         "noStudies": "No studies",
         "primarySchool": "Primary education",
@@ -276,16 +281,16 @@ let langViewPage = {
         "universityEducation": "University education",
         "under": "under 25",
         "over": "over 50",
-        "getData" : "Show info"
+        "getData": "Show info"
     },
-    "ro": { 
+    "ro": {
         "month": "Selectează luna:",
         "category": "Selectează categoria:",
         "genderOpt": 'Gen',
         "studiesOpt": 'Studii',
         "envOpt": 'Mediu',
         "ageOpt": 'Categorii de vârsta',
-        "woman" : "Femeie",
+        "woman": "Femeie",
         "man": "Bărbat",
         "noStudies": "Fără studii",
         "primarySchool": "Învățământ primar",
@@ -324,7 +329,7 @@ link.forEach(e1 => {
         let a = e1.getAttribute("lang");
         month.textContent = langViewPage[a].month;
         category.textContent = langViewPage[a].category;
-        genderOpt.setAttribute('label',langViewPage[a].genderOpt);
+        genderOpt.setAttribute('label', langViewPage[a].genderOpt);
         studiesOpt.setAttribute('label', langViewPage[a].studiesOpt);
         envOpt.setAttribute('label', langViewPage[a].envOpt);
         ageOpt.setAttribute('label', langViewPage[a].ageOpt);
@@ -344,3 +349,45 @@ link.forEach(e1 => {
     });
 
 })
+
+document.getElementById("CSVbtn").addEventListener('click', transfromToCSV);
+
+function transfromToCSV() {
+    if (dataInfo == undefined) {
+        console.log("can't do that yet");
+    } else {
+        const objJson = JSON.parse(dataInfo);
+        var json = objJson.groups;
+        var fields = Object.keys(json[0]);
+        var replacer = function(key, value) { return value === null ? '' : value }
+        var csv = json.map(function(row) {
+            return fields.map(function(fieldName) {
+                return JSON.stringify(row[fieldName], replacer);
+            }).join(',');
+        })
+        csv.unshift(fields.join(',')); // add header column
+        csv = csv.join('\r\n');
+        exportFile(csv, 'cvs');
+    }
+
+}
+
+function exportFile(file, type) {
+    var exportedFilenmae = 'export.' + type;
+    var blob = new Blob([file], { type: 'text/' + type + ';charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, exportedFilenmae);
+    } else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", exportedFilenmae);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+}
